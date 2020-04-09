@@ -4,18 +4,31 @@ package edu.ufp.inf.lp2_aed2;
 
 public abstract class Person {
 
+  /**
+   * Atributos
+   */
   private Integer id;
 
   private String name;
 
   private String email;
 
+  /**
+   * Construtor
+   * @param id
+   * @param name
+   * @param email
+   */
   public Person(Integer id, String name, String email) {
     this.id = id;
     this.name = name;
     this.email = email;
   }
 
+  /**
+   * toString
+   * @return
+   */
   @Override
   public String toString() {
     return "Person{" +
@@ -25,6 +38,9 @@ public abstract class Person {
             '}';
   }
 
+  /**
+   * Get's e Set's
+   */
   public Integer getId() {
     return id;
   }

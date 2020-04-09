@@ -4,30 +4,14 @@ import edu.princeton.cs.algs4.RedBlackBST;
 
 public class Room {
 
+  /**
+   * Atributos
+   */
   private Integer id;
 
   private Integer floor;
 
   private Integer numberRoom;
-
-  public Room(Integer id, Integer floor, Integer numberRoom, boolean socket, Integer capacity) {
-    this.id = id;
-    this.floor = floor;
-    this.numberRoom = numberRoom;
-    this.socket = socket;
-    this.capacity = capacity;
-  }
-
-  @Override
-  public String toString() {
-    return "Room{" +
-            "id=" + id +
-            ", floor=" + floor +
-            ", numberRoom=" + numberRoom +
-            ", socket=" + socket +
-            ", capacity=" + capacity +
-            '}';
-  }
 
   //tomadas ou não
   private boolean socket;
@@ -39,6 +23,40 @@ public class Room {
 
   //public Vector  myPoint;
 
+  /**
+   * Construtor
+   * @param id
+   * @param floor
+   * @param numberRoom
+   * @param socket
+   * @param capacity
+   */
+  public Room(Integer id, Integer floor, Integer numberRoom, boolean socket, Integer capacity) {
+    this.id = id;
+    this.floor = floor;
+    this.numberRoom = numberRoom;
+    this.socket = socket;
+    this.capacity = capacity;
+  }
+
+  /**
+   * toString
+   * @return
+   */
+  @Override
+  public String toString() {
+    return "Room{" +
+            "id=" + id +
+            ", floor=" + floor +
+            ", numberRoom=" + numberRoom +
+            ", socket=" + socket +
+            ", capacity=" + capacity +
+            '}';
+  }
+
+  /**
+   * Metodos
+   */
   public void addSchedule(Schedule s) {
   }
 
@@ -54,6 +72,9 @@ public class Room {
   return null;
   }
 
+  /**
+   * Get's e Set's
+   */
   public Integer getId() {
     return id;
   }

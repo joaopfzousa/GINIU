@@ -5,6 +5,9 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class CourseUnit {
 
+  /**
+   * Atributos
+   */
   private Integer id;
 
   private String name;
@@ -20,12 +23,22 @@ public class CourseUnit {
   // Lista de Classes do CourseUnit - chave é o nome da Class
   private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
 
+  /**
+   * Construtor
+   * @param id
+   * @param name
+   * @param ects
+   */
   public CourseUnit(Integer id, String name, Integer ects) {
     this.id = id;
     this.name = name;
     this.ects = ects;
   }
 
+  /**
+   * toString
+   * @return
+   */
   @Override
   public String toString() {
     return "CourseUnit{" +
@@ -35,6 +48,9 @@ public class CourseUnit {
             '}';
   }
 
+  /**
+   * Metodos
+   */
   public void addCourse(CourseUnit c) {
   }
 
@@ -46,6 +62,9 @@ public class CourseUnit {
   return null;
   }
 
+  /**
+   * Get's e Set's
+   */
   public Integer getId() {
     return id;
   }

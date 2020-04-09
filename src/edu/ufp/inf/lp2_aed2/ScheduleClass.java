@@ -9,6 +9,10 @@ public class ScheduleClass extends Schedule {
     this.classe = classe;
   }
 
+  /**
+   * toString
+   * @return
+   */
   @Override
   public String toString() {
     return "ScheduleClass{" +
@@ -16,6 +20,9 @@ public class ScheduleClass extends Schedule {
             '}';
   }
 
+  /**
+   * Metodos
+   */
   public void addClass(Class c) {
   }
 
@@ -31,6 +38,9 @@ public class ScheduleClass extends Schedule {
   return null;
   }
 
+  /**
+   * Get's e Set's
+   */
   public Class getClasse() {
     return classe;
   }

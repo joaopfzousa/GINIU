@@ -5,6 +5,9 @@ import java.util.GregorianCalendar;
 
 public class Date implements Comparable<Date> {
 
+    /**
+     * Atributos
+     */
     private int day;
 
     private int month;
@@ -21,25 +24,51 @@ public class Date implements Comparable<Date> {
 
     private int dayOfWeek;
 
-    public Date(int day, int month, int year, int hour, int minute, int second) {
+    /**
+     * Construtor com o Dia/Mes/Ano/Hora/Minutos
+     * @param day
+     * @param month
+     * @param year
+     * @param hour
+     * @param minute
+     */
+    public Date(int day, int month, int year, int hour, int minute) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.hour = hour;
         this.minute = minute;
-        this.second = second;
     }
 
-    public Date(int day, int month, int year, int hour, int minute, int second, int dayOfWeek) {
+    /**
+     * Construtor com o Dia/Mes/Ano/Hora/Minutos/Dia da semana
+     * @param day
+     * @param month
+     * @param year
+     * @param hour
+     * @param minute
+     * @param dayOfWeek
+     */
+    public Date(int day, int month, int year, int hour, int minute, int dayOfWeek) {
         this.day = day;
         this.month = month;
         this.year = year;
         this.hour = hour;
         this.minute = minute;
-        this.second = second;
         this.dayOfWeek = dayOfWeek;
     }
 
+    /**
+     * Construtor com o Dia/Mes/Ano/Horas/Minutos/Segundos/Milisegundos/Dia da semana
+     * @param day
+     * @param month
+     * @param year
+     * @param hour
+     * @param minute
+     * @param second
+     * @param milisecond
+     * @param dayOfWeek
+     */
     public Date(int day, int month, int year, int hour, int minute, int second, int milisecond, int dayOfWeek) {
         this.day = day;
         this.month = month;
@@ -51,6 +80,9 @@ public class Date implements Comparable<Date> {
         this.dayOfWeek = dayOfWeek;
     }
 
+    /**
+     * Construtor da Data Now
+     */
     public Date() {
         GregorianCalendar gregCalendar = new GregorianCalendar();
         this.day = gregCalendar.get(Calendar.DAY_OF_MONTH);
@@ -63,6 +95,18 @@ public class Date implements Comparable<Date> {
         this.dayOfWeek = gregCalendar.get(Calendar.DAY_OF_WEEK);
     }
 
+    /**
+     * toString
+     * @return
+     */
+    @Override
+    public String toString() {
+        return this.getDayOfWeek() + " " + this.day + "/" + this.month + "/" + this.year + " " + this.hour + ":" + this.minute + ":" + this.second + "." + this.milisecond;
+    }
+
+    /**
+     * Metodo
+     */
     public int compareTo(Date d) {
         if (this.dayOfWeek == d.dayOfWeek && this.year == d.year && this.month == d.month && this.day == d.day && this.hour == d.hour && this.minute == d.minute && this.second == d.second && this.milisecond == d.milisecond) {
             return 0;
@@ -94,11 +138,9 @@ public class Date implements Comparable<Date> {
     }
 
 
-    @Override
-    public String toString() {
-        return this.getDayOfWeek() + " " + this.day + "/" + this.month + "/" + this.year + " " + this.hour + ":" + this.minute + ":" + this.second + "." + this.milisecond;
-    }
-
+    /**
+     * Get's e Set's
+     */
     public String getDayOfWeek()
     {
         String dayOfTheWeek = null;

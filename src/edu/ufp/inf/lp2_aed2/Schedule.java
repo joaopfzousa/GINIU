@@ -4,6 +4,9 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Schedule {
 
+  /**
+   * Atributos
+   */
   private Date startDate;
 
   private Date finalDate;
@@ -13,12 +16,22 @@ public class Schedule {
   // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
   private SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
 
+  /**
+   * Construtor
+   * @param startDate
+   * @param finalDate
+   * @param room
+   */
   public Schedule(Date startDate, Date finalDate, Room room) {
     this.startDate = startDate;
     this.finalDate = finalDate;
     this.room = room;
   }
 
+  /**
+   * toString
+   * @return
+   */
   @Override
   public String toString() {
     return "Schedule{" +
@@ -28,6 +41,9 @@ public class Schedule {
             '}';
   }
 
+  /**
+   * Get's e Set's
+   */
   public Date getStartDate() {
     return startDate;
   }

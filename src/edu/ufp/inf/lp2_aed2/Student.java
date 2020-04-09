@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 public class Student extends Person {
 
+  /**
+   * Atributos
+   */
   private Integer numberStudent;
 
   // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
@@ -14,11 +17,22 @@ public class Student extends Person {
   // Lista de Class pela Student - chave é nome da Class
   private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
 
+  /**
+   * Construtor
+   * @param id
+   * @param name
+   * @param email
+   * @param numberStudent
+   */
   public Student(Integer id, String name, String email, Integer numberStudent) {
     super(id, name, email);
     this.numberStudent = numberStudent;
   }
 
+  /**
+   * toString
+   * @return
+   */
   @Override
   public String toString() {
     return "Student{" +
@@ -26,6 +40,9 @@ public class Student extends Person {
             '}';
   }
 
+  /**
+   * Metodos
+   */
   public ArrayList<ScheduleAccompaniment> searchAccompaniment(Teacher email) {
   return null;
   }
@@ -38,6 +55,9 @@ public class Student extends Person {
   return null;
   }
 
+  /**
+   * Get's e Set's
+   */
   public Integer getNumberStudent() {
     return numberStudent;
   }
