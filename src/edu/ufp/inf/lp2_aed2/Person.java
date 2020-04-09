@@ -1,8 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
-import Integer;
-import java.util.Vector;
-import String;
+//import java.util.Vector;
 
 public abstract class Person {
 
@@ -12,6 +10,5 @@ public abstract class Person {
 
   public String email;
 
-    public Vector  myPoint;
-
+  //public Vector  myPoint;
 }

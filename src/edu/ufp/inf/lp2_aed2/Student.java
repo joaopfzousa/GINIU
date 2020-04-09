@@ -1,33 +1,28 @@
 package edu.ufp.inf.lp2_aed2;
 
-import Integer;
-import java.util.Vector;
+import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
+import java.util.ArrayList;
 
 public class Student extends Person {
 
   public Integer numberStudent;
 
-    /**
-   * 
-   * @element-type CourseUnit
-   */
-  public Vector  teachers;
-    /**
-   * 
-   * @element-type Class
-   */
-  public Vector  classes;
+  // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
+  public SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
 
-  public ArrayList<ScheduleAccompaniment> searchAccompaniment(email sa) {
+  // Lista de Class pela Student - chave é nome da Class
+  public RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+
+  public ArrayList<ScheduleAccompaniment> searchAccompaniment(Teacher email) {
   return null;
   }
 
-  public boolean markAccompaniment(email ma, startDate sd, finalDate fd) {
+  public boolean markAccompaniment(Teacher email,Date startDate,Date finalDate) {
   return false;
   }
 
   public CourseUnit registerCourseUnit(CourseUnit rcu) {
   return null;
   }
-
 }

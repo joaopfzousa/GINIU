@@ -2,21 +2,20 @@ package edu.ufp.inf.lp2_aed2;
 
 public class ScheduleAccompaniment extends Schedule {
 
-    public Teacher teacher;
+  public Teacher teacher;
 
   public void addTeacher(Teacher t) {
   }
 
-  public Teacher removeTeacher(email t) {
+  public Teacher removeTeacher(Teacher email) {
   return null;
   }
 
-  public Teacher editTeacher(email t) {
+  public Teacher editTeacher(Teacher email) {
   return null;
   }
 
-  public Schedule searchTeacher(email t) {
+  public Schedule searchTeacher(Teacher email) {
   return null;
   }
-
 }

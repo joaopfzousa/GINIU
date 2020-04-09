@@ -1,8 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
-import Integer;
-import java.util.Vector;
-import String;
+import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Class {
 
@@ -12,17 +11,13 @@ public class Class {
 
   public String type;
 
-    public Teacher teacher;
-    /**
-   * 
-   * @element-type ScheduleClass
-   */
-  public Vector  scheduleClasses;
-    /**
-   * 
-   * @element-type Student
-   */
-  public Vector  students;
-    public CourseUnit course;
+  public Teacher teacher;
 
+  public CourseUnit course;
+
+  // Lista de ScheduleClass(Horario turma) pela Class - chave é data
+  public RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
+
+  // Lista de Students do Class - chave é o numberStudent do Student
+  public SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
 }

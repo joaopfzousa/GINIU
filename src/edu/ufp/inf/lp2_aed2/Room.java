@@ -1,7 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
-import Integer;
-import java.util.Vector;
+import edu.princeton.cs.algs4.RedBlackBST;
 
 public class Room {
 
@@ -11,30 +10,28 @@ public class Room {
 
   public Integer numberRoom;
 
+  //tomadas ou não
   public boolean socket;
 
   public Integer capacity;
 
-    /**
-   * 
-   * @element-type Schedule
-   */
-  public Vector  schedules;
-    public Vector  myPoint;
+  // Lista de Schedule pela Class - chave é data
+  public RedBlackBST<Date, Schedule> scheduleClassesST = new RedBlackBST<>();
+
+  //public Vector  myPoint;
 
   public void addSchedule(Schedule s) {
   }
 
-  public Schedule remove(id s) {
+  public Schedule remove(Integer id) {
   return null;
   }
 
-  public Schedule editSchedule(id s) {
+  public Schedule editSchedule(Integer id) {
   return null;
   }
 
-  public Schedule searchSchedule(id s) {
+  public Schedule searchSchedule(Integer id) {
   return null;
   }
-
 }
