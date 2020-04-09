@@ -6,13 +6,25 @@ import java.util.ArrayList;
 
 public class Student extends Person {
 
-  public Integer numberStudent;
+  private Integer numberStudent;
 
   // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
-  public SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
+  private SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
 
   // Lista de Class pela Student - chave é nome da Class
-  public RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+  private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+
+  public Student(Integer id, String name, String email, Integer numberStudent) {
+    super(id, name, email);
+    this.numberStudent = numberStudent;
+  }
+
+  @Override
+  public String toString() {
+    return "Student{" +
+            "numberStudent=" + numberStudent +
+            '}';
+  }
 
   public ArrayList<ScheduleAccompaniment> searchAccompaniment(Teacher email) {
   return null;
@@ -24,5 +36,29 @@ public class Student extends Person {
 
   public CourseUnit registerCourseUnit(CourseUnit rcu) {
   return null;
+  }
+
+  public Integer getNumberStudent() {
+    return numberStudent;
+  }
+
+  public void setNumberStudent(Integer numberStudent) {
+    this.numberStudent = numberStudent;
+  }
+
+  public SeparateChainingHashST<Integer, Teacher> getTeachersST() {
+    return teachersST;
+  }
+
+  public void setTeachersST(SeparateChainingHashST<Integer, Teacher> teachersST) {
+    this.teachersST = teachersST;
+  }
+
+  public RedBlackBST<String, Class> getClassesST() {
+    return classesST;
+  }
+
+  public void setClassesST(RedBlackBST<String, Class> classesST) {
+    this.classesST = classesST;
   }
 }

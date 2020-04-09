@@ -5,19 +5,94 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Class {
 
-  public Integer id;
+  private Integer id;
 
-  public String name;
+  private String name;
 
-  public String type;
+  private String type;
 
-  public Teacher teacher;
+  private Teacher teacher;
 
-  public CourseUnit course;
+  private CourseUnit course;
 
   // Lista de ScheduleClass(Horario turma) pela Class - chave é data
-  public RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
+  private RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
 
   // Lista de Students do Class - chave é o numberStudent do Student
-  public SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
+  private SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
+
+  public Class(Integer id, String name, String type, Teacher teacher, CourseUnit course) {
+    this.id = id;
+    this.name = name;
+    this.type = type;
+    this.teacher = teacher;
+    this.course = course;
+  }
+
+  @Override
+  public String toString() {
+    return "Class{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", type='" + type + '\'' +
+            ", teacher=" + teacher +
+            ", course=" + course +
+            '}';
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public Teacher getTeacher() {
+    return teacher;
+  }
+
+  public void setTeacher(Teacher teacher) {
+    this.teacher = teacher;
+  }
+
+  public CourseUnit getCourse() {
+    return course;
+  }
+
+  public void setCourse(CourseUnit course) {
+    this.course = course;
+  }
+
+  public RedBlackBST<Date, ScheduleClass> getScheduleClassesST() {
+    return scheduleClassesST;
+  }
+
+  public void setScheduleClassesST(RedBlackBST<Date, ScheduleClass> scheduleClassesST) {
+    this.scheduleClassesST = scheduleClassesST;
+  }
+
+  public SeparateChainingHashST<Integer, Student> getStudentsST() {
+    return studentsST;
+  }
+
+  public void setStudentsST(SeparateChainingHashST<Integer, Student> studentsST) {
+    this.studentsST = studentsST;
+  }
 }

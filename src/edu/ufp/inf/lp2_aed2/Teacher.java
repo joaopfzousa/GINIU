@@ -17,6 +17,10 @@ public class Teacher extends Person {
   // Lista de ScheduleAccompaniment pela Teacher - chave é data
   public RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentsST = new RedBlackBST<>();
 
+  public Teacher(Integer id, String name, String email) {
+    super(id, name, email);
+  }
+
   public CourseUnit registerCourseUnit(CourseUnit rcu) {
   return null;
   }
