@@ -10,6 +10,8 @@ public class Student extends Person {
    */
   private Integer numberStudent;
 
+  private String type;
+
   // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
   private SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
 
@@ -23,19 +25,17 @@ public class Student extends Person {
    * @param email
    * @param numberStudent
    */
-  public Student(Integer id, String name, String email, Integer numberStudent) {
+  public Student(Integer id, String name, String email, Integer numberStudent, String type) {
     super(id, name, email);
     this.numberStudent = numberStudent;
+    this.type = type;
   }
 
-  /**
-   * toString
-   * @return
-   */
   @Override
   public String toString() {
-    return "Student{" +
-            "numberStudent=" + numberStudent +
+    return "Student{" + super.toString() +
+            ", numberStudent=" + numberStudent +
+            ", type='" + type + '\'' +
             '}';
   }
 
@@ -63,6 +63,14 @@ public class Student extends Person {
 
   public void setNumberStudent(Integer numberStudent) {
     this.numberStudent = numberStudent;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 
   public SeparateChainingHashST<Integer, Teacher> getTeachersST() {

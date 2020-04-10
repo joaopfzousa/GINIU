@@ -40,15 +40,12 @@ public class Date implements Comparable<Date> {
     }
 
     /**
-     * Construtor com o Dia/Mes/Ano/Hora/Minutos/Dia da semana
-     * @param day
-     * @param month
-     * @param year
+     * Construtor com o Hora/Minutos/Dia da semana
      * @param hour
      * @param minute
      * @param dayOfWeek
      */
-    public Date(int day, int month, int year, int hour, int minute, int dayOfWeek) {
+    public Date(int hour, int minute, int dayOfWeek) {
         this.day = day;
         this.month = month;
         this.year = year;

@@ -54,22 +54,122 @@ public class Class {
             '}';
   }
 
+  //Metodos
+
   /**
-   * Metodos
+   * Adicionar uma ScheduleClass
+   * @param sc ScheduleClass para adicionar na ST
    */
-  public void addScheduleClass(ScheduleClass sc) {
+  public void addScheduleClass(ScheduleClass sc)
+  {
+    if(this.scheduleClassesST.contains(sc.getStartDate()))
+    {
+      for(Date stdate: this.scheduleClassesST.keys())
+      {
+        ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+
+        if(scheduleClass.getClass().equals(sc.getClasse()))
+        {
+          System.out.println("Class - addScheduleClass(): ScheduleClass already exists!!!");
+          return;
+        }
+      }
+    }
+    this.scheduleClassesST.put(sc.getStartDate(), sc);
   }
 
-  public ScheduleClass removeScheduleClass(Class c) {
+  /**
+   * Remover uma ScheduleClass da ST
+   * @param startDate
+   * @param c
+   * @return ScheduleClass eliminada
+   */
+  public ScheduleClass removeScheduleClass(Date startDate, Class c)
+  {
+    if(this.scheduleClassesST.contains(startDate))
+    {
+      for(Date stdate: this.scheduleClassesST.keys())
+      {
+        ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+
+        if(scheduleClass.getClass().equals(c))
+        {
+          this.scheduleClassesST.delete(startDate);
+          return scheduleClass;
+        }
+      }
+    }
+
+    System.out.println("Class - removeScheduleClass(): ScheduleClass not exists!!!");
     return null;
   }
 
-  public ScheduleClass editScheduleClass(Class c) {
+  /**
+   * Editar a ScheduleClass
+   * @param startDate
+   * @param c
+   * @return ScheduleClass editada
+   */
+  public ScheduleClass editScheduleClass(Date startDate, Class c)
+  {
+    if(this.scheduleClassesST.contains(startDate))
+    {
+      for(Date stdate: this.scheduleClassesST.keys())
+      {
+        ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+
+        if(scheduleClass.getClass().equals(c))
+        {
+          Teacher t = new Teacher(6, "André RIBEIRO", "aribeiro@teste.com");
+          CourseUnit cu = new CourseUnit(3, "Matemática", 8);
+          Class cp = new Class(3,"BGP", "Diurno", t, cu);
+          scheduleClass.setClasse(cp);
+          Date d = new Date(16, 00, 2);
+          scheduleClass.setStartDate(d);
+          return scheduleClass;
+        }
+      }
+    }
+
+    System.out.println("Class - editScheduleClass(): ScheduleClass not exists!!!");
     return null;
   }
 
-  public ScheduleClass searchScheduleClass(Class c) {
+  /**
+   * Procurar uma determinada ScheduleClass
+   * @param startDate
+   * @param c
+   * @return ScheduleClass encontrada
+   */
+  public ScheduleClass searchScheduleClass(Date startDate, Class c)
+  {
+    if(this.scheduleClassesST.contains(startDate))
+    {
+      for(Date stdate: this.scheduleClassesST.keys())
+      {
+        ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+
+        if(scheduleClass.getClass().equals(c))
+        {
+          return scheduleClass;
+        }
+      }
+    }
+
+    System.out.println("Class - editScheduleClass(): ScheduleClass not exists!!!");
     return null;
+  }
+
+  /**
+   * Imprimir todas as ScheduleClass
+   */
+  public void printAllScheduleClass()
+  {
+    for(Date stdate: this.scheduleClassesST.keys())
+    {
+      ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+      System.out.println(scheduleClass);
+    }
   }
 
 

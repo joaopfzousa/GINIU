@@ -22,6 +22,7 @@ public class ScheduleClass extends Schedule {
             '}';
   }
 
+
   /**
    * Get's e Set's
    */

@@ -29,37 +29,171 @@ public class Teacher extends Person {
     super(id, name, email);
   }
 
+  // Metodos
   /**
-   * Metodos
+   * Adicionar um CourseUnit na ST
+   * @param c CourseUnit para adicionar a ST
    */
-  public void addCourseUnit(CourseUnit c) {
+  public void addCourseUnit(CourseUnit c)
+  {
+    if(this.courseUnitsST.contains(c.getId())){
+      System.out.println("Teacher - addCourseUnit(): CourseUnit already exists!!!");
+      return;
+    }
+    this.courseUnitsST.put(c.getId(), c);
   }
 
-  public CourseUnit removeCourseUnit(Integer id) {
+  /**
+   * Remover uma CourseUnit da ST
+   * @param id
+   * @return o CourseUnit eliminado
+   */
+  public CourseUnit removeCourseUnit(Integer id)
+  {
+    CourseUnit cu = this.courseUnitsST.get(id);
+
+    if(cu != null)
+    {
+      this.courseUnitsST.delete(id);
+      return cu;
+    }
+    System.out.println("Teacher - removeCourseUnit(): CourseUnit not exists!!!");
     return null;
   }
 
-  public CourseUnit editCourseUnit(Integer id) {
+  /**
+   * Editar o CourseUnit
+   * @param id
+   * @return CourseUnit editado
+   */
+  public CourseUnit editCourseUnit(Integer id)
+  {
+    if(this.courseUnitsST.contains(id))
+    {
+      CourseUnit cu = this.courseUnitsST.get(id);
+
+      cu.setName("LP3");
+      cu.setEcts(9);
+      return cu;
+    }
+
+    System.out.println("Teacher - editCourseUnit(): Id not exist inside CourseUnitsST");
     return null;
   }
 
-  public CourseUnit searchCourseUnit(Integer id) {return null;}
+  /**
+   * Procurar um determinado CourseUnit na ST
+   * @param id
+   * @return CourseUnit encontrado
+   */
+  public CourseUnit searchCourseUnit(Integer id)
+  {
+    if(this.courseUnitsST.contains(id))
+    {
+      CourseUnit cu = this.courseUnitsST.get(id);
+      return cu;
+    }
 
-  public CourseUnit registerCourseUnit(CourseUnit rcu) {
+    System.out.println("Teacher - searchCourseUnit(): Id not exist inside CourseUnitsST");
     return null;
   }
 
-  public void addScheduleAccompaniment(ScheduleAccompaniment sa) {
+  /**
+   * Imprimir todos os CourseUnit
+   */
+  public void printAllCourseUnit()
+  {
+    for(Integer cKey: this.courseUnitsST.keys())
+    {
+      CourseUnit cu = this.courseUnitsST.get(cKey);
+      System.out.println(cu);
+    }
   }
 
-  public ScheduleAccompaniment removeScheduleAccompaniment(Teacher teacher) {
+  /**
+   * Adicionar ScheduleAccompaniment
+   * @param sa
+   */
+  public void addScheduleAccompaniment(ScheduleAccompaniment sa)
+  {
+    if(this.scheduleAccompanimentsST.contains(sa.getStartDate()))
+    {
+      for(Date stdate: this.scheduleAccompanimentsST.keys())
+      {
+        ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+
+        if(scheduleAccompaniment.getTeacher().equals(sa.getTeacher()))
+        {
+          System.out.println("Teacher - addScheduleAccompaniment(): ScheduleAccompaniment already exists!!!");
+          return;
+        }
+      }
+    }
+    this.scheduleAccompanimentsST.put(sa.getStartDate(), sa);
+  }
+
+  /**
+   * Remover uma ScheduleAccompaniment da ST
+   * @param teacher
+   * @param startDate
+   * @return ScheduleAccompaniment eliminada
+   */
+  public ScheduleAccompaniment removeScheduleAccompaniment(Teacher teacher, Date startDate)
+  {
+    if(this.scheduleAccompanimentsST.contains(startDate))
+    {
+      for(Date stdate: this.scheduleAccompanimentsST.keys())
+      {
+        ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+
+        if(scheduleAccompaniment.getTeacher().equals(teacher))
+        {
+          this.scheduleAccompanimentsST.delete(startDate);
+          return scheduleAccompaniment;
+        }
+      }
+    }
+    System.out.println("Teacher - removeScheduleAccompaniment(): ScheduleAccompaniment not exists!!!");
     return null;
   }
 
-  public ScheduleAccompaniment editScheduleAccompaniment(Teacher teacher) {
+  public ScheduleAccompaniment editScheduleAccompaniment(Teacher teacher, Date startDate)
+  {
+    if(this.scheduleAccompanimentsST.contains(startDate))
+    {
+      for (Date stdate : this.scheduleAccompanimentsST.keys())
+      {
+        ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+
+        if (scheduleAccompaniment.getTeacher().equals(teacher))
+        {
+          Room r = new Room(1, 1,104,true,200);
+          Date d = new Date(17,00,3);
+          scheduleAccompaniment.setStartDate(d);
+          scheduleAccompaniment.setRoom(r);
+          return scheduleAccompaniment;
+        }
+      }
+    }
+    System.out.println("Teacher - editScheduleAccompaniment(): ScheduleAccompaniment not exists!!!");
     return null;
   }
 
-  public ScheduleAccompaniment searchScheduleAccompaniment(Teacher teacher) {return null;}
+  public ScheduleAccompaniment searchScheduleAccompaniment(Teacher teacher, Date startDate)
+  {
+    if(this.scheduleAccompanimentsST.contains(startDate))
+    {
+      for (Date stdate : this.scheduleAccompanimentsST.keys())
+      {
+        ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
 
+        if (scheduleAccompaniment.getTeacher().equals(teacher))
+        {
+          return scheduleAccompaniment;
+        }
+      }
+    }
+    System.out.println("Teacher - searchScheduleAccompaniment(): ScheduleAccompaniment not exists!!!");
+    return null;
+  }
 }
