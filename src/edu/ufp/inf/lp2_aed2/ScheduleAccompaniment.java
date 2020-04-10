@@ -44,10 +44,13 @@ public class ScheduleAccompaniment extends Schedule {
   return null;
   }
 
-  public Schedule searchTeacher(Teacher email) {
+  public Teacher searchTeacher(Teacher email) {
   return null;
   }
 
+  /**
+   * Get's e Set's
+   */
   public Teacher getTeacher() {
     return teacher;
   }

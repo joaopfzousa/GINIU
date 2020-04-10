@@ -33,7 +33,34 @@ public class Teacher extends Person {
   /**
    * Metodo
    */
-  public CourseUnit registerCourseUnit(CourseUnit rcu) {
-  return null;
+  public void addCourseUnit(CourseUnit c) {
   }
+
+  public CourseUnit removeCourseUnit(Integer id) {
+    return null;
+  }
+
+  public CourseUnit editCourseUnit(Integer id) {
+    return null;
+  }
+
+  public CourseUnit searchCourseUnit(Integer id) {return null;}
+
+  public CourseUnit registerCourseUnit(CourseUnit rcu) {
+    return null;
+  }
+
+  public void addScheduleAccompaniment(ScheduleAccompaniment sa) {
+  }
+
+  public ScheduleAccompaniment removeScheduleAccompaniment(Teacher teacher) {
+    return null;
+  }
+
+  public ScheduleAccompaniment editScheduleAccompaniment(Teacher teacher) {
+    return null;
+  }
+
+  public ScheduleAccompaniment searchScheduleAccompaniment(Teacher teacher) {return null;}
+
 }

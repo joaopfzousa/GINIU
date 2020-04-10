@@ -48,19 +48,37 @@ public class CourseUnit {
             '}';
   }
 
-  /**
-   * Metodos
-   */
-  public void addCourse(CourseUnit c) {
+
+
+
+  public void addStudent(Student s) {
   }
 
-  public CourseUnit removeCourse(Integer id) {
-  return null;
+  public Student removeStudent(Integer numberStudent) {
+    return null;
   }
 
-  public CourseUnit editCourse(Integer id) {
-  return null;
+  public Student editStudent(Integer numberStudent) {
+    return null;
   }
+
+  public Student searchStudent(Integer numberStudent) {return null;}
+
+  public void addClass(Class c) {
+  }
+
+  public Class removeClass(Integer id) {
+    return null;
+  }
+
+  public Class editClass(Integer id) {
+    return null;
+  }
+
+  public Class searchClass(Integer id) {
+    return null;
+  }
+
 
   /**
    * Get's e Set's

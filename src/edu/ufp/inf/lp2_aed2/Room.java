@@ -55,24 +55,6 @@ public class Room {
   }
 
   /**
-   * Metodos
-   */
-  public void addSchedule(Schedule s) {
-  }
-
-  public Schedule remove(Integer id) {
-  return null;
-  }
-
-  public Schedule editSchedule(Integer id) {
-  return null;
-  }
-
-  public Schedule searchSchedule(Integer id) {
-  return null;
-  }
-
-  /**
    * Get's e Set's
    */
   public Integer getId() {

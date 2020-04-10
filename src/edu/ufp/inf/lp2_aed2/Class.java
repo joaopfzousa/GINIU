@@ -55,6 +55,22 @@ public class Class {
             '}';
   }
 
+  public void addScheduleClass(ScheduleClass sc) {
+  }
+
+  public ScheduleClass removeScheduleClass(Class c) {
+    return null;
+  }
+
+  public ScheduleClass editScheduleClass(Class c) {
+    return null;
+  }
+
+  public ScheduleClass searchScheduleClass(Class c) {
+    return null;
+  }
+
+
   /**
    * Get's e Set's
    */

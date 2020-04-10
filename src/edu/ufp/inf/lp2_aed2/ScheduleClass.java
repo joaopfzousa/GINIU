@@ -21,24 +21,6 @@ public class ScheduleClass extends Schedule {
   }
 
   /**
-   * Metodos
-   */
-  public void addClass(Class c) {
-  }
-
-  public Class removeClass(Class id) {
-  return null;
-  }
-
-  public Class editClass(Class id) {
-  return null;
-  }
-
-  public Schedule searchClass(Class id) {
-  return null;
-  }
-
-  /**
    * Get's e Set's
    */
   public Class getClasse() {
