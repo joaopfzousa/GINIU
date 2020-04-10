@@ -4,7 +4,6 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Teacher extends Person {
-
   /**
    * Atributos
    */
@@ -31,7 +30,7 @@ public class Teacher extends Person {
   }
 
   /**
-   * Metodo
+   * Metodos
    */
   public void addCourseUnit(CourseUnit c) {
   }

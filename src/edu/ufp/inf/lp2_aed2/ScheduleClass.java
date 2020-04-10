@@ -1,7 +1,9 @@
 package edu.ufp.inf.lp2_aed2;
 
 public class ScheduleClass extends Schedule {
-
+  /**
+   * Atributo
+   */
   private Class classe;
 
   public ScheduleClass(Date startDate, Date finalDate, Room room, Class classe) {

@@ -4,7 +4,6 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Class {
-
   /**
    * Atributos
    */
@@ -55,6 +54,9 @@ public class Class {
             '}';
   }
 
+  /**
+   * Metodos
+   */
   public void addScheduleClass(ScheduleClass sc) {
   }
 

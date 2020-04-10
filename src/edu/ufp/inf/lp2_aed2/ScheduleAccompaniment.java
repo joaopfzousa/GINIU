@@ -1,7 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
 public class ScheduleAccompaniment extends Schedule {
-
   /**
    * Atributo
    */

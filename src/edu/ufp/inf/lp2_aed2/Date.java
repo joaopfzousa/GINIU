@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Date implements Comparable<Date> {
-
     /**
      * Atributos
      */
@@ -136,7 +135,6 @@ public class Date implements Comparable<Date> {
             return this.year < d.year ? -1 : 1;
         }
     }
-
 
     /**
      * Get's e Set's

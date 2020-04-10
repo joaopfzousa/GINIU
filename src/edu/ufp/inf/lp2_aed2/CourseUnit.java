@@ -4,7 +4,6 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class CourseUnit {
-
   /**
    * Atributos
    */
@@ -48,9 +47,9 @@ public class CourseUnit {
             '}';
   }
 
-
-
-
+  /**
+   * Metodos
+   */
   public void addStudent(Student s) {
   }
 

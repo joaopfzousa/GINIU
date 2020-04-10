@@ -3,7 +3,6 @@ package edu.ufp.inf.lp2_aed2;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Schedule {
-
   /**
    * Atributos
    */

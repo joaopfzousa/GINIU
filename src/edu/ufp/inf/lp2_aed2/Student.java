@@ -5,7 +5,6 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 import java.util.ArrayList;
 
 public class Student extends Person {
-
   /**
    * Atributos
    */

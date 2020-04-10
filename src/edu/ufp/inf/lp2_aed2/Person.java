@@ -3,7 +3,6 @@ package edu.ufp.inf.lp2_aed2;
 //import java.util.Vector;
 
 public abstract class Person {
-
   /**
    * Atributos
    */
