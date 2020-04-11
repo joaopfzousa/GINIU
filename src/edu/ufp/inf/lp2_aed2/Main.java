@@ -5,6 +5,7 @@ public class Main {
 
         Teacher t = new Teacher(1, "Beatriz", "beatriz@teste.com");
         Teacher t2 = new Teacher(3, "André", "andre@teste.com");
+        Teacher t3 = new Teacher(2, "Rui Moreira", "rui@teste.com");
 
         Student s = new Student(2, "Joao", "joao@teste.com", 33814, "Diurno");
         Student s2 = new Student(4, "Emanuel", "emanuel@teste.com", 28051, "Noturno");
@@ -99,5 +100,31 @@ public class Main {
 
         System.out.println("\nTerceiro print");
         cu1.printAllStudent();
+
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------");
+        System.out.println("------------------------TEACHER-----------------------");
+        System.out.println("------------------------------------------------------");
+
+        cu1.addTeacher(t);
+        cu1.addTeacher(t2);
+        cu1.addTeacher(t3);
+
+        System.out.println("Primeiro print\n");
+        cu1.printAllTeacher();
+
+        System.out.println("\nRemovido: " +  cu1.removeTeacher("andre@teste.com"));
+
+        System.out.println("\nSegundo print");
+        cu1.printAllTeacher();
+
+        System.out.println("\nFind: " + cu1.searchTeacher("rui@teste.com"));
+
+        cu1.editTeacher("rui@teste.com");
+
+        System.out.println("\nDepois de alterar: " + cu1.searchTeacher("rui@teste.com"));
+
+        System.out.println("\nTerceiro print");
+        cu1.printAllTeacher();
     }
 }
