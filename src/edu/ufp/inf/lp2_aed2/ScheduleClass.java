@@ -17,8 +17,8 @@ public class ScheduleClass extends Schedule {
    */
   @Override
   public String toString() {
-    return "ScheduleClass{" +
-            "classe=" + classe +
+    return "ScheduleClass{" + super.toString() +
+            ", classe=" + classe +
             '}';
   }
 

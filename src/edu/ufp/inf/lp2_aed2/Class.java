@@ -68,7 +68,7 @@ public class Class {
       {
         ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
 
-        if(scheduleClass.getClass().equals(sc.getClasse()))
+        if(scheduleClass.getClass().getName() == sc.getClasse().getName())
         {
           System.out.println("Class - addScheduleClass(): ScheduleClass already exists!!!");
           return;
@@ -90,12 +90,13 @@ public class Class {
     {
       for(Date stdate: this.scheduleClassesST.keys())
       {
-        ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+        ScheduleClass sc = this.scheduleClassesST.get(stdate);
+        Class cla = sc.getClasse();
 
-        if(scheduleClass.getClass().equals(c))
+        if(cla.getName() == c.getName())
         {
           this.scheduleClassesST.delete(startDate);
-          return scheduleClass;
+          return sc;
         }
       }
     }
@@ -112,25 +113,18 @@ public class Class {
    */
   public ScheduleClass editScheduleClass(Date startDate, Class c)
   {
-    if(this.scheduleClassesST.contains(startDate))
+    ScheduleClass sc = searchScheduleClass(startDate,c);
+    if (sc != null)
     {
-      for(Date stdate: this.scheduleClassesST.keys())
-      {
-        ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+      Class cla = sc.getClasse();
 
-        if(scheduleClass.getClass().equals(c))
-        {
-          Teacher t = new Teacher(6, "André RIBEIRO", "aribeiro@teste.com");
-          CourseUnit cu = new CourseUnit(3, "Matemática", 8);
-          Class cp = new Class(3,"BGP", "Diurno", t, cu);
-          scheduleClass.setClasse(cp);
-          Date d = new Date(16, 00, 2);
-          scheduleClass.setStartDate(d);
-          return scheduleClass;
-        }
+      if(cla.getName() == c.getName())
+      {
+        Date d = new Date(16, 00, 2);
+        sc.setFinalDate(d);
+        return sc;
       }
     }
-
     System.out.println("Class - editScheduleClass(): ScheduleClass not exists!!!");
     return null;
   }
@@ -148,15 +142,16 @@ public class Class {
       for(Date stdate: this.scheduleClassesST.keys())
       {
         ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+        Class classe = scheduleClass.getClasse();
 
-        if(scheduleClass.getClass().equals(c))
+        if(classe.getName() == c.getName())
         {
           return scheduleClass;
         }
       }
     }
 
-    System.out.println("Class - editScheduleClass(): ScheduleClass not exists!!!");
+    System.out.println("Class - searchScheduleClass(): ScheduleClass not exists!!!");
     return null;
   }
 

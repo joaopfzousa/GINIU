@@ -21,6 +21,22 @@ public class Main {
         Class c2 = new Class(2, "AQW", "Noturno", t, cu1);
         Class c3 = new Class(3, "FGH", "Diurno", t2, cu1);
 
+        Date d = new Date(11, 00, 2);
+        Date d2 = new Date(13, 00, 2);
+        Date d3 = new Date(18, 00,3);
+        Date d4 = new Date(20, 00, 3);
+        Date d5 = new Date(18, 00,4);
+        Date d6 = new Date(20, 00, 4);
+
+
+        Room r = new Room(1,1,101,true,100);
+        Room r2 = new Room(2,1,102, false, 200);
+        Room r3 = new Room(3,1,103, false, 200);
+
+        ScheduleClass sc = new ScheduleClass(d, d2, r, c);
+        ScheduleClass sc2 = new ScheduleClass(d3, d4,r2,c2);
+        ScheduleClass sc3 = new ScheduleClass(d5, d6,r3,c3);
+
         System.out.println("------------------------------------------------------");
         System.out.println("---------------------Course Unit----------------------");
         System.out.println("------------------------------------------------------");
@@ -126,5 +142,31 @@ public class Main {
 
         System.out.println("\nTerceiro print");
         cu1.printAllTeacher();
+
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("------------------------SCHEDULE CLASS----------------------");
+        System.out.println("------------------------------------------------------------");
+
+        c.addScheduleClass(sc);
+        c.addScheduleClass(sc2);
+        c.addScheduleClass(sc3);
+
+        System.out.println("Primeiro print\n");
+        c.printAllScheduleClass();
+
+        System.out.println("\nRemovido: " +  c.removeScheduleClass(d3, c2));
+
+        System.out.println("\nSegundo print");
+        c.printAllScheduleClass();
+
+        System.out.println("\nFind: " + c.searchScheduleClass(d5, c3));
+
+        c.editScheduleClass(d5,c3);
+        
+        System.out.println("\nDepois de alterar: " + c.searchScheduleClass(d5, c3));
+
+        System.out.println("\nTerceiro print");
+        c.printAllScheduleClass();
     }
 }
