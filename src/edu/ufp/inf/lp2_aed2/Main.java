@@ -32,10 +32,14 @@ public class Main {
         Room r = new Room(1,1,101,true,100);
         Room r2 = new Room(2,1,102, false, 200);
         Room r3 = new Room(3,1,103, false, 200);
+        Room r4 = new Room(4,1,110,true,5);
 
         ScheduleClass sc = new ScheduleClass(d, d2, r, c);
         ScheduleClass sc2 = new ScheduleClass(d3, d4,r2,c2);
         ScheduleClass sc3 = new ScheduleClass(d5, d6,r3,c3);
+
+        ScheduleAccompaniment sa = new ScheduleAccompaniment(d5, d6, r4, t3);
+        ScheduleAccompaniment sa2 = new ScheduleAccompaniment(d3, d4, r4, t);
 
         System.out.println("------------------------------------------------------");
         System.out.println("---------------------Course Unit----------------------");
@@ -168,5 +172,30 @@ public class Main {
 
         System.out.println("\nTerceiro print");
         c.printAllScheduleClass();
+
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("-----------------SCHEDULE ACCPOMPANIMENT--------------------");
+        System.out.println("------------------------------------------------------------");
+
+        t.addScheduleAccompaniment(sa);
+        t.addScheduleAccompaniment(sa2);
+
+        System.out.println("Primeiro print\n");
+        t.printAllScheduleAccompaniment();
+
+        System.out.println("\nRemovido: " +  t.removeScheduleAccompaniment(t, d3));
+
+        System.out.println("\nSegundo print");
+        t.printAllScheduleAccompaniment();
+
+        System.out.println("\nFind: " + t.searchScheduleAccompaniment(t3, d5));
+
+        t.editScheduleAccompaniment(t3,d5);
+
+        System.out.println("\nDepois de alterar: " + t.searchScheduleAccompaniment(t3, d5));
+
+        System.out.println("\nTerceiro print");
+        t.printAllScheduleAccompaniment();
     }
 }

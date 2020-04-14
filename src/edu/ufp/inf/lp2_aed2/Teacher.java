@@ -160,6 +160,12 @@ public class Teacher extends Person {
     return null;
   }
 
+  /**
+   * Editar o ScheduleAccompaniment
+   * @param teacher
+   * @param startDate
+   * @return ScheduleAccompaniment editada
+   */
   public ScheduleAccompaniment editScheduleAccompaniment(Teacher teacher, Date startDate)
   {
     if(this.scheduleAccompanimentsST.contains(startDate))
@@ -183,6 +189,12 @@ public class Teacher extends Person {
     return null;
   }
 
+  /**
+   * Procurar uma determinada ScheduleAccompaniment
+   * @param teacher
+   * @param startDate
+   * @return ScheduleAccompaniment encontrada
+   */
   public ScheduleAccompaniment searchScheduleAccompaniment(Teacher teacher, Date startDate)
   {
     if(this.scheduleAccompanimentsST.contains(startDate))
@@ -200,5 +212,17 @@ public class Teacher extends Person {
     }
     System.out.println("Teacher - searchScheduleAccompaniment(): ScheduleAccompaniment not exists!!!");
     return null;
+  }
+
+  /**
+   * Imprimir todas as ScheduleAccompaniment
+   */
+  public void printAllScheduleAccompaniment()
+  {
+    for(Date stdate: this.scheduleAccompanimentsST.keys())
+    {
+      ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+      System.out.println(scheduleAccompaniment);
+    }
   }
 }

@@ -24,8 +24,8 @@ public class ScheduleAccompaniment extends Schedule {
    */
   @Override
   public String toString() {
-    return "ScheduleAccompaniment{" +
-            "teacher=" + teacher +
+    return "ScheduleAccompaniment{" + super.toString() +
+            ", teacher=" + teacher +
             '}';
   }
 
