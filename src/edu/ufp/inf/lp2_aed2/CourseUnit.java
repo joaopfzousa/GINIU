@@ -1,5 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -131,6 +132,25 @@ public class CourseUnit {
   }
 
   /**
+   * Validar a Teacher
+   * @param email
+   * @return true se existir, false se nao existir
+   */
+  public boolean validTeacher(String email)
+  {
+    for(String mail: this.teachersST.keys())
+    {
+      Teacher t = this.teachersST.get(mail);
+
+      if(t.getEmail().equals(email))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Adicionar um Student na ST
    * @param s Student para adicionar na ST
    */
@@ -209,6 +229,25 @@ public class CourseUnit {
       Student s = this.studentsST.get(cKey);
       System.out.println(s);
     }
+  }
+
+  /**
+   * Validar se exist Student na st
+   * @param numberStudent
+   * @return true se existir, false se não existir
+   */
+  public boolean validStudent(Integer numberStudent)
+  {
+    for(Integer number: this.studentsST.keys())
+    {
+      Student s = this.studentsST.get(number);
+
+      if(s.getNumberStudent().equals(numberStudent))
+      {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -296,7 +335,24 @@ public class CourseUnit {
     }
   }
 
+  /**
+   * Valida se a Class existe na ST
+   * @param name
+   * @return true se existir, false se não existir
+   */
+  public boolean validClass(String name)
+  {
+    for(String n: this.classesST.keys())
+    {
+      Class c = this.classesST.get(n);
 
+      if(c.getName().equals(name))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
    * Get's e Set's

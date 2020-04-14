@@ -29,6 +29,7 @@ public class Teacher extends Person {
     super(id, name, email);
   }
 
+
   // Metodos
   /**
    * Adicionar um CourseUnit na ST
@@ -111,6 +112,25 @@ public class Teacher extends Person {
   }
 
   /**
+   * Valida se existe CourseUnit
+   * @param id
+   * @return true se exitir, false se não existir
+   */
+  public boolean validCourseUnit(Integer id)
+  {
+    for(Integer i: this.courseUnitsST.keys())
+    {
+      CourseUnit cu = this.courseUnitsST.get(i);
+
+      if(cu.getId().equals(id))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
    * Adicionar ScheduleAccompaniment
    * @param sa
    */
@@ -149,7 +169,7 @@ public class Teacher extends Person {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
         Teacher t = scheduleAccompaniment.getTeacher();
 
-        if(t.getEmail().equals(t.getEmail()))
+        if(t.getEmail().equals(teacher.getEmail()))
         {
           this.scheduleAccompanimentsST.delete(startDate);
           return scheduleAccompaniment;
@@ -175,7 +195,7 @@ public class Teacher extends Person {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
         Teacher t = scheduleAccompaniment.getTeacher();
 
-        if(t.getEmail().equals(t.getEmail()))
+        if(t.getEmail().equals(teacher.getEmail()))
         {
           Room r = new Room(1, 1,104,true,200);
           Date d = new Date(17,00,3);
@@ -204,7 +224,7 @@ public class Teacher extends Person {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
         Teacher t = scheduleAccompaniment.getTeacher();
 
-        if(t.getEmail().equals(t.getEmail()))
+        if(t.getEmail().equals(teacher.getEmail()))
         {
           return scheduleAccompaniment;
         }
@@ -224,5 +244,66 @@ public class Teacher extends Person {
       ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
       System.out.println(scheduleAccompaniment);
     }
+  }
+
+  /**
+   * Valida se ScheduleAccompaniment exite na ST
+   * @param teacher
+   * @param startDate
+   * @return true se existir, false se não existir
+   */
+  public boolean validScheduleAccompaniment(Teacher teacher, Date startDate)
+  {
+    if(this.scheduleAccompanimentsST.contains(startDate))
+    {
+      for (Date stdate : this.scheduleAccompanimentsST.keys())
+      {
+        ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+        Teacher t = scheduleAccompaniment.getTeacher();
+
+        if(t.getEmail().equals(teacher.getEmail()))
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+
+  /**
+   * Get's e set's
+   */
+
+  public SeparateChainingHashST<Integer, CourseUnit> getCourseUnitsST() {
+    return courseUnitsST;
+  }
+
+  public void setCourseUnitsST(SeparateChainingHashST<Integer, CourseUnit> courseUnitsST) {
+    this.courseUnitsST = courseUnitsST;
+  }
+
+  public RedBlackBST<String, Class> getClassesST() {
+    return classesST;
+  }
+
+  public void setClassesST(RedBlackBST<String, Class> classesST) {
+    this.classesST = classesST;
+  }
+
+  public RedBlackBST<Date, Schedule> getSchedulesST() {
+    return schedulesST;
+  }
+
+  public void setSchedulesST(RedBlackBST<Date, Schedule> schedulesST) {
+    this.schedulesST = schedulesST;
+  }
+
+  public RedBlackBST<Date, ScheduleAccompaniment> getScheduleAccompanimentsST() {
+    return scheduleAccompanimentsST;
+  }
+
+  public void setScheduleAccompanimentsST(RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentsST) {
+    this.scheduleAccompanimentsST = scheduleAccompanimentsST;
   }
 }

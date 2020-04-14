@@ -169,6 +169,27 @@ public class Class {
     }
   }
 
+  /**
+   * Valida se o ScheduleClass existe na ST
+   * @param startDate
+   * @param c
+   * @return true se exister, false se não existir
+   */
+  public boolean validScheduleClass(Date startDate, Class c)
+  {
+    for(Date stDate: this.scheduleClassesST.keys())
+    {
+      ScheduleClass sc = this.scheduleClassesST.get(stDate);
+      Class c2 = sc.getClasse();
+
+      if(c2.getName().equals(c.getName()))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
 
   /**
    * Get's e Set's
