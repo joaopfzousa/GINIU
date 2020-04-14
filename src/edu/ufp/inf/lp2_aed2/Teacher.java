@@ -121,8 +121,10 @@ public class Teacher extends Person {
       for(Date stdate: this.scheduleAccompanimentsST.keys())
       {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+        Teacher t = scheduleAccompaniment.getTeacher();
+        Teacher t2 = sa.getTeacher();
 
-        if(scheduleAccompaniment.getTeacher().equals(sa.getTeacher()))
+        if(t.getEmail().equals(t2.getEmail()))
         {
           System.out.println("Teacher - addScheduleAccompaniment(): ScheduleAccompaniment already exists!!!");
           return;
@@ -145,8 +147,9 @@ public class Teacher extends Person {
       for(Date stdate: this.scheduleAccompanimentsST.keys())
       {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+        Teacher t = scheduleAccompaniment.getTeacher();
 
-        if(scheduleAccompaniment.getTeacher().equals(teacher))
+        if(t.getEmail().equals(t.getEmail()))
         {
           this.scheduleAccompanimentsST.delete(startDate);
           return scheduleAccompaniment;
@@ -164,12 +167,13 @@ public class Teacher extends Person {
       for (Date stdate : this.scheduleAccompanimentsST.keys())
       {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+        Teacher t = scheduleAccompaniment.getTeacher();
 
-        if (scheduleAccompaniment.getTeacher().equals(teacher))
+        if(t.getEmail().equals(t.getEmail()))
         {
           Room r = new Room(1, 1,104,true,200);
           Date d = new Date(17,00,3);
-          scheduleAccompaniment.setStartDate(d);
+          scheduleAccompaniment.setFinalDate(d);
           scheduleAccompaniment.setRoom(r);
           return scheduleAccompaniment;
         }
@@ -186,8 +190,9 @@ public class Teacher extends Person {
       for (Date stdate : this.scheduleAccompanimentsST.keys())
       {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
+        Teacher t = scheduleAccompaniment.getTeacher();
 
-        if (scheduleAccompaniment.getTeacher().equals(teacher))
+        if(t.getEmail().equals(t.getEmail()))
         {
           return scheduleAccompaniment;
         }

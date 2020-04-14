@@ -67,8 +67,10 @@ public class Class {
       for(Date stdate: this.scheduleClassesST.keys())
       {
         ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
+        Class c = scheduleClass.getClasse();
+        Class c2 = sc.getClasse();
 
-        if(scheduleClass.getClass().getName() == sc.getClasse().getName())
+        if(c.getName().equals(c2.getName()))
         {
           System.out.println("Class - addScheduleClass(): ScheduleClass already exists!!!");
           return;
@@ -93,7 +95,7 @@ public class Class {
         ScheduleClass sc = this.scheduleClassesST.get(stdate);
         Class cla = sc.getClasse();
 
-        if(cla.getName() == c.getName())
+        if(cla.getName().equals(c.getName()))
         {
           this.scheduleClassesST.delete(startDate);
           return sc;
@@ -118,7 +120,7 @@ public class Class {
     {
       Class cla = sc.getClasse();
 
-      if(cla.getName() == c.getName())
+      if(cla.getName().equals(c.getName()))
       {
         Date d = new Date(16, 00, 2);
         sc.setFinalDate(d);
@@ -144,7 +146,7 @@ public class Class {
         ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
         Class classe = scheduleClass.getClasse();
 
-        if(classe.getName() == c.getName())
+        if(classe.getName().equals(c.getName()))
         {
           return scheduleClass;
         }
