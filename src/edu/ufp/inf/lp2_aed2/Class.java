@@ -55,6 +55,105 @@ public class Class {
   }
 
   //Metodos
+  /**
+   * Adicionar um Student na ST
+   * @param s Student para adicionar na ST
+   */
+  public void addStudent(Student s)
+  {
+    if(this.studentsST.contains(s.getNumberStudent())){
+      System.out.println("CourseUnit - addStudent(): Student already exists!!!");
+      return;
+    }
+    this.studentsST.put(s.getNumberStudent(), s);
+  }
+
+  /**
+   * Remover um Student da ST
+   * @param numberStudent
+   * @return o Student eliminado
+   */
+  public Student removeStudent(Integer numberStudent)
+  {
+    Student s = this.studentsST.get(numberStudent);
+
+    if(s != null)
+    {
+      this.studentsST.delete(numberStudent);
+      return s;
+    }
+
+    System.out.println("CourseUnit - removeStudent(): Student not exists!!!");
+    return null;
+  }
+
+  /**
+   * Editar o Student
+   * @param numberStudent
+   * @return Student editado
+   */
+  public Student editStudent(Integer numberStudent)
+  {
+    if(this.studentsST.contains(numberStudent))
+    {
+      Student s = this.studentsST.get(numberStudent);
+
+      s.setName("João Sousa");
+      return s;
+    }
+
+    System.out.println("CourseUnit - editStudent(): numberStudent not exist inside studentsST");
+    return null;
+  }
+
+  /**
+   * Procurar um determinado Student na ST
+   * @param numberStudent
+   * @return Student encontrado
+   */
+  public Student searchStudent(Integer numberStudent)
+  {
+    if(this.studentsST.contains(numberStudent))
+    {
+      Student s = this.studentsST.get(numberStudent);
+
+      return s;
+    }
+
+    System.out.println("CourseUnit - searchStudent(): numberStudent not exist inside studentsST");
+    return null;
+  }
+
+  /**
+   * Imprimir todos os Student
+   */
+  public void printAllStudent()
+  {
+    for(Integer cKey: this.studentsST.keys())
+    {
+      Student s = this.studentsST.get(cKey);
+      System.out.println(s);
+    }
+  }
+
+  /**
+   * Validar se exist Student na st
+   * @param numberStudent
+   * @return true se existir, false se não existir
+   */
+  public boolean validStudent(Integer numberStudent)
+  {
+    for(Integer number: this.studentsST.keys())
+    {
+      Student s = this.studentsST.get(number);
+
+      if(s.getNumberStudent().equals(numberStudent))
+      {
+        return true;
+      }
+    }
+    return false;
+  }
 
   /**
    * Adicionar uma ScheduleClass
