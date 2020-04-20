@@ -12,7 +12,6 @@ public class CourseUnit {
 
   private Integer ects;
 
-
   // Lista de Classes do CourseUnit - chave é o nome da Class
   private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
 

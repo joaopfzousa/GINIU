@@ -4,14 +4,18 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Main {
     public static void main(String[] args) {
+        testCrudMain();
+    }
 
+    public static void testCrudMain ()
+    {
         // Lista de Teacher do CourseUnit - chave é o email do Teacher(email Person)
-         SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
 
         // Lista de Students do CourseUnit - chave é o numberStudent do Student
-         SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
+        SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
 
-         University u = new University("UFP");
+        University u = new University("UFP");
 
         Teacher t = new Teacher(1, "Beatriz", "beatriz@teste.com");
         Teacher t2 = new Teacher(3, "André", "andre@teste.com");
@@ -177,7 +181,7 @@ public class Main {
         System.out.println("\nFind: " + c.searchScheduleClass(d5, c3));
 
         c.editScheduleClass(d5,c3);
-        
+
         System.out.println("\nDepois de alterar: " + c.searchScheduleClass(d5, c3));
 
         System.out.println("\nTerceiro print");
