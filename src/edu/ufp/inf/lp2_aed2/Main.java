@@ -11,6 +11,8 @@ public class Main {
         // Lista de Students do CourseUnit - chave é o numberStudent do Student
          SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
 
+         University u = new University("UFP");
+
         Teacher t = new Teacher(1, "Beatriz", "beatriz@teste.com");
         Teacher t2 = new Teacher(3, "André", "andre@teste.com");
         Teacher t3 = new Teacher(2, "Rui Moreira", "rui@teste.com");
@@ -134,26 +136,26 @@ public class Main {
         System.out.println("------------------------TEACHER-----------------------");
         System.out.println("------------------------------------------------------");
 
-        Main.addTeacher(teachersST, t);
-        Main.addTeacher(teachersST, t2);
-        Main.addTeacher(teachersST, t3);
+        u.addTeacher(t);
+        u.addTeacher(t2);
+        u.addTeacher( t3);
 
         System.out.println("Primeiro print\n");
-        Main.printAllTeacher(teachersST);
+        u.printAllTeacher();
 
-        System.out.println("\nRemovido: " +  Main.removeTeacher(teachersST, "andre@teste.com"));
+        System.out.println("\nRemovido: " +  u.removeTeacher("andre@teste.com"));
 
         System.out.println("\nSegundo print");
-        Main.printAllTeacher(teachersST);
+        u.printAllTeacher();
 
-        System.out.println("\nFind: " + Main.searchTeacher(teachersST, "rui@teste.com"));
+        System.out.println("\nFind: " + u.searchTeacher("rui@teste.com"));
 
-        Main.editTeacher(teachersST,"rui@teste.com");
+        u.editTeacher("rui@teste.com");
 
-        System.out.println("\nDepois de alterar: " + Main.searchTeacher(teachersST, "rui@teste.com"));
+        System.out.println("\nDepois de alterar: " + u.searchTeacher("rui@teste.com"));
 
         System.out.println("\nTerceiro print");
-        Main.printAllTeacher(teachersST);
+        u.printAllTeacher();
 
         System.out.println("\n\n\n");
         System.out.println("------------------------------------------------------------");
@@ -206,105 +208,4 @@ public class Main {
         System.out.println("\nTerceiro print");
         t.printAllScheduleAccompaniment();
     }
-
-    /**
-     * Adicionar um Teacher na ST
-     * @param t Teacher para adicionar a ST
-     */
-    public static void addTeacher(SeparateChainingHashST<String, Teacher> teachersST, Teacher t)
-    {
-        if(teachersST.contains(t.getEmail()))
-        {
-            System.out.println("CourseUnit - addTeacher(): Teacher already exists!!!");
-            return;
-        }
-        teachersST.put(t.getEmail(), t);
-    }
-
-    /**
-     * Remover uma Teacher da ST
-     * @param email
-     * @return o Teacher eliminado
-     */
-    public static Teacher removeTeacher(SeparateChainingHashST<String, Teacher> teachersST, String email)
-    {
-        Teacher t = teachersST.get(email);
-
-        if(t != null)
-        {
-            teachersST.delete(email);
-            return t;
-        }
-        System.out.println("CourseUnit - removeTeacher(): Teacher not exists!!!");
-        return null;
-    }
-
-    /**
-     * Editar o Teacher
-     * @param email
-     * @return Teacher
-     */
-    public static Teacher editTeacher(SeparateChainingHashST<String, Teacher> teachersST, String email)
-    {
-        if(teachersST.contains(email))
-        {
-            Teacher t = teachersST.get(email);
-
-            t.setName("Beatriz Gomes");
-
-            return t;
-        }
-
-        System.out.println("CourseUnit - editTeacher(): email not exist inside teachersST");
-        return null;
-    }
-
-    /**
-     * Procurar um determinado Teacher na ST
-     * @param email
-     * @return Teacher encontrado
-     */
-    public static Teacher searchTeacher(SeparateChainingHashST<String, Teacher> teachersST, String email)
-    {
-        if(teachersST.contains(email))
-        {
-            Teacher t = teachersST.get(email);
-            return t;
-        }
-
-        System.out.println("CourseUnit - searchTeacher(): Id not exist inside teachersST");
-        return null;
-    }
-
-    /**
-     * Imprimir todos os Teacher
-     */
-    public static void printAllTeacher(SeparateChainingHashST<String, Teacher> teachersST)
-    {
-        for(String tKey: teachersST.keys())
-        {
-            Teacher t = teachersST.get(tKey);
-            System.out.println(t);
-        }
-    }
-
-    /**
-     * Validar a Teacher
-     * @param email
-     * @return true se existir, false se nao existir
-     */
-    public static boolean validTeacher(SeparateChainingHashST<String, Teacher> teachersST, String email)
-    {
-        for(String mail: teachersST.keys())
-        {
-            Teacher t = teachersST.get(mail);
-
-            if(t.getEmail().equals(email))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
