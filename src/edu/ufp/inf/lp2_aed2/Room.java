@@ -10,7 +10,7 @@ public class Room {
 
   private Integer floor;
 
-  private Integer numberRoom;
+  private String numberRoom;
 
   //tomadas ou não
   private boolean socket;
@@ -30,7 +30,7 @@ public class Room {
    * @param socket
    * @param capacity
    */
-  public Room(Integer id, Integer floor, Integer numberRoom, boolean socket, Integer capacity) {
+  public Room(Integer id, Integer floor, String numberRoom, boolean socket, Integer capacity) {
     this.id = id;
     this.floor = floor;
     this.numberRoom = numberRoom;
@@ -72,11 +72,11 @@ public class Room {
     this.floor = floor;
   }
 
-  public Integer getNumberRoom() {
+  public String getNumberRoom() {
     return numberRoom;
   }
 
-  public void setNumberRoom(Integer numberRoom) {
+  public void setNumberRoom(String numberRoom) {
     this.numberRoom = numberRoom;
   }
 
