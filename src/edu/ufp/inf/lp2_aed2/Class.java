@@ -62,7 +62,7 @@ public class Class {
   public void addStudent(Student s)
   {
     if(this.studentsST.contains(s.getNumberStudent())){
-      System.out.println("CourseUnit - addStudent(): Student already exists!!!");
+      System.out.println("Class - addStudent(): Student already exists!!!");
       return;
     }
     this.studentsST.put(s.getNumberStudent(), s);
@@ -83,7 +83,7 @@ public class Class {
       return s;
     }
 
-    System.out.println("CourseUnit - removeStudent(): Student not exists!!!");
+    System.out.println("Class - removeStudent(): Student not exists!!!");
     return null;
   }
 
@@ -102,7 +102,7 @@ public class Class {
       return s;
     }
 
-    System.out.println("CourseUnit - editStudent(): numberStudent not exist inside studentsST");
+    System.out.println("Class - editStudent(): numberStudent not exist inside studentsST");
     return null;
   }
 
@@ -120,7 +120,7 @@ public class Class {
       return s;
     }
 
-    System.out.println("CourseUnit - searchStudent(): numberStudent not exist inside studentsST");
+    System.out.println("Class - searchStudent(): numberStudent not exist inside studentsST");
     return null;
   }
 

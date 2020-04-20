@@ -39,10 +39,10 @@ public class Main {
         Date d6 = new Date(20, 00, 4);
 
 
-        Room r = new Room(1,1,101,true,100);
-        Room r2 = new Room(2,1,102, false, 200);
-        Room r3 = new Room(3,1,103, false, 200);
-        Room r4 = new Room(4,1,110,true,5);
+        Room r = new Room(1,1,"101",true,100);
+        Room r2 = new Room(2,1,"102", false, 200);
+        Room r3 = new Room(3,1,"103", false, 200);
+        Room r4 = new Room(4,1,"110",true,5);
 
         ScheduleClass sc = new ScheduleClass(d, d2, r, c);
         ScheduleClass sc2 = new ScheduleClass(d3, d4,r2,c2);

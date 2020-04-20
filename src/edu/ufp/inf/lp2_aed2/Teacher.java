@@ -197,7 +197,7 @@ public class Teacher extends Person {
 
         if(t.getEmail().equals(teacher.getEmail()))
         {
-          Room r = new Room(1, 1,104,true,200);
+          Room r = new Room(1, 1,"104",true,200);
           Date d = new Date(17,00,3);
           scheduleAccompaniment.setFinalDate(d);
           scheduleAccompaniment.setRoom(r);
