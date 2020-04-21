@@ -4,7 +4,8 @@ import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class Main {
     public static void main(String[] args) {
-        testCrudMain();
+        //testCrudMain();
+        testeLoadMAin();
     }
 
     public static void testCrudMain ()
@@ -205,5 +206,26 @@ public class Main {
 
         System.out.println("\nTerceiro print");
         t.printAllScheduleAccompaniment();
+    }
+
+    public static void testeLoadMAin ()
+    {
+        University u = new University("UFP");
+
+        u.loadTeacher("./data/Teacher");
+        u.printAllTeacher();
+        System.out.println("\n\n");
+
+        u.loadStudent("./data/Student");
+        u.printAllStudent();
+        System.out.println("\n\n");
+
+        u.loadRoom("./data/Room");
+        u.printAllRoom();
+        System.out.println("\n\n");
+
+        u.loadCourseUnit("./data/CourseUnit");
+        u.printAllCourseUnit();
+        System.out.println("\n\n");
     }
 }

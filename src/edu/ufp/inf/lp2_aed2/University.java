@@ -1,5 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -430,6 +431,81 @@ public class University {
         return false;
     }
 
+    /**
+     * Carregar o ficheiro txt da classe Teacher
+     * @param path
+     */
+    public void loadTeacher(String path){
+        In in = new In(path);
+        while(!in.isEmpty()){
+            String[] split = in.readLine().split(";");
+            Integer id = Integer.parseInt(split[0]);
+            String name = split[1];
+            String email = split[2];
+
+            Teacher t = new Teacher(id, name, email);
+            this.teachersST.put(email, t);
+        }
+    }
+
+    /**
+     * Carregar o ficheiro txt da classe Student
+     * @param path
+     */
+    public void loadStudent(String path){
+        In in = new In(path);
+        while(!in.isEmpty()){
+            String[] split = in.readLine().split(";");
+            Integer id = Integer.parseInt(split[0]);
+            String name = split[1];
+            String email = split[2];
+            Integer numberStudent = Integer.parseInt(split[3]);
+            String type = split[4];
+
+            Student s = new Student(id, name, email, numberStudent, type);
+            this.studentsST.put(numberStudent, s);
+        }
+    }
+
+    /**
+     * Carregar o ficheiro txt da classe Room
+     * @param path
+     */
+    public void loadRoom(String path){
+        In in = new In(path);
+        while(!in.isEmpty()){
+            String[] split = in.readLine().split(";");
+            Integer id = Integer.parseInt(split[0]);
+            Integer floor = Integer.parseInt(split[1]);
+            String numberRoom = split[2];
+            Boolean socket = Boolean.parseBoolean(split[3]);
+            Integer capacity = Integer.parseInt(split[4]);
+
+            Room r = new Room(id, floor, numberRoom, socket, capacity);
+            this.roomST.put(numberRoom, r);
+        }
+    }
+
+    /**
+     * Carregar o ficheiro txt da classe CourseUnit
+     * @param path
+     */
+    public void loadCourseUnit(String path){
+        In in = new In(path);
+        while(!in.isEmpty()){
+            String[] split = in.readLine().split(";");
+            Integer id = Integer.parseInt(split[0]);
+            String name = split[1];
+            Integer ects = Integer.parseInt(split[2]);
+
+            CourseUnit cu = new CourseUnit(id, name, ects);
+            this.courseUnitsST.put(id, cu);
+        }
+    }
+
+    /**
+     * Get's and Set's
+     */
     public RedBlackBST<String, Room> getRoomST() {
         return roomST;
     }
