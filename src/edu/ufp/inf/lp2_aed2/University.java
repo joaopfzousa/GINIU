@@ -20,6 +20,9 @@ public class University {
     // Lista de CourseUnit do University - chave é o id do CourseUnit
     private SeparateChainingHashST<Integer, CourseUnit> courseUnitsST = new SeparateChainingHashST<>();
 
+    // Lista de Classes do University - chave é o nome da Class
+    private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+
     public University(String name) {
         this.name = name;
     }
@@ -432,6 +435,66 @@ public class University {
     }
 
     /**
+     * Adicionar uma Class na ST
+     * @param cl Class para adicionar a ST
+     */
+    public void addClass(Class cl)
+    {
+        if(this.classesST.contains(cl.getName())){
+            System.out.println("University - addClass(): Class already exists!!!");
+            return;
+        }
+        this.classesST.put(cl.getName(), cl);
+    }
+
+    /**
+     * Remover uma Class da ST
+     * @param name
+     * @return o Class eliminado
+     */
+    public Class removeClass(String name)
+    {
+        Class cl = this.classesST.get(name);
+
+        if(cl != null)
+        {
+            this.classesST.delete(name);
+            return cl;
+        }
+        System.out.println("Class - removeClass(): Class not exists!!!");
+        return null;
+    }
+
+    /**
+     * Editar a Class
+     * @param name
+     * @return Class editada
+     */
+    public Class searchClass(String name)
+    {
+        if(this.classesST.contains(name))
+        {
+            Class cl = this.classesST.get(name);
+            return cl;
+        }
+
+        System.out.println("Class - searchClass(): Name not exist inside Class");
+        return null;
+    }
+
+    /**
+     * Imprimir todas as Classes
+     */
+    public void printAllClass()
+    {
+        for(String tKey: this.classesST.keys())
+        {
+            Class cl = this.classesST.get(tKey);
+            System.out.println(cl);
+        }
+    }
+
+    /**
      * Carregar o ficheiro txt da classe Teacher
      * @param path
      */
@@ -502,6 +565,46 @@ public class University {
             this.courseUnitsST.put(id, cu);
         }
     }
+
+    /**
+     * Carregar o ficheiro txt da classe Class
+     * @param path
+     */
+    public void loadClass(String path){
+        In in = new In(path);
+        while(!in.isEmpty()){
+            String[] split = in.readLine().split(";");
+            Integer id = Integer.parseInt(split[0]);
+            String name = split[1];
+            String type = split[2];
+            String email = split[3];
+            Teacher t = this.teachersST.get(email);
+            Integer courseId = Integer.parseInt(split[4]);
+            CourseUnit cu = this.courseUnitsST.get(courseId);
+
+            Class c = new Class(id, name, type, t, cu);
+            cu.addClass(c);
+            this.classesST.put(name, c);
+        }
+    }
+
+    /**
+     * Carregar o ficheiro txt do StudentCourse
+     * @param path
+     */
+    public void loadStudentCourse(String path){
+        In in = new In(path);
+        while(!in.isEmpty()){
+            String[] split = in.readLine().split(";");
+            Integer numberStudent = Integer.parseInt(split[0]);
+            Student s = this.studentsST.get(numberStudent);
+            Integer courseId = Integer.parseInt(split[1]);
+            CourseUnit cu = this.courseUnitsST.get(courseId);
+
+            s.registerCourseUnit(cu);
+        }
+    }
+
 
     /**
      * Get's and Set's

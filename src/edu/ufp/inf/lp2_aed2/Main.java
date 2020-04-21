@@ -210,6 +210,8 @@ public class Main {
 
     public static void testeLoadMAin ()
     {
+        SeparateChainingHashST<Integer, CourseUnit> courseUnitsST = new SeparateChainingHashST<>();
+
         University u = new University("UFP");
 
         u.loadTeacher("./data/Teacher");
@@ -227,5 +229,13 @@ public class Main {
         u.loadCourseUnit("./data/CourseUnit");
         u.printAllCourseUnit();
         System.out.println("\n\n");
+
+        u.loadClass("./data/Class");
+        u.printAllClass();
+        System.out.println("\n\n");
+
+        courseUnitsST = u.getCourseUnitsST();
+        CourseUnit cu = courseUnitsST.get(9);
+        cu.printAllClass();
     }
 }
