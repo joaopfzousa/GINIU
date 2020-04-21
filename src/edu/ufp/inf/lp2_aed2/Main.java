@@ -9,12 +9,6 @@ public class Main {
 
     public static void testCrudMain ()
     {
-        // Lista de Teacher do CourseUnit - chave é o email do Teacher(email Person)
-        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
-
-        // Lista de Students do CourseUnit - chave é o numberStudent do Student
-        SeparateChainingHashST<Integer, Student> studentsST = new SeparateChainingHashST<>();
-
         University u = new University("UFP");
 
         Teacher t = new Teacher(1, "Beatriz", "beatriz@teste.com");
