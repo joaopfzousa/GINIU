@@ -7,6 +7,7 @@ Universidade (e.g. rede de pontos representando o mapa indoor de um edifício da
 Universidade). Mais concretamente, pretende-se que combinem a utilização de estruturas de
 dados orientadas a objetos (e.g. tabelas de símbolos e grafos) para armazenar e gerir a
 informação necessária.
+
 As estruturas do tipo Symbol Table (e.g. Hashmaps, Binary Search Trees, Redblack Trees,
 etc.) deverão permitir armazenar e gerir a informação relativa às entidades que se pretendem
 manipular (e.g. alunos, professores, turmas, salas, unidades curriculares). Por exemplo, para
@@ -15,6 +16,7 @@ horário, professores de uma determinada UC e horários de atendimento. As salas
 um horário de ocupação. Os alunos devem conseguir saber o horário de atendimento de um
 professor e o caminho mais curto até ao seu gabinete. Para isso deve ser carregada toda a
 informação da infraestrutura, como salas e pisos.
+
 Deverão utilizar diferentes estruturas do tipo grafo para armazenar a informação relativa à
 infraestrutura do mapa. Nesse mapa deve ser possível representar os diferentes pisos,
 salas/gabinetes e respetivas ligações. No grafo de localização/caminhos, os vértices
@@ -25,8 +27,10 @@ escada, pisos de um elevador, meio do hall e servirão para conectar pontos do g
 conectar o fundo das escadas do piso 1 ao topo das escadas do piso 1 de forma a ser possível
 descer para o piso 0). Esses vértices poderão ter um conjunto de ligações (arestas) a outros
 vértices. As ligações poderão caracterizar-se por vários pesos (e.g., distância, tempo, etc.).
+
 Cada piso será um subgrafo do grande grafo correspondente a todo o edifício. A navegação
 será efetuada através dos pontos descritos anteriormente.
+
 Embora a solução pudesse utilizar uma arquitetura cliente-servidor, para facilitar a
 implementação, irá utilizar-se uma arquitetura standalone, ou seja, uma implementação que
 deverá funcionar num único PC. Os alunos deverão utilizar pacotes de software pré-existentes
@@ -39,7 +43,9 @@ requisitos funcionais da aplicação proposta.
 
 Pretende-se que os alunos sigam uma abordagem orientada aos objetos na modelização e
 implementação do problema proposto. Em concreto deverão desenhar os diagramas de
-classes necessários que permitam modelizar o problema, reutilizando pacotes/classes pré-existentes (cf. grafo, árvores, hashmap, etc.) através de herança, composição ou agregação.
+classes necessários que permitam modelizar o problema, reutilizando pacotes/classes 
+pré-existentes (cf. grafo, árvores, hashmap, etc.) através de herança, composição ou agregação.
+
 Pretende-se que desenvolvam um package de classes com várias funcionalidades úteis à
 implementação do problema proposto e que satisfaçam os requisitos listados a seguir.
 Pretende-se, também, que se implementem casos de teste desse package para cada um dos
