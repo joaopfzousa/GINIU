@@ -12,8 +12,8 @@ public class Student extends Person {
 
   private String type;
 
-  // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
-  private SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
+  // Lista de Teacher do CourseUnit - chave é o email do Teacher
+  private SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
 
   // Lista de Class pela Student - chave é nome da Class
   private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
@@ -42,12 +42,27 @@ public class Student extends Person {
   /**
    * Metodos
    */
-  public ArrayList<ScheduleAccompaniment> searchAccompaniment(Teacher email) {
-  return null;
+
+
+  public RedBlackBST<Date, ScheduleAccompaniment> searchAccompaniment(String email)
+  {
+   RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
+
+    Teacher t = this.teachersST.get(email);
+
+    if(t != null)
+    {
+      scheduleAccompanimentST = t.getScheduleAccompanimentsST();
+      return scheduleAccompanimentST;
+    }
+    System.out.println("Student - searchAccompaniment() - this teacher not exists!!!");
+    return null;
   }
 
-  public boolean markAccompaniment(Teacher email,Date startDate,Date finalDate) {
-  return false;
+  public boolean markAccompaniment(String email,Date startDate,Date finalDate)
+  {
+    // exception - se o aluno tiver aulas no horario / se o professor nao tenho horario de atendimento;
+    return false;
   }
 
   public CourseUnit registerCourseUnit(CourseUnit rcu) {
@@ -73,11 +88,11 @@ public class Student extends Person {
     this.type = type;
   }
 
-  public SeparateChainingHashST<Integer, Teacher> getTeachersST() {
+  public SeparateChainingHashST<String, Teacher> getTeachersST() {
     return teachersST;
   }
 
-  public void setTeachersST(SeparateChainingHashST<Integer, Teacher> teachersST) {
+  public void setTeachersST(SeparateChainingHashST<String, Teacher> teachersST) {
     this.teachersST = teachersST;
   }
 

@@ -21,7 +21,7 @@ public class University {
     private SeparateChainingHashST<Integer, CourseUnit> courseUnitsST = new SeparateChainingHashST<>();
 
     // Lista de Classes do University - chave é o nome da Class
-    private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+    private SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
 
     public University(String name) {
         this.name = name;
