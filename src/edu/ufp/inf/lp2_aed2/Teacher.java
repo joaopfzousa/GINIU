@@ -1,5 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -270,6 +271,46 @@ public class Teacher extends Person {
     return false;
   }
 
+  /**
+   * Carregar o ficheiro txt do ScheduleAccompaniment
+   * @param u
+   * @param path
+   */
+  public void loadScheduleAccompaniment(University u, String path)
+  {
+    In in = new In(path);
+
+    while(!in.isEmpty()){
+      String[] split = in.readLine().split(";");
+      String[] split2 =  split[0].split("/");
+      int stdayOfWeek = Integer.parseInt(split2[0]);
+      int sthour = Integer.parseInt(split2[1]);
+      int stmin = Integer.parseInt(split2[2]);
+      Date stdate = new Date(sthour, stmin, stdayOfWeek);
+
+      String[] split3 =  split[1].split("/");
+      int fldayOfWeek = Integer.parseInt(split3[3]);
+      int flhour = Integer.parseInt(split3[4]);
+      int flmin = Integer.parseInt(split3[5]);
+      Date fldate = new Date(flhour, flmin, fldayOfWeek);
+
+      String numberRoom = split[2];
+      boolean validRoom = u.validRoom(numberRoom);
+      String email = split[3];
+      boolean validTeacher = u.validTeacher(email);
+
+      if(validRoom && validTeacher)
+      {
+        Room r = u.searchRoom(numberRoom);
+        Teacher t = u.searchTeacher(email);
+
+        ScheduleAccompaniment sa = new ScheduleAccompaniment(stdate, fldate, r, t);
+        t.getScheduleAccompanimentsST().put(stdate,sa);
+      }else{
+        System.out.println("[Teacher] - loadScheduleAccompaniment(): This Room or Teacher not exists!!!");
+      }
+    }
+  }
 
   /**
    * Get's e set's

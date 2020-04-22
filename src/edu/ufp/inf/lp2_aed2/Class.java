@@ -1,5 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -287,6 +288,43 @@ public class Class {
       }
     }
     return false;
+  }
+
+  public void loadScheduleClass(University u, String path)
+  {
+    In in = new In(path);
+
+    while(!in.isEmpty()){
+      String[] split = in.readLine().split(";");
+      String[] split2 =  split[0].split("/");
+      int stdayOfWeek = Integer.parseInt(split2[0]);
+      int sthour = Integer.parseInt(split2[1]);
+      int stmin = Integer.parseInt(split2[2]);
+      Date stdate = new Date(sthour, stmin, stdayOfWeek);
+
+      String[] split3 =  split[1].split("/");
+      int fldayOfWeek = Integer.parseInt(split3[3]);
+      int flhour = Integer.parseInt(split3[4]);
+      int flmin = Integer.parseInt(split3[5]);
+      Date fldate = new Date(flhour, flmin, fldayOfWeek);
+
+      String numberRoom = split[2];
+      boolean validRoom = u.validRoom(numberRoom);
+
+      String name = split[3];
+      boolean validClass = u.validClass(name);
+
+      if(validRoom && validClass)
+      {
+        Room r = u.searchRoom(numberRoom);
+        Class cl = u.searchClass(name);
+
+        ScheduleClass sc = new ScheduleClass(stdate, fldate, r, cl);
+        cl.scheduleClassesST.put(stdate, sc);
+      }else{
+        System.out.println("[Class] - loadScheduleClass(): This Room or Class not exists!!!");
+      }
+    }
   }
 
 

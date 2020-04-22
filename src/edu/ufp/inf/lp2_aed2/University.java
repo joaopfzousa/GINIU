@@ -495,6 +495,25 @@ public class University {
     }
 
     /**
+     * Valida se existe na Class
+     * @param name
+     * @return true se exitir, false se não existir
+     */
+    public boolean validClass(String name)
+    {
+        for(String i: this.classesST.keys())
+        {
+            Class cl = this.classesST.get(i);
+
+            if(cl.getName().equals(name))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Carregar o ficheiro txt da classe Teacher
      * @param path
      */
