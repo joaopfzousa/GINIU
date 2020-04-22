@@ -46,9 +46,6 @@ public class Date implements Comparable<Date> {
      * @param dayOfWeek
      */
     public Date(int hour, int minute, int dayOfWeek) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
         this.hour = hour;
         this.minute = minute;
         this.dayOfWeek = dayOfWeek;
@@ -97,7 +94,26 @@ public class Date implements Comparable<Date> {
      */
     @Override
     public String toString() {
-        return this.getDayOfWeek() + " " + this.day + "/" + this.month + "/" + this.year + " " + this.hour + ":" + this.minute + ":" + this.second + "." + this.milisecond;
+
+        String toString;
+
+        toString = this.getDayOfWeekInt() != 0 ? this.getDayOfWeek() + " " : "";
+
+        toString += this.day != 0 ? this.day: "";
+
+        toString +=  this.month != 0 ? "/" + this.month : "";
+
+        toString += this.year != 0 ? "/" +  this.year : "";
+
+        toString += this.hour == 0 ? "00" : this.hour != 0 ? this.hour + ":" : "";
+
+        toString += this.minute == 0 ? "00" : this.minute != 0 ? this.minute + ":" : "";
+
+        toString += this.second != 0 ? this.second : "";
+
+        toString += this.milisecond != 0 ? "." + this.milisecond : "";
+
+        return toString;
     }
 
     /**
@@ -136,6 +152,12 @@ public class Date implements Comparable<Date> {
     /**
      * Get's e Set's
      */
+
+    public int getDayOfWeekInt()
+    {
+        return dayOfWeek;
+    }
+
     public String getDayOfWeek()
     {
         String dayOfTheWeek = null;

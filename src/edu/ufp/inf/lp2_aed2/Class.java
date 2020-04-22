@@ -321,6 +321,8 @@ public class Class {
 
         ScheduleClass sc = new ScheduleClass(stdate, fldate, r, cl);
         cl.scheduleClassesST.put(stdate, sc);
+        Teacher t = cl.getTeacher();
+        t.addScheduleClass(sc);
       }else{
         System.out.println("[Class] - loadScheduleClass(): This Room or Class not exists!!!");
       }

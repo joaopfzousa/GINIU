@@ -43,6 +43,19 @@ public class Student extends Person {
    * Metodos
    */
 
+  /**
+   * Adicionar uma Class na ST
+   * @param c Class para adicionar na ST
+   */
+  public void addClass(Class c)
+  {
+    if(this.classesST.contains(c.getName()))
+    {
+      System.out.println("CourseUnit - addClass(): Class already exists!!!");
+      return;
+    }
+    this.classesST.put(c.getName(), c);
+  }
 
   public RedBlackBST<Date, ScheduleAccompaniment> searchAccompaniment(String email)
   {
@@ -61,12 +74,40 @@ public class Student extends Person {
 
   public boolean markAccompaniment(String email,Date startDate,Date finalDate)
   {
+      RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = searchAccompaniment(email);
+
+      for(Date stdate: scheduleAccompanimentST.keys())
+      {
+        ScheduleAccompaniment scheduleAccompaniment = scheduleAccompanimentST.get(stdate);
+
+        if(startDate.getDayOfWeekInt() > scheduleAccompaniment.getStartDate().getDayOfWeekInt() )
+        {
+          System.out.println("[Student] - markAccompaniment(): Teacher dont have ScheduleAccompaniment in this startDate");
+          return false;
+        }
+      }
     // exception - se o aluno tiver aulas no horario / se o professor nao tenho horario de atendimento;
     return false;
   }
 
-  public CourseUnit registerCourseUnit(CourseUnit rcu) {
-  return null;
+  public Class registerCourseUnit(CourseUnit rcu)
+  {
+    SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+    classesST = rcu.getClassesST();
+
+    for (String name : classesST.keys())
+    {
+      Class c = classesST.get(name);
+
+      if(this.getType().equals(c.getType()))
+      {
+        c.addStudent(this);
+        this.addClass(c);
+        return c;
+      }
+    }
+    System.out.println("[Student] - registerCourseUnit(): Dont existe Class for this CourseUnit!!!");
+    return null;
   }
 
   /**

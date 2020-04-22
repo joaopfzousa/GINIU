@@ -15,7 +15,7 @@ public class Teacher extends Person {
   public RedBlackBST<String, Class> classesST = new RedBlackBST<>();
 
   // Lista de Schedule pela Teacher - chave é data
-  public RedBlackBST<Date, Schedule> schedulesST = new RedBlackBST<>();
+  public RedBlackBST<Date, ScheduleClass> schedulesClassST = new RedBlackBST<>();
 
   // Lista de ScheduleAccompaniment pela Teacher - chave é data
   public RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentsST = new RedBlackBST<>();
@@ -32,6 +32,31 @@ public class Teacher extends Person {
 
 
   // Metodos
+
+  /**
+   * Adicionar uma ScheduleClass
+   * @param sc ScheduleClass para adicionar na ST
+   */
+  public void addScheduleClass(ScheduleClass sc)
+  {
+    if(this.schedulesClassST.contains(sc.getStartDate()))
+    {
+      for(Date stdate: this.schedulesClassST.keys())
+      {
+        ScheduleClass scheduleClass = this.schedulesClassST.get(stdate);
+        Class c = scheduleClass.getClasse();
+        Class c2 = sc.getClasse();
+
+        if(c.getName().equals(c2.getName()))
+        {
+          System.out.println("Class - addScheduleClass(): ScheduleClass already exists!!!");
+          return;
+        }
+      }
+    }
+    this.schedulesClassST.put(sc.getStartDate(), sc);
+  }
+
   /**
    * Adicionar um CourseUnit na ST
    * @param c CourseUnit para adicionar a ST
@@ -332,12 +357,12 @@ public class Teacher extends Person {
     this.classesST = classesST;
   }
 
-  public RedBlackBST<Date, Schedule> getSchedulesST() {
-    return schedulesST;
+  public RedBlackBST<Date, ScheduleClass> getSchedulesST() {
+    return schedulesClassST;
   }
 
-  public void setSchedulesST(RedBlackBST<Date, Schedule> schedulesST) {
-    this.schedulesST = schedulesST;
+  public void setSchedulesST(RedBlackBST<Date, ScheduleClass> schedulesST) {
+    this.schedulesClassST = schedulesST;
   }
 
   public RedBlackBST<Date, ScheduleAccompaniment> getScheduleAccompanimentsST() {

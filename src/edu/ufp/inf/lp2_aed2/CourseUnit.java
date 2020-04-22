@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
-import edu.princeton.cs.algs4.RedBlackBST;
+
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 public class CourseUnit {
   /**
@@ -13,7 +14,7 @@ public class CourseUnit {
   private Integer ects;
 
   // Lista de Classes do CourseUnit - chave é o nome da Class
-  private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+  private SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
 
   /**
    * Construtor
@@ -173,11 +174,11 @@ public class CourseUnit {
     this.ects = ects;
   }
 
-  public RedBlackBST<String, Class> getClassesST() {
+  public SeparateChainingHashST<String, Class> getClassesST() {
     return classesST;
   }
 
-  public void setClassesST(RedBlackBST<String, Class> classesST) {
+  public void setClassesST(SeparateChainingHashST<String, Class> classesST) {
     this.classesST = classesST;
   }
 }
