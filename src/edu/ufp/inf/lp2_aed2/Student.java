@@ -38,9 +38,7 @@ public class Student extends Person {
             '}';
   }
 
-  /**
-   * Metodos
-   */
+  //Metodos
 
   /**
    * Adicionar uma Class na ST
