@@ -54,6 +54,25 @@ public class Student extends Person {
     this.classesST.put(c.getName(), c);
   }
 
+  /**
+   * Adicionar um Teacher na ST
+   * @param t Teacher para adicionar a ST
+   */
+  public void addTeacher(Teacher t)
+  {
+    if(this.teachersST.contains(t.getEmail()))
+    {
+      System.out.println("University - addTeacher(): Teacher already exists!!!");
+      return;
+    }
+    this.teachersST.put(t.getEmail(), t);
+  }
+
+  /**
+   * Procurar o acompanhamento de um determinado professor
+   * @param email
+   * @return RedBlackBST ScheduleAccompaniment
+   */
   public RedBlackBST<Date, ScheduleAccompaniment> searchAccompaniment(String email)
   {
    RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
@@ -100,6 +119,10 @@ public class Student extends Person {
       {
         c.addStudent(this);
         this.addClass(c);
+
+        Teacher t = c.getTeacher();
+        this.getTeachersST().put(t.getEmail(), t);
+
         return c;
       }
     }
