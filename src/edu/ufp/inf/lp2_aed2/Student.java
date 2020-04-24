@@ -1,5 +1,6 @@
 package edu.ufp.inf.lp2_aed2;
 
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -106,10 +107,10 @@ public class Student extends Person {
     return false;
   }
 
-  public Class registerCourseUnit(CourseUnit rcu)
+  public Class registerCourseUnit(CourseUnit cu)
   {
     SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
-    classesST = rcu.getClassesST();
+    classesST = cu.getClassesST();
 
     for (String name : classesST.keys())
     {
@@ -129,6 +130,35 @@ public class Student extends Person {
     System.out.println("[Student] - registerCourseUnit(): Dont existe Class for this CourseUnit!!!");
     return null;
   }
+
+  /**
+   * Carregar o ficheiro txt do StudentCourse
+   * @param u
+   * @param path
+   */
+  public void loadStudentCourse(University u,  String path)
+  {
+    In in = new In(path);
+
+    while(!in.isEmpty()) {
+      String[] split = in.readLine().split(";");
+      int numberStudent = Integer.parseInt(split[0]);
+      boolean validStudent = u.validStudent(numberStudent);
+      int id = Integer.parseInt(split[1]);
+      boolean validCourseUnit = u.validCourseUnit(id);
+
+      if(validStudent && validCourseUnit)
+      {
+        Student s = u.searchStudent(numberStudent);
+        CourseUnit cu = u.searchCourseUnit(id);
+
+        s.registerCourseUnit(cu);
+      }else{
+        System.out.println("[Student] - loadStudentCourse(): This Student or CourseUnit not exists!!!");
+      }
+    }
+  }
+
 
   /**
    * Get's e Set's

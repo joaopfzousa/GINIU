@@ -107,9 +107,9 @@ public class Date implements Comparable<Date> {
 
         toString += this.hour == 0 ? "00" : this.hour != 0 ? this.hour + ":" : "";
 
-        toString += this.minute == 0 ? "00" : this.minute != 0 ? this.minute + ":" : "";
+        toString += this.minute == 0 ? "00" : this.minute != 0 ? ":" + this.minute : "";
 
-        toString += this.second != 0 ? this.second : "";
+        toString += this.second != 0 ? ":" + this.second : "";
 
         toString += this.milisecond != 0 ? "." + this.milisecond : "";
 

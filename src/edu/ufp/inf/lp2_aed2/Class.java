@@ -303,9 +303,9 @@ public class Class {
       Date stdate = new Date(sthour, stmin, stdayOfWeek);
 
       String[] split3 =  split[1].split("/");
-      int fldayOfWeek = Integer.parseInt(split3[3]);
-      int flhour = Integer.parseInt(split3[4]);
-      int flmin = Integer.parseInt(split3[5]);
+      int fldayOfWeek = Integer.parseInt(split3[0]);
+      int flhour = Integer.parseInt(split3[1]);
+      int flmin = Integer.parseInt(split3[2]);
       Date fldate = new Date(flhour, flmin, fldayOfWeek);
 
       String numberRoom = split[2];

@@ -608,24 +608,6 @@ public class University {
     }
 
     /**
-     * Carregar o ficheiro txt do StudentCourse
-     * @param path
-     */
-    public void loadStudentCourse(String path){
-        In in = new In(path);
-        while(!in.isEmpty()){
-            String[] split = in.readLine().split(";");
-            Integer numberStudent = Integer.parseInt(split[0]);
-            Student s = this.studentsST.get(numberStudent);
-            Integer courseId = Integer.parseInt(split[1]);
-            CourseUnit cu = this.courseUnitsST.get(courseId);
-
-            s.registerCourseUnit(cu);
-        }
-    }
-
-
-    /**
      * Get's and Set's
      */
     public RedBlackBST<String, Room> getRoomST() {
@@ -658,6 +640,14 @@ public class University {
 
     public void setCourseUnitsST(SeparateChainingHashST<Integer, CourseUnit> courseUnitsST) {
         this.courseUnitsST = courseUnitsST;
+    }
+
+    public SeparateChainingHashST<String, Class> getClassesST() {
+        return classesST;
+    }
+
+    public void setClassesST(SeparateChainingHashST<String, Class> classesST) {
+        this.classesST = classesST;
     }
 
     public String getName() {
