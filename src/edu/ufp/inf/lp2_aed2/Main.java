@@ -1,7 +1,5 @@
 package edu.ufp.inf.lp2_aed2;
 
-import edu.princeton.cs.algs4.SeparateChainingHashST;
-
 public class Main {
     public static void main(String[] args) {
         //testCrudMain();
@@ -210,8 +208,6 @@ public class Main {
 
     public static void testeLoadMAin ()
     {
-        SeparateChainingHashST<Integer, CourseUnit> courseUnitsST = new SeparateChainingHashST<>();
-
         University u = new University("UFP");
 
         u.loadTeacher("./data/Teacher");
@@ -234,8 +230,49 @@ public class Main {
         u.printAllClass();
         System.out.println("\n\n");
 
-        courseUnitsST = u.getCourseUnitsST();
-        CourseUnit cu = courseUnitsST.get(9);
+        CourseUnit cu = u.getCourseUnitsST().get(9);
         cu.printAllClass();
+
+        Class c = u.getClassesST().get("HBO");
+        System.out.println("\n\n");
+        System.out.println(c);
+
+        c.loadScheduleClass(u, "./data/ScheduleClass");
+        System.out.println("\n\n");
+
+        c.printAllScheduleClass();
+
+        Class cc = u.getClassesST().get("BGE");
+
+        System.out.println();
+        System.out.println(cc);
+        cc.printAllScheduleClass();
+
+        Student s = u.getStudentsST().get(1);
+        System.out.println("\n\n");
+        System.out.println(s);
+
+        s.loadStudentCourse(u, "./data/StudentCourse");
+        System.out.println("\n\n");
+
+        Student ss = u.getStudentsST().get(2);
+        System.out.println("\n\n");
+        System.out.println(ss);
+
+        Teacher t = u.getTeachersST().get("afonseca@ufp.edu.pt");
+        System.out.println("\n\n");
+        System.out.println(t);
+
+        t.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
+        System.out.println("\n\n");
+
+        t.printAllScheduleAccompaniment();
+
+        Teacher tt = u.getTeachersST().get("pcosta@ufp.edu.pt");
+        System.out.println("\n\n");
+        System.out.println(tt);
+
+        tt.printAllScheduleAccompaniment();
+
     }
 }
