@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -30,6 +31,13 @@ public class Teacher extends Person {
     super(id, name, email);
   }
 
+  /**
+   * toStringFileTeacher é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileTeacher(){
+    return  getId() + ";" + getName() + ";" + getEmail() + ";" ;
+  }
 
   // Metodos
 
@@ -335,6 +343,20 @@ public class Teacher extends Person {
         System.out.println("[Teacher] - loadScheduleAccompaniment(): This Room or Teacher not exists!!!");
       }
     }
+  }
+
+  /**
+   * Guardar no ficheiro txt da classe ScheduleAccompaniment
+   * @param path
+   * @return
+   */
+  public String saveScheduleAccompaniment(String path){
+    Out o = new Out(path);
+    for(Date stdate : scheduleAccompanimentsST.keys()){
+      ScheduleAccompaniment sa = scheduleAccompanimentsST.get(stdate);
+      o.println(sa.toStringFileScheduleAccompaniment());
+    }
+    return "Saved ScheduleAccompaniment on TXT";
   }
 
   /**

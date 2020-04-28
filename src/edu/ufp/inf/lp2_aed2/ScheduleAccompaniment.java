@@ -29,6 +29,13 @@ public class ScheduleAccompaniment extends Schedule {
             '}';
   }
 
+  /**
+   * toStringFileScheduleAccompaniment é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileScheduleAccompaniment(){
+    return getStartDate() + ";" + getFinalDate() + ";" + getRoom() + ";" + teacher + ";" ;
+  }
 
   /**
    * Get's e Set's
