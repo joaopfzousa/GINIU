@@ -22,6 +22,13 @@ public class ScheduleClass extends Schedule {
             '}';
   }
 
+  /**
+   * toStringFileScheduleClass é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileScheduleClass(){
+    return getStartDate().getDayOfWeekInt() + "/" + getStartDate().getHour() + "/" + getStartDate().getMinute()+ ";" + getFinalDate().getDayOfWeekInt() + "/" + getFinalDate().getHour() + "/" + getFinalDate().getMinute()+ ";" + getRoom().getNumberRoom() + ";" + getClasse().getName() + ";" ;
+  }
 
   /**
    * Get's e Set's

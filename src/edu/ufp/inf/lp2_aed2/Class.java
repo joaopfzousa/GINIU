@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -53,6 +54,22 @@ public class Class {
             ", teacher=" + teacher +
             ", course=" + course +
             '}';
+  }
+
+  /**
+   * toStringFileClass é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileClass(){
+    return id + ";" + name + ";" + type + ";" + teacher + ";" + course + ";" ;
+  }
+
+  /**
+   * toStringFileStudentCourse é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileStudentCourse(){
+    return getStudentsST() + ";" + course + ";" ;
   }
 
   //Metodos
@@ -329,6 +346,23 @@ public class Class {
     }
   }
 
+  /**
+   * Guardar no ficheiro txt da classe ScheduleClass
+   * @param path
+   * @return
+   */
+  public String saveScheduleClass(University u, String path){
+    Out o = new Out(path);
+
+    for(String name : u.getClassesST().keys()){
+      Class cl = u.getClassesST().get(name);
+      for(Date stdate : cl.scheduleClassesST.keys()){
+        ScheduleClass sc = cl.scheduleClassesST.get(stdate);
+        o.println(sc.toStringFileScheduleClass());
+      }
+    }
+    return "Saved ScheduleClass on TXT";
+  }
 
   /**
    * Get's e Set's

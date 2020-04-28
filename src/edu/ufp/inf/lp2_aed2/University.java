@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -605,6 +606,77 @@ public class University {
             cu.addClass(c);
             this.classesST.put(name, c);
         }
+    }
+
+    /**
+     * Guardar no ficheiro txt da classe Teacher
+     * @param path
+     * @return
+     */
+    public String saveTeacher(String path){
+        Out o = new Out(path);
+        for(String email : this.teachersST.keys()){
+            Teacher t = teachersST.get(email);
+            o.println(t.toStringFileTeacher());
+        }
+        return "Saved Teacher on TXT";
+    }
+
+    /**
+     * Guardar no ficheiro txt da classe Student
+     * @param path
+     * @return
+     */
+    public String saveStudent(String path){
+        Out o = new Out(path);
+        for(Integer numberStudent : this.studentsST.keys()){
+            Student s = studentsST.get(numberStudent);
+            System.out.println(s);
+            o.println(s.toStringFileStudent());
+        }
+        return "Saved Student on TXT";
+    }
+
+    /**
+     * Guardar no ficheiro txt da classe Room
+     * @param path
+     * @return
+     */
+    public String saveRoom(String path){
+        Out o = new Out(path);
+        for(String numberRoom : this.roomST.keys()){
+            Room r = roomST.get(numberRoom);
+            o.println(r.toStringFileRoom());
+        }
+        return "Saved Room on TXT";
+    }
+
+    /**
+     * Guardar no ficheiro txt da classe CourseUnit
+     * @param path
+     * @return
+     */
+    public String saveCourseUnit(String  path){
+        Out o = new Out(path);
+        for(Integer id : this.courseUnitsST.keys()){
+            CourseUnit cu = courseUnitsST.get(id);
+            o.println(cu.toStringFileCourseUnit());
+        }
+        return "Saved CourseUnit on TXT";
+    }
+
+    /**
+     * Guardar no ficheiro txt da classe Class
+     * @param path
+     * @return
+     */
+    public String saveClass(String  path){
+        Out o = new Out(path);
+        for(String name : this.classesST.keys()){
+            Class cl = classesST.get(name);
+            o.println(cl.toStringFileClass());
+        }
+        return "Saved Class on TXT";
     }
 
     /**

@@ -1,6 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
@@ -37,6 +38,14 @@ public class Student extends Person {
             ", numberStudent=" + numberStudent +
             ", type='" + type + '\'' +
             '}';
+  }
+
+  /**
+   * toStringFileStudent é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileStudent(){
+    return getId() + ";" + getName() + ";" + getEmail() + ";" + numberStudent + ";" + type + ";" ;
   }
 
   //Metodos
@@ -159,6 +168,20 @@ public class Student extends Person {
     }
   }
 
+  /**
+   * Guardar no ficheiro txt da classe StudentCourse
+   * @param u
+   * @param path
+   * @return
+   */
+  public String saveStudentCourse(University u, String path){
+    Out o = new Out(path);
+    for(String numberStudent : classesST.keys()){
+      Class cl = classesST.get(numberStudent);
+      o.println(cl.toStringFileStudentCourse());
+    }
+    return "Saved StudentCourse on TXT";
+  }
 
   /**
    * Get's e Set's

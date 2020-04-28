@@ -41,6 +41,14 @@ public class CourseUnit {
             '}';
   }
 
+  /**
+   * toStringFileCourseUnit é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileCourseUnit(){
+    return id + ";" + name + ";" + ects + ";" ;
+  }
+
   //Metodos
 
   /**

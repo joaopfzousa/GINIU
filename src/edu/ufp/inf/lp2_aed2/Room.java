@@ -54,6 +54,14 @@ public class Room {
   }
 
   /**
+   * toStringFileRoom é o toString para guardar o ficheiro
+   * @return
+   */
+  public String toStringFileRoom(){
+    return id + ";" + floor + ";" + numberRoom + ";" + socket + ";" + capacity + ";" ;
+  }
+
+  /**
    * Get's e Set's
    */
   public Integer getId() {

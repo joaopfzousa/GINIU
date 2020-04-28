@@ -4,6 +4,7 @@ public class Main {
     public static void main(String[] args) {
         //testCrudMain();
         testeLoadMAin();
+        testSaveMain();
     }
 
     public static void testCrudMain ()
@@ -273,6 +274,31 @@ public class Main {
         System.out.println(tt);
 
         tt.printAllScheduleAccompaniment();
+
+    }
+
+    public static void testSaveMain (){
+
+        University u = new University("UFP");
+
+        u.loadTeacher("./data/Teacher");
+        u.saveTeacher("./data/SaveTeacher");
+
+        u.loadStudent("./data/Student");
+        u.saveStudent("./data/SaveStudent");
+
+        u.loadRoom("./data/Room");
+        u.saveRoom("./data/SaveRoom");
+
+        u.loadCourseUnit("./data/CourseUnit");
+        u.saveCourseUnit("./data/SaveCourseUnit");
+
+        u.loadClass("./data/Class");
+        u.saveRoom("./data/SaveClass");
+
+        Class c = u.getClassesST().get("HBO");
+        c.loadScheduleClass(u, "./data/ScheduleClass");
+        c.saveScheduleClass(u,"./data/SaveScheduleClass");
 
     }
 }
