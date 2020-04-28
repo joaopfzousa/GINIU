@@ -338,6 +338,7 @@ public class Teacher extends Person {
         Teacher t = u.searchTeacher(email);
 
         ScheduleAccompaniment sa = new ScheduleAccompaniment(stdate, fldate, r, t);
+        r.getScheduleAccompanimentST().put(stdate, sa);
         t.addScheduleAccompaniment(sa);
       }else{
         System.out.println("[Teacher] - loadScheduleAccompaniment(): This Room or Teacher not exists!!!");

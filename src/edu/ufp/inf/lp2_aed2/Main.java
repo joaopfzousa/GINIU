@@ -1,5 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
         //testCrudMain();
@@ -212,68 +214,68 @@ public class Main {
         University u = new University("UFP");
 
         u.loadTeacher("./data/Teacher");
-        u.printAllTeacher();
-        System.out.println("\n\n");
+        //u.printAllTeacher();
+        //System.out.println("\n\n");
 
         u.loadStudent("./data/Student");
-        u.printAllStudent();
-        System.out.println("\n\n");
+        //u.printAllStudent();
+        //System.out.println("\n\n");
 
         u.loadRoom("./data/Room");
-        u.printAllRoom();
-        System.out.println("\n\n");
+        //u.printAllRoom();
+        //System.out.println("\n\n");
 
         u.loadCourseUnit("./data/CourseUnit");
-        u.printAllCourseUnit();
-        System.out.println("\n\n");
+        //u.printAllCourseUnit();
+        //System.out.println("\n\n");
 
         u.loadClass("./data/Class");
-        u.printAllClass();
-        System.out.println("\n\n");
+        //u.printAllClass();
+        //System.out.println("\n\n");
 
         CourseUnit cu = u.getCourseUnitsST().get(9);
-        cu.printAllClass();
+        //cu.printAllClass();
 
         Class c = u.getClassesST().get("HBO");
-        System.out.println("\n\n");
-        System.out.println(c);
+        //System.out.println("\n\n");
+        //System.out.println(c);
 
         c.loadScheduleClass(u, "./data/ScheduleClass");
-        System.out.println("\n\n");
+        //System.out.println("\n\n");
 
-        c.printAllScheduleClass();
+        //c.printAllScheduleClass();
 
         Class cc = u.getClassesST().get("BGE");
 
-        System.out.println();
-        System.out.println(cc);
-        cc.printAllScheduleClass();
+        //System.out.println();
+        //System.out.println(cc);
+        //cc.printAllScheduleClass();
 
         Student s = u.getStudentsST().get(1);
-        System.out.println("\n\n");
-        System.out.println(s);
+        //System.out.println("\n\n");
+        //System.out.println(s);
 
         s.loadStudentCourse(u, "./data/StudentCourse");
-        System.out.println("\n\n");
+        //System.out.println("\n\n");
 
         Student ss = u.getStudentsST().get(2);
-        System.out.println("\n\n");
-        System.out.println(ss);
+        //System.out.println("\n\n");
+        //System.out.println(ss);
 
         Teacher t = u.getTeachersST().get("afonseca@ufp.edu.pt");
-        System.out.println("\n\n");
-        System.out.println(t);
+        //System.out.println("\n\n");
+        //System.out.println(t);
 
         t.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
-        System.out.println("\n\n");
+        //System.out.println("\n\n");
 
-        t.printAllScheduleAccompaniment();
+        //t.printAllScheduleAccompaniment();
 
         Teacher tt = u.getTeachersST().get("pcosta@ufp.edu.pt");
-        System.out.println("\n\n");
-        System.out.println(tt);
+        //System.out.println("\n\n");
+        //System.out.println(tt);
 
-        tt.printAllScheduleAccompaniment();
+        //tt.printAllScheduleAccompaniment();
 
     }
 
@@ -300,5 +302,11 @@ public class Main {
         c.loadScheduleClass(u, "./data/ScheduleClass");
         c.saveScheduleClass(u,"./data/SaveScheduleClass");
 
+        ArrayList<Room> rooms = new ArrayList<>();
+        rooms = u.pesquisarRoom(new Date(8,00, 2));
+
+        for (Room r : rooms) {
+            System.out.println(r);
+        }
     }
 }

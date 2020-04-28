@@ -18,7 +18,11 @@ public class Room {
   private Integer capacity;
 
   // Lista de Schedule pela Class - chave é data
-  private RedBlackBST<Date, Schedule> scheduleClassesST = new RedBlackBST<>();
+  private RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
+
+  // Lista de Schedule pela Class - chave é data
+  private RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
+
 
   //public Vector  myPoint;
 
@@ -104,11 +108,19 @@ public class Room {
     this.capacity = capacity;
   }
 
-  public RedBlackBST<Date, Schedule> getScheduleClassesST() {
+  public RedBlackBST<Date, ScheduleClass> getScheduleClassesST() {
     return scheduleClassesST;
   }
 
-  public void setScheduleClassesST(RedBlackBST<Date, Schedule> scheduleClassesST) {
+  public void setScheduleClassesST(RedBlackBST<Date, ScheduleClass> scheduleClassesST) {
     this.scheduleClassesST = scheduleClassesST;
+  }
+
+  public RedBlackBST<Date, ScheduleAccompaniment> getScheduleAccompanimentST() {
+    return scheduleAccompanimentST;
+  }
+
+  public void setScheduleAccompanimentST(RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST) {
+    this.scheduleAccompanimentST = scheduleAccompanimentST;
   }
 }

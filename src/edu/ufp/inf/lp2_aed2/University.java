@@ -5,6 +5,8 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.util.ArrayList;
+
 public class University {
 
     private String name;
@@ -677,6 +679,47 @@ public class University {
             o.println(cl.toStringFileClass());
         }
         return "Saved Class on TXT";
+    }
+
+    public ArrayList<Room> pesquisarRoom(Date dinicio){
+        ArrayList<Room> res = new ArrayList<>();
+
+        RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
+        RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
+
+        for(String aux : this.roomST.keys()){
+            Room r = this.roomST.get(aux);
+            //System.out.println(r);
+
+            scheduleClassesST = r.getScheduleClassesST();
+            scheduleAccompanimentST = r.getScheduleAccompanimentST();
+
+            for(Date dinit: scheduleClassesST.keys())
+            {
+                ScheduleClass sc = scheduleClassesST.get(dinit);
+                //System.out.println(sc);
+                System.out.println(r.getNumberRoom() + " sc.getStartDate().compareTo(dinicio) = " + sc.getStartDate().compareTo(dinicio));
+
+                if(sc.getStartDate().compareTo(dinicio) != 0){
+                    System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom()));
+                    if(!res.contains(sc.getRoom()))
+                        res.add(sc.getRoom());
+                }
+            }
+
+            for(Date dinicial: scheduleAccompanimentST.keys())
+            {
+                ScheduleAccompaniment sa = scheduleAccompanimentST.get(dinicial);
+                //System.out.println(sa);
+                System.out.println(r.getNumberRoom() + " sa.getStartDate().compareTo(dinicio) =" + sa.getStartDate().compareTo(dinicio));
+                if(sa.getStartDate().compareTo(dinicio) != 0){
+                    System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom()));
+                    if(!res.contains(sa.getRoom()))
+                        res.add(sa.getRoom());
+                }
+            }
+        }
+        return res;
     }
 
     /**
