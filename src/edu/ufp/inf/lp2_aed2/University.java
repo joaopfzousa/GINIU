@@ -683,6 +683,7 @@ public class University {
 
     public ArrayList<Room> pesquisarRoom(Date dinicio){
         ArrayList<Room> res = new ArrayList<>();
+        ArrayList<Room> used = new ArrayList<>();
 
         RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
         RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
@@ -702,8 +703,11 @@ public class University {
 
                 if(sc.getStartDate().compareTo(dinicio) != 0){
                     System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom()));
-                    if(!res.contains(sc.getRoom()))
+
+                    if(!res.contains(sc.getRoom()) && !used.contains(sc.getRoom()))
                         res.add(sc.getRoom());
+                }else{
+                    used.add(sc.getRoom());
                 }
             }
 
@@ -714,8 +718,10 @@ public class University {
                 System.out.println(r.getNumberRoom() + " sa.getStartDate().compareTo(dinicio) =" + sa.getStartDate().compareTo(dinicio));
                 if(sa.getStartDate().compareTo(dinicio) != 0){
                     System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom()));
-                    if(!res.contains(sa.getRoom()))
+                    if(!res.contains(sa.getRoom()) && !used.contains(sa.getRoom()) )
                         res.add(sa.getRoom());
+                }else{
+                    used.add(sa.getRoom());
                 }
             }
         }
