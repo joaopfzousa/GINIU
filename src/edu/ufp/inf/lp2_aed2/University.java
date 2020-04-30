@@ -681,8 +681,13 @@ public class University {
         return "Saved Class on TXT";
     }
 
-    public ArrayList<Room> pesquisarRoom(Date dinicio){
-        ArrayList<Room> res = new ArrayList<>();
+    /**
+     * Pesquisar todas as salas que não estão ocupadas num horário
+     * @param dinicio
+     * @return as salas que não estão ocupadas num horario
+     */
+    public RedBlackBST<String, Room> pesquisarRoom(Date dinicio){
+        RedBlackBST<String, Room> res = new RedBlackBST<>();
         ArrayList<Room> used = new ArrayList<>();
 
         RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
@@ -702,10 +707,10 @@ public class University {
                 System.out.println(r.getNumberRoom() + " sc.getStartDate().compareTo(dinicio) = " + sc.getStartDate().compareTo(dinicio));
 
                 if(sc.getStartDate().compareTo(dinicio) != 0){
-                    System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom()));
+                    System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom().getNumberRoom()));
 
-                    if(!res.contains(sc.getRoom()) && !used.contains(sc.getRoom()))
-                        res.add(sc.getRoom());
+                    if(!res.contains(sc.getRoom().getNumberRoom()) && !used.contains(sc.getRoom()))
+                        res.put(sc.getRoom().getNumberRoom(), sc.getRoom());
                 }else{
                     used.add(sc.getRoom());
                 }
@@ -717,15 +722,37 @@ public class University {
                 //System.out.println(sa);
                 System.out.println(r.getNumberRoom() + " sa.getStartDate().compareTo(dinicio) =" + sa.getStartDate().compareTo(dinicio));
                 if(sa.getStartDate().compareTo(dinicio) != 0){
-                    System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom()));
-                    if(!res.contains(sa.getRoom()) && !used.contains(sa.getRoom()) )
-                        res.add(sa.getRoom());
+                    System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom().getNumberRoom()));
+                    if(!res.contains(sa.getRoom().getNumberRoom()) && !used.contains(sa.getRoom()) )
+                        res.put(sa.getRoom().getNumberRoom(), sa.getRoom());
                 }else{
                     used.add(sa.getRoom());
                 }
             }
         }
         return res;
+    }
+
+    /**
+     * Pesquisa de estudantes por Unidade Curricular
+     * @param cu
+     * @return
+     */
+    public SeparateChainingHashST<String, Teacher>  pesquisarCourseUnit(CourseUnit cu)
+    {
+        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+
+        for(String nome: cu.getClassesST().keys())
+        {
+            Class c = cu.getClassesST().get(nome);
+            Teacher t = c.getTeacher();
+
+            if(!teachersST.contains(t.getEmail()))
+            {
+                teachersST.put(t.getEmail(), t);
+            }
+        }
+        return teachersST;
     }
 
     /**

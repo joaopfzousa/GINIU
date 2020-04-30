@@ -1,5 +1,8 @@
 package edu.ufp.inf.lp2_aed2;
 
+import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -302,11 +305,21 @@ public class Main {
         c.loadScheduleClass(u, "./data/ScheduleClass");
         c.saveScheduleClass(u,"./data/SaveScheduleClass");
 
-        ArrayList<Room> rooms = new ArrayList<>();
+        RedBlackBST<String, Room> rooms = new RedBlackBST<>();
         rooms = u.pesquisarRoom(new Date(8,00, 2));
 
-        for (Room r : rooms) {
+        for (String numberRoom : rooms.keys()) {
+            Room r = rooms.get(numberRoom);
             System.out.println(r);
+        }
+
+        CourseUnit cu = u.getCourseUnitsST().get(1);
+        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+        teachersST = u.pesquisarCourseUnit(cu);
+
+        for (String email : teachersST.keys()) {
+            Teacher t = teachersST.get(email);
+            System.out.println(t);
         }
     }
 }
