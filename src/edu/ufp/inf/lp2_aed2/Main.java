@@ -305,21 +305,59 @@ public class Main {
         c.loadScheduleClass(u, "./data/ScheduleClass");
         c.saveScheduleClass(u,"./data/SaveScheduleClass");
 
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("-----------------Search Room by Date -----------------------");
+        System.out.println("------------------------------------------------------------");
+
         RedBlackBST<String, Room> rooms = new RedBlackBST<>();
-        rooms = u.pesquisarRoom(new Date(8,00, 2));
+        rooms = u.searchRoomByDate(new Date(8,00, 2));
 
         for (String numberRoom : rooms.keys()) {
             Room r = rooms.get(numberRoom);
             System.out.println(r);
         }
 
-        CourseUnit cu = u.getCourseUnitsST().get(1);
+
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("-------------Search Teacher by CourseUnit-------------------");
+        System.out.println("------------------------------------------------------------");
+
+        CourseUnit cu = u.getCourseUnitsST().get(8);
         SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
-        teachersST = u.pesquisarCourseUnit(cu);
+        teachersST = cu.searchTeacherbyCourseUnit();
 
         for (String email : teachersST.keys()) {
             Teacher t = teachersST.get(email);
             System.out.println(t);
+        }
+
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("--------------Search Class by Teacher-----------------------");
+        System.out.println("------------------------------------------------------------");
+
+        Teacher t = u.getTeachersST().get("mpinheiro@ufp.edu.pt");
+        SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+        classesST = t.searchClassByTeacher();
+
+        for (String nome : classesST.keys()) {
+            Class clas = classesST.get(nome);
+            System.out.println(clas);
+        }
+
+        System.out.println("\n\n\n");
+        System.out.println("------------------------------------------------------------");
+        System.out.println("-----------------Search Room by Attr------------------------");
+        System.out.println("------------------------------------------------------------");
+
+        RedBlackBST<String, Room> roomsAttr = new RedBlackBST<>();
+        roomsAttr = u.searchRoomByAttr(50, false, 2);
+
+        for (String numberRoom : roomsAttr.keys()) {
+            Room r = roomsAttr.get(numberRoom);
+            System.out.println(r);
         }
     }
 }

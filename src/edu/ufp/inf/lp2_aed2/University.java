@@ -606,6 +606,7 @@ public class University {
 
             Class c = new Class(id, name, type, t, cu);
             cu.addClass(c);
+            t.getClassesST().put(c.getName(), c);
             this.classesST.put(name, c);
         }
     }
@@ -686,7 +687,7 @@ public class University {
      * @param dinicio
      * @return as salas que não estão ocupadas num horario
      */
-    public RedBlackBST<String, Room> pesquisarRoom(Date dinicio){
+    public RedBlackBST<String, Room> searchRoomByDate(Date dinicio){
         RedBlackBST<String, Room> res = new RedBlackBST<>();
         ArrayList<Room> used = new ArrayList<>();
 
@@ -733,26 +734,27 @@ public class University {
         return res;
     }
 
-    /**
-     * Pesquisa de estudantes por Unidade Curricular
-     * @param cu
-     * @return
-     */
-    public SeparateChainingHashST<String, Teacher>  pesquisarCourseUnit(CourseUnit cu)
+
+    public RedBlackBST<String, Room> searchRoomByAttr(Integer capacity, boolean socket, Integer floor)
     {
-        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+        RedBlackBST<String, Room> rooms = new RedBlackBST<>();
 
-        for(String nome: cu.getClassesST().keys())
+        for(String numberRoom: this.getRoomST().keys())
         {
-            Class c = cu.getClassesST().get(nome);
-            Teacher t = c.getTeacher();
+            Room r = this.getRoomST().get(numberRoom);
 
-            if(!teachersST.contains(t.getEmail()))
+            if(r.getCapacity() == capacity && !rooms.contains(r.getNumberRoom()))
             {
-                teachersST.put(t.getEmail(), t);
+                if(r.isSocket() == socket && !rooms.contains(r.getNumberRoom()))
+                {
+                    if(r.getFloor()== floor && !rooms.contains(r.getNumberRoom()))
+                    {
+                        rooms.put(r.getNumberRoom(), r);
+                    }
+                }
             }
         }
-        return teachersST;
+        return rooms;
     }
 
     /**

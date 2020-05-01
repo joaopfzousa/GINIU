@@ -360,6 +360,27 @@ public class Teacher extends Person {
     return "Saved ScheduleAccompaniment on TXT";
   }
 
+
+  /**
+   * Procura todas as turmas de um professor
+   * @return todas as turmas do professor
+   */
+  public SeparateChainingHashST<String, Class> searchClassByTeacher()
+  {
+    SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+
+    for(String nome: this.getClassesST().keys())
+    {
+      Class c = this.getClassesST().get(nome);
+
+      if(!classesST.contains(c.getName()))
+      {
+        classesST.put(c.getName(), c);
+      }
+    }
+    return classesST;
+  }
+
   /**
    * Get's e set's
    */

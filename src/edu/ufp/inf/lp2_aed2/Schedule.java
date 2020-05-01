@@ -1,7 +1,5 @@
 package edu.ufp.inf.lp2_aed2;
 
-import edu.princeton.cs.algs4.SeparateChainingHashST;
-
 public abstract class Schedule {
   /**
    * Atributos
@@ -11,9 +9,6 @@ public abstract class Schedule {
   private Date finalDate;
 
   private Room room;
-
-  // Lista de Teacher do CourseUnit - chave é o id do Teacher(id Person)
-  private SeparateChainingHashST<Integer, Teacher> teachersST = new SeparateChainingHashST<>();
 
   /**
    * Construtor
@@ -65,13 +60,5 @@ public abstract class Schedule {
 
   public void setRoom(Room room) {
     this.room = room;
-  }
-
-  public SeparateChainingHashST<Integer, Teacher> getTeachersST() {
-    return teachersST;
-  }
-
-  public void setTeachersST(SeparateChainingHashST<Integer, Teacher> teachersST) {
-    this.teachersST = teachersST;
   }
 }
