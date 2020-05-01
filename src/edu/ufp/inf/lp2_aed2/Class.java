@@ -61,15 +61,7 @@ public class Class {
    * @return
    */
   public String toStringFileClass(){
-    return id + ";" + name + ";" + type + ";" + teacher + ";" + course + ";" ;
-  }
-
-  /**
-   * toStringFileStudentCourse é o toString para guardar o ficheiro
-   * @return
-   */
-  public String toStringFileStudentCourse(){
-    return getStudentsST() + ";" + course + ";" ;
+    return id + ";" + name + ";" + type + ";" + getTeacher().getEmail() + ";" + getCourse().getId() + ";" ;
   }
 
   //Metodos

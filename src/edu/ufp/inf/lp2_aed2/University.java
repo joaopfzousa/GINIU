@@ -23,6 +23,7 @@ public class University {
 
     // Lista de Classes do University - chave é o nome da Class
     private SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+    
 
     public University(String name) {
         this.name = name;
@@ -34,6 +35,8 @@ public class University {
                 "name='" + name + '\'' +
                 '}';
     }
+
+
 
     /**
      * Adicionar uma Room na ST

@@ -350,11 +350,14 @@ public class Teacher extends Person {
    * @param path
    * @return
    */
-  public String saveScheduleAccompaniment(String path){
+  public String saveScheduleAccompaniment(University u,String path){
     Out o = new Out(path);
-    for(Date stdate : scheduleAccompanimentsST.keys()){
-      ScheduleAccompaniment sa = scheduleAccompanimentsST.get(stdate);
-      o.println(sa.toStringFileScheduleAccompaniment());
+    for(String email: u.getTeachersST().keys()){
+      Teacher t = u.getTeachersST().get(email);
+      for(Date stdate : t.scheduleAccompanimentsST.keys()) {
+        ScheduleAccompaniment sa = t.scheduleAccompanimentsST.get(stdate);
+        o.println(sa.toStringFileScheduleAccompaniment());
+      }
     }
     return "Saved ScheduleAccompaniment on TXT";
   }

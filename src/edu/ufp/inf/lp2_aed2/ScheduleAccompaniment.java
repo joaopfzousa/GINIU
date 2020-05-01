@@ -34,7 +34,7 @@ public class ScheduleAccompaniment extends Schedule {
    * @return
    */
   public String toStringFileScheduleAccompaniment(){
-    return getStartDate() + ";" + getFinalDate() + ";" + getRoom() + ";" + teacher + ";" ;
+    return getStartDate().getDayOfWeekInt() + "/" + getStartDate().getHour() + "/" + getStartDate().getMinute()+ ";" + getFinalDate().getDayOfWeekInt() + "/" + getFinalDate().getHour() + "/" + getFinalDate().getMinute()+ ";" + getRoom().getNumberRoom() + ";" + getTeacher().getEmail()+ ";" ;
   }
 
   /**

@@ -176,9 +176,14 @@ public class Student extends Person {
    */
   public String saveStudentCourse(University u, String path){
     Out o = new Out(path);
-    for(String numberStudent : classesST.keys()){
-      Class cl = classesST.get(numberStudent);
-      o.println(cl.toStringFileStudentCourse());
+    for(Integer numberStudent : u.getStudentsST().keys()){
+      Student s = u.getStudentsST().get(numberStudent);
+      System.out.println(u.getStudentsST().get(numberStudent));
+      for(String name : s.getClassesST().keys()){
+        Class cl = s.classesST.get(name);
+        cl.getCourse().getId();
+        o.println(s.getNumberStudent() + ";" + cl.getId());
+      }
     }
     return "Saved StudentCourse on TXT";
   }

@@ -3,7 +3,7 @@ package edu.ufp.inf.lp2_aed2;
 public class Main {
     public static void main(String[] args) {
         //testCrudMain();
-        testeLoadMAin();
+        //testeLoadMAin();
         testSaveMain();
     }
 
@@ -294,11 +294,18 @@ public class Main {
         u.saveCourseUnit("./data/SaveCourseUnit");
 
         u.loadClass("./data/Class");
-        u.saveRoom("./data/SaveClass");
+        u.saveClass("./data/SaveClass");
 
         Class c = u.getClassesST().get("HBO");
         c.loadScheduleClass(u, "./data/ScheduleClass");
         c.saveScheduleClass(u,"./data/SaveScheduleClass");
 
+        Student s = u.getStudentsST().get(1);
+        s.loadStudentCourse(u, "./data/StudentCourse");
+        s.saveStudentCourse(u, "./data/SaveStudentCourse");
+
+        Teacher t = u.getTeachersST().get("pcosta@ufp.edu.pt");
+        t.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
+        t.saveScheduleAccompaniment(u, "./data/SaveTeacherScheduleAccompaniment");
     }
 }
