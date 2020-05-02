@@ -181,8 +181,8 @@ public class Student extends Person {
       System.out.println(u.getStudentsST().get(numberStudent));
       for(String name : s.getClassesST().keys()){
         Class cl = s.classesST.get(name);
-        cl.getCourse().getId();
-        o.println(s.getNumberStudent() + ";" + cl.getId());
+        Integer idCourse = cl.getCourse().getId();
+        o.println(s.getNumberStudent() + ";" + idCourse);
       }
     }
     return "Saved StudentCourse on TXT";

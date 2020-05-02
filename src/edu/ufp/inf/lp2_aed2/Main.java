@@ -305,6 +305,14 @@ public class Main {
         c.loadScheduleClass(u, "./data/ScheduleClass");
         c.saveScheduleClass(u,"./data/SaveScheduleClass");
 
+        Student s = u.getStudentsST().get(1);
+        s.loadStudentCourse(u, "./data/StudentCourse");
+        s.saveStudentCourse(u, "./data/SaveStudentCourse");
+
+        Teacher teacher = u.getTeachersST().get("pcosta@ufp.edu.pt");
+        teacher.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
+        teacher.saveScheduleAccompaniment(u, "./data/SaveTeacherScheduleAccompaniment");
+
         System.out.println("\n\n\n");
         System.out.println("------------------------------------------------------------");
         System.out.println("-----------------Search Room by Date -----------------------");
