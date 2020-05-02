@@ -474,6 +474,11 @@ public class Main {
                     System.out.println("Editado com Sucesso");
                     break;
                 case "5":
+                    if(u.getCourseUnitsST().size() <= 0)
+                    {
+                        System.out.println("Tem de adiocinar primeiro uma Turma");
+                        break;
+                    }
                     u.printAllCourseUnit();
                     Scanner cuMenuClass = new Scanner(System.in);
                     System.out.println("Selecione um id para o menu Turmas");
@@ -524,7 +529,7 @@ public class Main {
                     idAux += 1;
                     System.out.println("id = " + idAux);
 
-                    System.out.println("\t\t -----> Inserir Course Unit <-----\n");
+                    System.out.println("\t\t -----> Inserir Turma <-----\n");
                     System.out.println("Nome: ");
                     String name = cSc.nextLine();
                     System.out.println("Tipo (Noturno/Diurno): ");
@@ -581,6 +586,11 @@ public class Main {
                     System.out.println("Editado com Sucesso");
                     break;
                 case "5":
+                    if(u.getClassesST().size() <= 0)
+                    {
+                        System.out.println("Tem de adiocinar primeiro uma Turma");
+                        break;
+                    }
                     cu.printAllClass();
                     Scanner cMenuClass = new Scanner(System.in);
                     System.out.println("Selecione um nome para o Menu Horário Turmas");
@@ -599,7 +609,116 @@ public class Main {
 
     public static void menuHorarioTurmas(University u, CourseUnit cu, Class c)
     {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Horário(s) Turma <-----\n");
+            System.out.println(" [1] -> Listar Horário(s) Turma");
+            System.out.println(" [2] -> Criar Horário Turma");
+            System.out.println(" [3] -> Eliminar Horário Turma");
+            System.out.println(" [4] -> Editar Horário Turma");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    c.printAllScheduleClass();
+                    break;
+                case "2":
+                    Scanner chSc = new Scanner(System.in);
+                    System.out.println("\t\t -----> Inserir Horario Turma <-----\n");
 
+                    System.out.println("Inserir Data Inicial (Dia da semana/hora/minutos)");
+                    String stDate = chSc.nextLine();
+
+                    String[] split1 =  stDate.split("/");
+                    int stdayOfWeek = Integer.parseInt(split1[0]);
+                    int sthour = Integer.parseInt(split1[1]);
+                    int stmin = Integer.parseInt(split1[2]);
+                    Date startDate = new Date(sthour, stmin, stdayOfWeek);
+
+
+                    System.out.println("Inserir Data Final (Dia da semana/hora/minutos)");
+                    String flDate = chSc.nextLine();
+
+                    String[] split2 =  stDate.split("/");
+                    int fldayOfWeek = Integer.parseInt(split2[0]);
+                    int flhour = Integer.parseInt(split2[1]);
+                    int flmin = Integer.parseInt(split2[2]);
+                    Date finalDate = new Date(flhour, flmin, fldayOfWeek);
+
+                    cu.printAllClass();
+                    System.out.println("Selecione um turma pelo nome");
+                    String nome = chSc.nextLine();
+
+                    while(cu.validClass(nome))
+                    {
+                        System.out.println("O nome da turma não existe!");
+                        System.out.println("Selecione um turma pelo nome");
+                        nome = chSc.nextLine();
+                    }
+
+                    Class cA = cu.getClassesST().get(nome);
+
+                    u.printAllRoom();
+                    System.out.println("Selecione um sala pelo numberRoom");
+                    String nRoom = chSc.nextLine();
+
+                    while(u.validRoom(nRoom))
+                    {
+                        System.out.println("O numberRoom da Sala não existe!");
+                        System.out.println("Selecione um sala pelo numberRoom");
+                        nRoom = chSc.nextLine();
+                    }
+
+                    Room rA = u.getRoomST().get(nRoom);
+
+                    ScheduleClass sc = new ScheduleClass(startDate, finalDate, rA, cA);
+
+                    c.addScheduleClass(sc);
+                    break;
+                case "3":
+                    c.printAllScheduleClass();
+                    Scanner saScApagar = new Scanner(System.in);
+                    System.out.println("Selecione uma Data Inicial (Dia da semana/hora/minutos) para APAGAR da ST");
+                    String stDateElim = saScApagar.nextLine();
+
+                    String[] split3 =  stDateElim.split("/");
+                    int stdayOfWeekElim = Integer.parseInt(split3[0]);
+                    int sthourElim = Integer.parseInt(split3[1]);
+                    int stminElim = Integer.parseInt(split3[2]);
+                    Date startDateElim = new Date(sthourElim, stminElim, stdayOfWeekElim);
+
+                    ScheduleClass scApagar = c.removeScheduleClass(startDateElim);
+
+                    if(scApagar != null)
+                    {
+                        System.out.println("O Horario da class com a Data Inicial " + scApagar.getStartDate() + " foi Apagado!");
+                    }
+
+                    break;
+                case "4":
+                    c.printAllScheduleClass();
+                    Scanner saScEdit = new Scanner(System.in);
+                    System.out.println("Selecione uma Data Inicial (Dia da semana/hora/minutos) para APAGAR da ST");
+                    String stDateEdit = saScEdit.nextLine();
+
+                    String[] split4 =  stDateEdit.split("/");
+                    int stdayOfWeekEdit = Integer.parseInt(split4[0]);
+                    int sthourEdit = Integer.parseInt(split4[1]);
+                    int stminEdit = Integer.parseInt(split4[2]);
+                    Date startDateEdit = new Date(sthourEdit, stminEdit, stdayOfWeekEdit);
+
+                    c.editScheduleClass(u, startDateEdit);
+                    System.out.println("Editado com sucesso!");
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
     }
 
     public static void testSaveMain (){

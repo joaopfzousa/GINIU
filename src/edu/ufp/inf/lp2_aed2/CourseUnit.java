@@ -99,24 +99,18 @@ public class CourseUnit {
       String op;
       do {
         System.out.println("\t\t -----> Editar CourseUnit <-----\n");
-        System.out.println(" [1] -> Alterar Nome");
-        System.out.println(" [2] -> Alterar type");
-        System.out.println(" [3] -> Alterar Professor");
+        System.out.println(" [1] -> Alterar type");
+        System.out.println(" [2] -> Alterar Professor");
         System.out.println(" [V] -> SAIR\n");
         System.out.println("OP: ");
         op = sca.nextLine();
         switch (op) {
           case "1":
-            System.out.println("Nome: ");
-            String nome = sca.nextLine();
-            c.setName(nome);
-            break;
-          case "2":
             System.out.println("Type (Noturno/Diurno): ");
             String type = sca.nextLine();
             c.setType(type);
             break;
-          case "3":
+          case "2":
             u.printAllTeacher();
 
             System.out.println("Escolha o email do Professor: ");

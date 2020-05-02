@@ -5,6 +5,8 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.util.Scanner;
+
 public class Class {
   /**
    * Atributos
@@ -192,10 +194,9 @@ public class Class {
   /**
    * Remover uma ScheduleClass da ST
    * @param startDate
-   * @param c
    * @return ScheduleClass eliminada
    */
-  public ScheduleClass removeScheduleClass(Date startDate, Class c)
+  public ScheduleClass removeScheduleClass(Date startDate)
   {
     if(this.scheduleClassesST.contains(startDate))
     {
@@ -204,11 +205,9 @@ public class Class {
         ScheduleClass sc = this.scheduleClassesST.get(stdate);
         Class cla = sc.getClasse();
 
-        if(cla.getName().equals(c.getName()))
-        {
-          this.scheduleClassesST.delete(startDate);
-          return sc;
-        }
+        this.scheduleClassesST.delete(startDate);
+        return sc;
+
       }
     }
 
@@ -219,22 +218,50 @@ public class Class {
   /**
    * Editar a ScheduleClass
    * @param startDate
-   * @param c
    * @return ScheduleClass editada
    */
-  public ScheduleClass editScheduleClass(Date startDate, Class c)
+  public ScheduleClass editScheduleClass(University u, Date startDate)
   {
-    ScheduleClass sc = searchScheduleClass(startDate,c);
+    ScheduleClass sc = searchScheduleClass(startDate);
     if (sc != null)
     {
-      Class cla = sc.getClasse();
+      Scanner sca = new Scanner(System.in);
+      String op;
+      do {
+        System.out.println("\t\t -----> Editar ScheduleClass <-----\n");
+        System.out.println(" [1] -> Alterar Data Final");
+        System.out.println(" [2] -> Alterar Sala");
+        System.out.println(" [V] -> SAIR\n");
+        System.out.println("OP: ");
+        op = sca.nextLine();
+        switch (op) {
+          case "1":
+            System.out.println("Alterar Data Final (Dia da semana/hora/minutos): ");
+            String data = sca.nextLine();
 
-      if(cla.getName().equals(c.getName()))
-      {
-        Date d = new Date(16, 00, 2);
-        sc.setFinalDate(d);
-        return sc;
-      }
+            String[] split =  data.split("/");
+            int dayOfWeek = Integer.parseInt(split[0]);
+            int hour = Integer.parseInt(split[1]);
+            int min = Integer.parseInt(split[2]);
+            Date finalDate = new Date(hour, min, dayOfWeek);
+            sc.setFinalDate(finalDate);
+            break;
+          case "2":
+            u.printAllClass();
+            System.out.println("Escolha um nome: ");
+            String nome = sca.nextLine();
+            Class c = u.getClassesST().get(nome);
+            sc.setClasse(c);
+            break;
+          case "v":
+          case "V":
+            break;
+          default:
+            System.out.println("Opcao Errada!!!\n");
+        }
+      } while (!"v".equals(op) && !"V".equals(op));
+
+      return sc;
     }
     System.out.println("Class - editScheduleClass(): ScheduleClass not exists!!!");
     return null;
@@ -243,22 +270,17 @@ public class Class {
   /**
    * Procurar uma determinada ScheduleClass
    * @param startDate
-   * @param c
    * @return ScheduleClass encontrada
    */
-  public ScheduleClass searchScheduleClass(Date startDate, Class c)
+  public ScheduleClass searchScheduleClass(Date startDate)
   {
     if(this.scheduleClassesST.contains(startDate))
     {
       for(Date stdate: this.scheduleClassesST.keys())
       {
         ScheduleClass scheduleClass = this.scheduleClassesST.get(stdate);
-        Class classe = scheduleClass.getClasse();
 
-        if(classe.getName().equals(c.getName()))
-        {
-          return scheduleClass;
-        }
+        return scheduleClass;
       }
     }
 

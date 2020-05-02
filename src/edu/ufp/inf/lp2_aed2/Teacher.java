@@ -223,7 +223,6 @@ public class Teacher extends Person {
       for (Date stdate : this.scheduleAccompanimentsST.keys())
       {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
-        Teacher t = scheduleAccompaniment.getTeacher();
 
         Scanner sca = new Scanner(System.in);
         String op;
