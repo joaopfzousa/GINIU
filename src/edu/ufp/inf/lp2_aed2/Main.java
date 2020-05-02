@@ -36,7 +36,7 @@ public class Main {
                     menuCourseUnit(u);
                     break;
                 case "5":
-
+                    menuPesquisas(u);
                     break;
                 case "6":
                     menuGestaoFiles(u);
@@ -721,90 +721,120 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void testSaveMain (){
+    public static void menuPesquisas(University u)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Gestão de Informação e Navegação Indoor numa Universidade <-----\n");
+            System.out.println(" [1] -> Todas as salas livres num determinado horário");
+            System.out.println(" [2] -> Todos os professores de uma unidade curricular");
+            System.out.println(" [3] -> Todas as turmas de um professor");
+            System.out.println(" [4] -> Todos os horários disponíveis para marcação de atendimento ");
+            System.out.println(" [5] -> A ocupação de uma sala entre datas");
+            System.out.println(" [6] -> Pesquisas de salas por diferentes critérios (ocupação, número de tomadas, piso)");
+            System.out.println(" [7] -> now()");
+            System.out.println(" [S] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    System.out.println(" [1] -> Todas as salas livres num determinado horário");
 
-        University u = new University("UFP");
+                    System.out.println("Inserir Data Inicial (Dia da semana/hora/minutos)");
+                    String stDate = sca.nextLine();
 
-        u.loadTeacher("./data/Teacher");
-        u.saveTeacher("./data/SaveTeacher");
+                    String[] split1 =  stDate.split("/");
+                    int stdayOfWeek = Integer.parseInt(split1[0]);
+                    int sthour = Integer.parseInt(split1[1]);
+                    int stmin = Integer.parseInt(split1[2]);
+                    Date startDate = new Date(sthour, stmin, stdayOfWeek);
 
-        u.loadStudent("./data/Student");
-        u.saveStudent("./data/SaveStudent");
+                    RedBlackBST<String, Room> rooms = new RedBlackBST<>();
+                    rooms = u.searchRoomByDate(startDate);
 
-        u.loadRoom("./data/Room");
-        u.saveRoom("./data/SaveRoom");
+                    System.out.println("As salas livres neste horário " + startDate + " são:");
+                    for (String numberRoom : rooms.keys()) {
+                        Room r = rooms.get(numberRoom);
+                        System.out.println(r);
+                    }
 
-        u.loadCourseUnit("./data/CourseUnit");
-        u.saveCourseUnit("./data/SaveCourseUnit");
+                    break;
+                case "2":
+                    System.out.println(" [2] -> Todos os professores de uma unidade curricular");
 
-        u.loadClass("./data/Class");
-        u.saveRoom("./data/SaveClass");
+                    u.printAllCourseUnit();
 
-        Class c = u.getClassesST().get("HBO");
-        c.loadScheduleClass(u, "./data/ScheduleClass");
-        c.saveScheduleClass(u,"./data/SaveScheduleClass");
+                    System.out.println("Inserir o id do Course Unit");
+                    Integer id = Integer.parseInt(sca.nextLine());
 
-        Student s = u.getStudentsST().get(1);
-        s.loadStudentCourse(u, "./data/StudentCourse");
-        s.saveStudentCourse(u, "./data/SaveStudentCourse");
+                    CourseUnit cu = u.getCourseUnitsST().get(id);
+                    SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+                    teachersST = cu.searchTeacherbyCourseUnit();
 
-        Teacher teacher = u.getTeachersST().get("pcosta@ufp.edu.pt");
-        teacher.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
-        teacher.saveScheduleAccompaniment(u, "./data/SaveTeacherScheduleAccompaniment");
+                    for (String email : teachersST.keys()) {
+                        Teacher t = teachersST.get(email);
+                        System.out.println(t);
+                    }
+                    break;
+                case "3":
+                    System.out.println(" [3] -> Todas as turmas de um professor");
 
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("-----------------Search Room by Date -----------------------");
-        System.out.println("------------------------------------------------------------");
+                    u.printAllTeacher();
 
-        RedBlackBST<String, Room> rooms = new RedBlackBST<>();
-        rooms = u.searchRoomByDate(new Date(8,00, 2));
+                    System.out.println("Inserir o email do Professor");
+                    String emailT = sca.nextLine();
 
-        for (String numberRoom : rooms.keys()) {
-            Room r = rooms.get(numberRoom);
-            System.out.println(r);
-        }
+                    Teacher t = u.getTeachersST().get(emailT);
+                    SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+                    classesST = t.searchClassByTeacher();
 
+                    for (String nome : classesST.keys()) {
+                        Class clas = classesST.get(nome);
+                        System.out.println(clas);
+                    }
+                    break;
+                case "4":
+                    System.out.println(" [4] -> Todos os horários disponíveis para marcação de atendimento ");
 
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("-------------Search Teacher by CourseUnit-------------------");
-        System.out.println("------------------------------------------------------------");
+                    menuCourseUnit(u);
+                    break;
+                case "5":
+                    System.out.println(" [5] -> A ocupação de uma sala entre datas");
 
-        CourseUnit cu = u.getCourseUnitsST().get(8);
-        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
-        teachersST = cu.searchTeacherbyCourseUnit();
+                    menuPesquisas(u);
+                    break;
+                case "6":
+                    System.out.println(" [6] -> Pesquisas de salas por diferentes critérios (ocupação, número de tomadas, piso)");
 
-        for (String email : teachersST.keys()) {
-            Teacher t = teachersST.get(email);
-            System.out.println(t);
-        }
+                    System.out.println("Inserir o capacidade da Sala:");
+                    Integer capacity = Integer.parseInt(sca.nextLine());
 
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("--------------Search Class by Teacher-----------------------");
-        System.out.println("------------------------------------------------------------");
+                    System.out.println("Inserir o andar da Sala:");
+                    Integer floor = Integer.parseInt(sca.nextLine());
 
-        Teacher t = u.getTeachersST().get("mpinheiro@ufp.edu.pt");
-        SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
-        classesST = t.searchClassByTeacher();
+                    System.out.println("Inserir sem tem tomadas ou nao (true ou false) da Sala: ");
+                    Boolean socket = Boolean.parseBoolean(sca.nextLine());
 
-        for (String nome : classesST.keys()) {
-            Class clas = classesST.get(nome);
-            System.out.println(clas);
-        }
+                    RedBlackBST<String, Room> roomsAttr = new RedBlackBST<>();
+                    roomsAttr = u.searchRoomByAttr(capacity, socket, floor);
 
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("-----------------Search Room by Attr------------------------");
-        System.out.println("------------------------------------------------------------");
+                    System.out.println("As salas com os critérios -> capacidade: "+ capacity + " andar: "+ floor + " tomadas: "+ socket);
+                    for (String numberRoom : roomsAttr.keys()) {
+                        Room r = roomsAttr.get(numberRoom);
+                        System.out.println(r);
+                    }
+                    break;
+                case "7":
+                    System.out.println(" [7] -> now()");
 
-        RedBlackBST<String, Room> roomsAttr = new RedBlackBST<>();
-        roomsAttr = u.searchRoomByAttr(50, false, 2);
-
-        for (String numberRoom : roomsAttr.keys()) {
-            Room r = roomsAttr.get(numberRoom);
-            System.out.println(r);
-        }
+                    break;
+                case "s":
+                case "S":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"s".equals(op) && !"S".equals(op));
     }
 }
