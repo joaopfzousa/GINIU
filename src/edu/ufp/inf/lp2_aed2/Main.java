@@ -3,282 +3,602 @@ package edu.ufp.inf.lp2_aed2;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        //testCrudMain();
-        testeLoadMAin();
-        testSaveMain();
+    public static void main(String[] args) throws IOException {
+        University u = new University("UFP");
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Gestão de Informação e Navegação Indoor numa Universidade <-----\n");
+            System.out.println(" [1] -> Salas");
+            System.out.println(" [2] -> Professores");
+            System.out.println(" [3] -> Estudantes");
+            System.out.println(" [4] -> Unidades Curriculares");
+            System.out.println(" [5] -> Pesquisas");
+            System.out.println(" [6] -> Gestão de Fichieros");
+            System.out.println(" [S] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    menuSalas(u);
+                    break;
+                case "2":
+                    menuProfessores(u);
+                    break;
+                case "3":
+                    menuEstudantes(u);
+                    break;
+                case "4":
+                    menuCourseUnit(u);
+                    break;
+                case "5":
+
+                    break;
+                case "6":
+                    menuGestaoFiles(u);
+                    break;
+                case "s":
+                case "S":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"s".equals(op) && !"S".equals(op));
     }
 
-    public static void testCrudMain ()
+    public static void menuGestaoFiles(University u)
     {
-        University u = new University("UFP");
-
-        Teacher t = new Teacher(1, "Beatriz", "beatriz@teste.com");
-        Teacher t2 = new Teacher(3, "André", "andre@teste.com");
-        Teacher t3 = new Teacher(2, "Rui Moreira", "rui@teste.com");
-
-        Student s = new Student(2, "Joao", "joao@teste.com", 33814, "Diurno");
-        Student s2 = new Student(4, "Emanuel", "emanuel@teste.com", 28051, "Noturno");
-        Student s3 = new Student(5, "Chico da Tina", "ctina@teste.com", 69, "Noturno");
-        Student s4 = new Student(6,"Filipe", "filipe@teste.com", 2586, "Diurno");
-
-        CourseUnit cu1 = new CourseUnit(1, "LP2", 7);
-        CourseUnit cu2 = new CourseUnit(2, "AED2", 7);
-        CourseUnit cu3 = new CourseUnit(3, "LP1", 7);
-
-
-        Class c = new Class(1,"ASD", "Diurno", t,cu1);
-        Class c2 = new Class(2, "AQW", "Noturno", t, cu1);
-        Class c3 = new Class(3, "FGH", "Diurno", t2, cu1);
-
-        Date d = new Date(11, 00, 2);
-        Date d2 = new Date(13, 00, 2);
-        Date d3 = new Date(18, 00,3);
-        Date d4 = new Date(20, 00, 3);
-        Date d5 = new Date(18, 00,4);
-        Date d6 = new Date(20, 00, 4);
-
-
-        Room r = new Room(1,1,"101",true,100);
-        Room r2 = new Room(2,1,"102", false, 200);
-        Room r3 = new Room(3,1,"103", false, 200);
-        Room r4 = new Room(4,1,"110",true,5);
-
-        ScheduleClass sc = new ScheduleClass(d, d2, r, c);
-        ScheduleClass sc2 = new ScheduleClass(d3, d4,r2,c2);
-        ScheduleClass sc3 = new ScheduleClass(d5, d6,r3,c3);
-
-        ScheduleAccompaniment sa = new ScheduleAccompaniment(d5, d6, r4, t3);
-        ScheduleAccompaniment sa2 = new ScheduleAccompaniment(d3, d4, r4, t);
-
-        System.out.println("------------------------------------------------------");
-        System.out.println("---------------------Course Unit----------------------");
-        System.out.println("------------------------------------------------------");
-
-        t.addCourseUnit(cu1);
-        t.addCourseUnit(cu2);
-        t.addCourseUnit(cu3);
-
-        System.out.println("Primeiro print\n");
-        t.printAllCourseUnit();
-
-        System.out.println("\nRemovido: " + t.removeCourseUnit(2));
-
-        System.out.println("\nSegundo print");
-        t.printAllCourseUnit();
-
-        System.out.println("\nFind: " + t.searchCourseUnit(1));
-
-        t.editCourseUnit(1);
-
-        System.out.println("\nDepois de alterar: " + t.searchCourseUnit(1));
-
-        System.out.println("\nTerceiro print");
-        t.printAllCourseUnit();
-
-
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------");
-        System.out.println("-------------------------Class------------------------");
-        System.out.println("------------------------------------------------------");
-
-        cu1.addClass(c);
-        cu1.addClass(c2);
-        cu1.addClass(c3);
-
-        System.out.println("Primeiro print\n");
-        cu1.printAllClass();
-
-        System.out.println("\nRemovido: " + cu1.removeClass("AQW"));
-
-        System.out.println("\nSegundo print");
-        cu1.printAllClass();
-
-        System.out.println("\nFind: " + cu1.searchClass("ASD"));
-
-        cu1.editClass("ASD");
-
-        System.out.println("\nDepois de alterar: " + cu1.searchClass("ASD"));
-
-        System.out.println("\nTerceiro print");
-        cu1.printAllClass();
-
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------");
-        System.out.println("------------------------STUDENT-----------------------");
-        System.out.println("------------------------------------------------------");
-
-        c.addStudent(s);
-        c.addStudent(s2);
-        c.addStudent(s3);
-        c.addStudent(s4);
-
-
-        System.out.println("Primeiro print\n");
-        c.printAllStudent();
-
-        System.out.println("\nRemovido: " +  c.removeStudent(28051));
-
-        System.out.println("\nSegundo print");
-        c.printAllStudent();
-
-        System.out.println("\nFind: " + c.searchStudent(33814));
-
-        c.editStudent(33814);
-
-        System.out.println("\nDepois de alterar: " + c.searchStudent(33814));
-
-        System.out.println("\nTerceiro print");
-        c.printAllStudent();
-
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------");
-        System.out.println("------------------------TEACHER-----------------------");
-        System.out.println("------------------------------------------------------");
-
-        u.addTeacher(t);
-        u.addTeacher(t2);
-        u.addTeacher( t3);
-
-        System.out.println("Primeiro print\n");
-        u.printAllTeacher();
-
-        System.out.println("\nRemovido: " +  u.removeTeacher("andre@teste.com"));
-
-        System.out.println("\nSegundo print");
-        u.printAllTeacher();
-
-        System.out.println("\nFind: " + u.searchTeacher("rui@teste.com"));
-
-        u.editTeacher("rui@teste.com");
-
-        System.out.println("\nDepois de alterar: " + u.searchTeacher("rui@teste.com"));
-
-        System.out.println("\nTerceiro print");
-        u.printAllTeacher();
-
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("------------------------SCHEDULE CLASS----------------------");
-        System.out.println("------------------------------------------------------------");
-
-        c.addScheduleClass(sc);
-        c.addScheduleClass(sc2);
-        c.addScheduleClass(sc3);
-
-        System.out.println("Primeiro print\n");
-        c.printAllScheduleClass();
-
-        System.out.println("\nRemovido: " +  c.removeScheduleClass(d3, c2));
-
-        System.out.println("\nSegundo print");
-        c.printAllScheduleClass();
-
-        System.out.println("\nFind: " + c.searchScheduleClass(d5, c3));
-
-        c.editScheduleClass(d5,c3);
-
-        System.out.println("\nDepois de alterar: " + c.searchScheduleClass(d5, c3));
-
-        System.out.println("\nTerceiro print");
-        c.printAllScheduleClass();
-
-        System.out.println("\n\n\n");
-        System.out.println("------------------------------------------------------------");
-        System.out.println("-----------------SCHEDULE ACCPOMPANIMENT--------------------");
-        System.out.println("------------------------------------------------------------");
-
-        t.addScheduleAccompaniment(sa);
-        t.addScheduleAccompaniment(sa2);
-
-        System.out.println("Primeiro print\n");
-        t.printAllScheduleAccompaniment();
-
-        System.out.println("\nRemovido: " +  t.removeScheduleAccompaniment(t, d3));
-
-        System.out.println("\nSegundo print");
-        t.printAllScheduleAccompaniment();
-
-        System.out.println("\nFind: " + t.searchScheduleAccompaniment(t3, d5));
-
-        t.editScheduleAccompaniment(t3,d5);
-
-        System.out.println("\nDepois de alterar: " + t.searchScheduleAccompaniment(t3, d5));
-
-        System.out.println("\nTerceiro print");
-        t.printAllScheduleAccompaniment();
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Gestão de Ficheiros <-----\n");
+            System.out.println(" [1] -> Carregar Ficheiros");
+            System.out.println(" [2] -> Guardar em Ficheiros ");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    u.loadTeacher("./data/Teacher");
+                    u.loadStudent("./data/Student");
+                    u.loadRoom("./data/Room");
+                    u.loadCourseUnit("./data/CourseUnit");
+                    u.loadClass("./data/Class");
+                    Class.loadScheduleClass(u, "./data/ScheduleClass");
+                    Student.loadStudentCourse(u, "./data/StudentCourse");
+                    Teacher.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
+                    System.out.println("Os ficheiros foram todos carregados!");
+                    break;
+                case "2":
+                    u.saveTeacher("./data/SaveTeacher");
+                    u.saveStudent("./data/SaveStudent");
+                    u.saveRoom("./data/SaveRoom");
+                    u.saveCourseUnit("./data/SaveCourseUnit");
+                    u.saveClass("./data/SaveClass");
+                    Class.saveScheduleClass(u,"./data/SaveScheduleClass");
+                    Student.saveStudentCourse(u, "./data/SaveStudentCourse");
+                    Teacher.saveScheduleAccompaniment(u, "./data/SaveTeacherScheduleAccompaniment");
+                    System.out.println("Todos os dados foram guardados nos seus respetivos ficheiros!");
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void testeLoadMAin ()
+    public static void menuSalas(University u)
     {
-        University u = new University("UFP");
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Salas <-----\n");
+            System.out.println(" [1] -> Listar Salas");
+            System.out.println(" [2] -> Criar Sala");
+            System.out.println(" [3] -> Eliminar Sala");
+            System.out.println(" [4] -> Editar Sala");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    u.printAllRoom();
+                    break;
+                case "2":
+                    Scanner roomSc = new Scanner(System.in);
+                    int idAux = 0;
 
-        u.loadTeacher("./data/Teacher");
-        //u.printAllTeacher();
-        //System.out.println("\n\n");
+                    for(String numberRoom: u.getRoomST().keys())
+                    {
+                        Room r = u.getRoomST().get(numberRoom);
+                        if(r.getId() > idAux)
+                        {
+                            idAux = r.getId();
+                        }
+                    }
+                    idAux += 1;
+                    System.out.println("id = " + idAux);
+                    System.out.println("\t\t -----> Inserir Sala <-----\n");
+                    System.out.println("Andar: ");
+                    Integer floor = Integer.parseInt(roomSc.nextLine());
+                    System.out.println("Nº Sala: ");
+                    String numberRoom = roomSc.nextLine();
+                    System.out.println("Tomadas(true/false): ");
+                    Boolean socket = Boolean.parseBoolean(roomSc.nextLine());
+                    System.out.println("Capacidade: ");
+                    Integer capacity = Integer.parseInt(roomSc.nextLine());
 
-        u.loadStudent("./data/Student");
-        //u.printAllStudent();
-        //System.out.println("\n\n");
+                    Room r = new Room(idAux,floor,numberRoom,socket,capacity);
+                    u.addRoom(r);
+                    break;
+                case "3":
+                    u.printAllRoom();
+                    Scanner roomScApagar = new Scanner(System.in);
+                    System.out.println("Selecione um numberRoom para APAGAR da ST");
+                    String nRoom = roomScApagar.nextLine();
+                    Room rApagar = u.removeRoom(nRoom);
 
-        u.loadRoom("./data/Room");
-        //u.printAllRoom();
-        //System.out.println("\n\n");
+                    if(rApagar != null)
+                    {
+                        System.out.println("A sala " + rApagar.getNumberRoom() + " foi Apagada!");
+                    }
+                    break;
+                case "4":
+                    u.printAllRoom();
+                    Scanner roomScEdit = new Scanner(System.in);
+                    System.out.println("Selecione um numberRoom para EDITAR");
+                    String numRoom = roomScEdit.nextLine();
+                    u.editRoom(numRoom);
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
+    }
 
-        u.loadCourseUnit("./data/CourseUnit");
-        //u.printAllCourseUnit();
-        //System.out.println("\n\n");
+    public static void menuProfessores(University u)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Professores <-----\n");
+            System.out.println(" [1] -> Listar Professores");
+            System.out.println(" [2] -> Criar Professor");
+            System.out.println(" [3] -> Eliminar Professor");
+            System.out.println(" [4] -> Editar Professor");
+            System.out.println(" [5] -> Horários de atendimento");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    u.printAllTeacher();
+                    break;
+                case "2":
+                    Scanner roomSc = new Scanner(System.in);
+                    int idAux = 0;
 
-        u.loadClass("./data/Class");
-        //u.printAllClass();
-        //System.out.println("\n\n");
+                    for(String email: u.getTeachersST().keys())
+                    {
+                        Teacher t = u.getTeachersST().get(email);
+                        if(t.getId() > idAux)
+                        {
+                            idAux = t.getId();
+                        }
+                    }
+                    idAux += 1;
+                    System.out.println("id = " + idAux);
+                    System.out.println("\t\t -----> Inserir Professor <-----\n");
 
-        CourseUnit cu = u.getCourseUnitsST().get(9);
-        //cu.printAllClass();
+                    System.out.println("Nome: ");
+                    String name = roomSc.nextLine();
+                    System.out.println("Email: ");
+                    String email = roomSc.nextLine();
 
-        Class c = u.getClassesST().get("HBO");
-        //System.out.println("\n\n");
-        //System.out.println(c);
+                    Teacher t = new Teacher(idAux, name, email);
+                    u.addTeacher(t);
+                    break;
+                case "3":
+                    u.printAllTeacher();
+                    Scanner teacherScApagar = new Scanner(System.in);
+                    System.out.println("Selecione um email para APAGAR da ST");
+                    String emailT = teacherScApagar.nextLine();
+                    Teacher tApagar = u.removeTeacher(emailT);
 
-        c.loadScheduleClass(u, "./data/ScheduleClass");
-        //System.out.println("\n\n");
+                    if(tApagar != null)
+                    {
+                        System.out.println("O Professor com o email " + tApagar.getEmail() + " foi Apagado!");
+                    }
+                    break;
+                case "4":
+                    u.printAllTeacher();
+                    Scanner teacherScEdit = new Scanner(System.in);
+                    System.out.println("Selecione um email para EDITAR da ST");
+                    String emailTe = teacherScEdit.nextLine();
+                    u.editTeacher(emailTe);
+                    break;
+                case "5":
+                    u.printAllTeacher();
+                    Scanner teacherScAtend = new Scanner(System.in);
+                    System.out.println("Selecione um Professor para ver o Menu de Horários de Atendimento");
+                    String emailTeacher = teacherScAtend.nextLine();
+                    Teacher tea = u.getTeachersST().get(emailTeacher);
+                    menuHorarioAtendimento(u, tea);
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
+    }
 
-        //c.printAllScheduleClass();
+    public static void menuHorarioAtendimento(University u, Teacher t)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Horário de Atendimento <-----\n");
+            System.out.println(" [1] -> Listar Horários de Atendimento");
+            System.out.println(" [2] -> Criar  Horário de Atendimento ");
+            System.out.println(" [3] -> Eliminar Horário de Atendimento ");
+            System.out.println(" [4] -> Editar  Horário de Atendimento");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    t.printAllScheduleAccompaniment();
+                    break;
+                case "2":
+                    Scanner teacherSc = new Scanner(System.in);
+                    System.out.println("\t\t -----> Inserir Horários de Atendimento <-----\n");
+                    System.out.println("Inserir Data Inicial (Dia da semana/hora/minutos)");
+                    String stDate = teacherSc.nextLine();
 
-        Class cc = u.getClassesST().get("BGE");
+                    String[] split1 =  stDate.split("/");
+                    int stdayOfWeek = Integer.parseInt(split1[0]);
+                    int sthour = Integer.parseInt(split1[1]);
+                    int stmin = Integer.parseInt(split1[2]);
+                    Date startDate = new Date(sthour, stmin, stdayOfWeek);
 
-        //System.out.println();
-        //System.out.println(cc);
-        //cc.printAllScheduleClass();
 
-        Student s = u.getStudentsST().get(1);
-        //System.out.println("\n\n");
-        //System.out.println(s);
+                    System.out.println("Inserir Data Final (Dia da semana/hora/minutos)");
+                    String flDate = teacherSc.nextLine();
 
-        s.loadStudentCourse(u, "./data/StudentCourse");
-        //System.out.println("\n\n");
+                    String[] split2 =  stDate.split("/");
+                    int fldayOfWeek = Integer.parseInt(split2[0]);
+                    int flhour = Integer.parseInt(split2[1]);
+                    int flmin = Integer.parseInt(split2[2]);
+                    Date finalDate = new Date(flhour, flmin, fldayOfWeek);
 
-        Student ss = u.getStudentsST().get(2);
-        //System.out.println("\n\n");
-        //System.out.println(ss);
+                    u.printAllRoom();
+                    System.out.println("Selecionar uma Sala pelo numberRoom");
+                    String numberRoom = teacherSc.nextLine();
 
-        Teacher t = u.getTeachersST().get("afonseca@ufp.edu.pt");
-        //System.out.println("\n\n");
-        //System.out.println(t);
+                    Room r = u.getRoomST().get(numberRoom);
 
-        t.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
-        //System.out.println("\n\n");
+                    ScheduleAccompaniment sa = new ScheduleAccompaniment(startDate, finalDate, r, t);
 
-        //t.printAllScheduleAccompaniment();
+                    t.addScheduleAccompaniment(sa);
+                    break;
+                case "3":
+                    t.printAllScheduleAccompaniment();
+                    Scanner saScApagar = new Scanner(System.in);
+                    System.out.println("Selecione uma Data Inicial (Dia da semana/hora/minutos) para APAGAR da ST");
+                    String stDateElim = saScApagar.nextLine();
 
-        Teacher tt = u.getTeachersST().get("pcosta@ufp.edu.pt");
-        //System.out.println("\n\n");
-        //System.out.println(tt);
+                    String[] split3 =  stDateElim.split("/");
+                    int stdayOfWeekElim = Integer.parseInt(split3[0]);
+                    int sthourElim = Integer.parseInt(split3[1]);
+                    int stminElim = Integer.parseInt(split3[2]);
+                    Date startDateElim = new Date(sthourElim, stminElim, stdayOfWeekElim);
 
-        //tt.printAllScheduleAccompaniment();
+                    ScheduleAccompaniment saApagar = t.removeScheduleAccompaniment(startDateElim);
+
+                    if(saApagar != null)
+                    {
+                        System.out.println("A ScheduleAccompaniment com a Data inicioal " + saApagar.getStartDate() + " foi Apagada!");
+                    }
+                    break;
+                case "4":
+                    t.printAllScheduleAccompaniment();
+                    Scanner saScEdit = new Scanner(System.in);
+                    System.out.println("Selecione uma Data Inicial (Dia da semana/hora/minutos) para APAGAR da ST");
+                    String stDateEdit = saScEdit.nextLine();
+
+                    String[] split4 =  stDateEdit.split("/");
+                    int stdayOfWeekEdit = Integer.parseInt(split4[0]);
+                    int sthourEdit = Integer.parseInt(split4[1]);
+                    int stminEdit = Integer.parseInt(split4[2]);
+                    Date startDateEdit = new Date(sthourEdit, stminEdit, stdayOfWeekEdit);
+
+                    t.editScheduleAccompaniment(u, startDateEdit);
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
+    }
+
+    public static void menuEstudantes(University u)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Estudantes <-----\n");
+            System.out.println(" [1] -> Listar Estudantes");
+            System.out.println(" [2] -> Criar Estudante");
+            System.out.println(" [3] -> Eliminar Estudante");
+            System.out.println(" [4] -> Editar Estudante");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    u.printAllStudent();
+                    break;
+                case "2":
+                    Scanner studentSc = new Scanner(System.in);
+                    int idAux = 0;
+
+                    for(Integer id: u.getStudentsST().keys())
+                    {
+                        Student s = u.getStudentsST().get(id);
+
+                        if(s.getId() > idAux)
+                        {
+                            idAux = s.getId();
+                        }
+                    }
+                    idAux += 1;
+                    System.out.println("id = " + idAux);
+
+                    System.out.println("\t\t -----> Inserir Estudante <-----\n");
+                    System.out.println("Nome: ");
+                    String name = studentSc.nextLine();
+                    System.out.println("Email: ");
+                    String email = studentSc.nextLine();
+                    System.out.println("Nº Estudante: ");
+                    Integer numberStudent = Integer.parseInt(studentSc.nextLine());
+                    System.out.println("Tipo(Noturno/Diurno)");
+                    String type = studentSc.nextLine();
+
+                    Student s = new Student(idAux, name, email, numberStudent, type);
+                    u.addStudent(s);
+                    break;
+                case "3":
+                    u.printAllStudent();
+                    Scanner studentScApagar = new Scanner(System.in);
+                    System.out.println("Selecione um numberStudent para APAGAR da ST");
+                    Integer nStudent = Integer.parseInt(studentScApagar.nextLine());
+                    Student sApagar = u.removeStudent(nStudent);
+
+                    if(sApagar != null)
+                    {
+                        System.out.println("O Estudante com o Nº " + sApagar.getNumberStudent() + " foi Apagado!");
+                    }
+                    break;
+                case "4":
+                    u.printAllStudent();
+                    Scanner studentScEdit = new Scanner(System.in);
+                    System.out.println("Selecione um numberStudent para EDITAR");
+                    Integer numStudent = Integer.parseInt(studentScEdit.nextLine());
+                    u.editStudent(numStudent);
+                    System.out.println("Editado com Sucesso");
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
+    }
+
+    public static void menuCourseUnit(University u)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Unidade Curriculares <-----\n");
+            System.out.println(" [1] -> Listar Unidade Curriculares");
+            System.out.println(" [2] -> Criar Unidade Curricular");
+            System.out.println(" [3] -> Eliminar Unidade Curricular");
+            System.out.println(" [4] -> Editar Unidade Curricular");
+            System.out.println(" [5] -> Turmas");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    u.printAllCourseUnit();
+                    break;
+                case "2":
+                    Scanner cuSc = new Scanner(System.in);
+                    int idAux = 0;
+
+                    for(Integer id: u.getCourseUnitsST().keys())
+                    {
+                        CourseUnit cu = u.getCourseUnitsST().get(id);
+
+                        if(cu.getId() > idAux)
+                        {
+                            idAux = cu.getId();
+                        }
+                    }
+                    idAux += 1;
+                    System.out.println("id = " + idAux);
+
+                    System.out.println("\t\t -----> Inserir Course Unit <-----\n");
+                    System.out.println("Nome: ");
+                    String name = cuSc.nextLine();
+                    System.out.println("Ects: ");
+                    Integer ects = Integer.parseInt(cuSc.nextLine());
+
+                    CourseUnit cu = new CourseUnit(idAux, name, ects);
+
+                    u.addCourseUnit(cu);
+                    break;
+                case "3":
+                    u.printAllCourseUnit();
+                    Scanner cuScApagar = new Scanner(System.in);
+                    System.out.println("Selecione um id para APAGAR da ST");
+                    Integer id = Integer.parseInt(cuScApagar.nextLine());
+                    CourseUnit cuApagar = u.removeCourseUnit(id);
+
+                    if(cuApagar != null)
+                    {
+                        System.out.println("O CourseUnit com o id " + cuApagar.getId() + " foi Apagado!");
+                    }
+                    break;
+                case "4":
+                    u.printAllCourseUnit();
+                    Scanner cuScEdit = new Scanner(System.in);
+                    System.out.println("Selecione um id para Editar da ST");
+                    Integer idCu = Integer.parseInt(cuScEdit.nextLine());
+                    u.editCourseUnit(idCu);
+                    System.out.println("Editado com Sucesso");
+                    break;
+                case "5":
+                    u.printAllCourseUnit();
+                    Scanner cuMenuClass = new Scanner(System.in);
+                    System.out.println("Selecione um id para o menu Turmas");
+                    Integer idCuMenu = Integer.parseInt(cuMenuClass.nextLine());
+                    CourseUnit cuMenu = u.getCourseUnitsST().get(idCuMenu);
+                    menuTurmas(u, cuMenu);
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
+    }
+
+    public static void menuTurmas(University u, CourseUnit cu)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Turmas <-----\n");
+            System.out.println(" [1] -> Listar Turmas");
+            System.out.println(" [2] -> Criar Turma");
+            System.out.println(" [3] -> Eliminar Turma");
+            System.out.println(" [4] -> Editar Turma");
+            System.out.println(" [5] -> Horarios das Turmas");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    cu.printAllClass();
+                    break;
+                case "2":
+                    Scanner cSc = new Scanner(System.in);
+                    int idAux = 0;
+
+                    for(String name: cu.getClassesST().keys())
+                    {
+                        Class c = cu.getClassesST().get(name);
+
+                        if(c.getId() > idAux)
+                        {
+                            idAux = c.getId();
+                        }
+                    }
+                    idAux += 1;
+                    System.out.println("id = " + idAux);
+
+                    System.out.println("\t\t -----> Inserir Course Unit <-----\n");
+                    System.out.println("Nome: ");
+                    String name = cSc.nextLine();
+                    System.out.println("Tipo (Noturno/Diurno): ");
+                    String type = cSc.nextLine();
+
+                    u.printAllTeacher();
+                    System.out.println("Escolha o email do professor: ");
+                    String email = cSc.nextLine();
+
+                    while(u.validTeacher(email))
+                    {
+                        System.out.println("o email não existe");
+                        System.out.println("Escolha o email do professor: ");
+                        email = cSc.nextLine();
+                    }
+
+                    Teacher t = u.getTeachersST().get(email);
+
+                    u.printAllCourseUnit();
+                    System.out.println("Escolha o id do CourseUnit: ");
+                    Integer idCu = Integer.parseInt(cSc.nextLine());
+
+                    while(u.validCourseUnit(idCu))
+                    {
+                        System.out.println("o id não existe");
+                        System.out.println("Escolha o id do CourseUnit: ");
+                        idCu = Integer.parseInt(cSc.nextLine());
+                    }
+
+                    CourseUnit cuC = u.getCourseUnitsST().get(idCu);
+
+                    Class c = new Class(idAux, name, type, t, cuC);
+
+                    cu.addClass(c);
+                    break;
+                case "3":
+                    cu.printAllClass();
+                    Scanner cScApagar = new Scanner(System.in);
+                    System.out.println("Selecione um nome para APAGAR da ST");
+                    String nameC = cScApagar.nextLine();
+                    Class cApagar = cu.removeClass(nameC);
+
+                    if(cApagar != null)
+                    {
+                        System.out.println("A Class com o nome " + cApagar.getName() + " foi Apagada!");
+                    }
+                    break;
+                case "4":
+                    cu.printAllClass();
+                    Scanner cScEdit = new Scanner(System.in);
+                    System.out.println("Selecione um nome para Editar da ST");
+                    String nameE = cScEdit.nextLine();
+                    cu.editClass(u, nameE);
+                    System.out.println("Editado com Sucesso");
+                    break;
+                case "5":
+                    cu.printAllClass();
+                    Scanner cMenuClass = new Scanner(System.in);
+                    System.out.println("Selecione um nome para o Menu Horário Turmas");
+                    String nameCr = cMenuClass.nextLine();
+                    Class cM = cu.getClassesST().get(nameCr);
+                    menuHorarioTurmas(u, cu, cM);
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
+    }
+
+    public static void menuHorarioTurmas(University u, CourseUnit cu, Class c)
+    {
 
     }
 

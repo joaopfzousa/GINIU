@@ -5,6 +5,8 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.util.Scanner;
+
 public class Teacher extends Person {
   /**
    * Atributos
@@ -190,24 +192,19 @@ public class Teacher extends Person {
 
   /**
    * Remover uma ScheduleAccompaniment da ST
-   * @param teacher
    * @param startDate
    * @return ScheduleAccompaniment eliminada
    */
-  public ScheduleAccompaniment removeScheduleAccompaniment(Teacher teacher, Date startDate)
+  public ScheduleAccompaniment removeScheduleAccompaniment(Date startDate)
   {
     if(this.scheduleAccompanimentsST.contains(startDate))
     {
       for(Date stdate: this.scheduleAccompanimentsST.keys())
       {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
-        Teacher t = scheduleAccompaniment.getTeacher();
 
-        if(t.getEmail().equals(teacher.getEmail()))
-        {
-          this.scheduleAccompanimentsST.delete(startDate);
-          return scheduleAccompaniment;
-        }
+        this.scheduleAccompanimentsST.delete(startDate);
+        return scheduleAccompaniment;
       }
     }
     System.out.println("Teacher - removeScheduleAccompaniment(): ScheduleAccompaniment not exists!!!");
@@ -216,11 +213,10 @@ public class Teacher extends Person {
 
   /**
    * Editar o ScheduleAccompaniment
-   * @param teacher
    * @param startDate
    * @return ScheduleAccompaniment editada
    */
-  public ScheduleAccompaniment editScheduleAccompaniment(Teacher teacher, Date startDate)
+  public ScheduleAccompaniment editScheduleAccompaniment(University u, Date startDate)
   {
     if(this.scheduleAccompanimentsST.contains(startDate))
     {
@@ -229,14 +225,42 @@ public class Teacher extends Person {
         ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
         Teacher t = scheduleAccompaniment.getTeacher();
 
-        if(t.getEmail().equals(teacher.getEmail()))
-        {
-          Room r = new Room(1, 1,"104",true,200);
-          Date d = new Date(17,00,3);
-          scheduleAccompaniment.setFinalDate(d);
-          scheduleAccompaniment.setRoom(r);
-          return scheduleAccompaniment;
-        }
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+          System.out.println("\t\t -----> Editar ScheduleAccompaniment <-----\n");
+          System.out.println(" [1] -> Alterar Data Final");
+          System.out.println(" [2] -> Alterar Sala");
+          System.out.println(" [V] -> SAIR\n");
+          System.out.println("OP: ");
+          op = sca.nextLine();
+          switch (op) {
+            case "1":
+              System.out.println("Alterar Data Final (Dia da semana/hora/minutos): ");
+              String data = sca.nextLine();
+
+              String[] split =  data.split("/");
+              int dayOfWeek = Integer.parseInt(split[0]);
+              int hour = Integer.parseInt(split[1]);
+              int min = Integer.parseInt(split[2]);
+              Date finalDate = new Date(hour, min, dayOfWeek);
+              scheduleAccompaniment.setFinalDate(finalDate);
+              break;
+            case "2":
+              u.printAllRoom();
+              System.out.println("Escolha um numberRoom: ");
+              String number = sca.nextLine();
+              Room r = u.getRoomST().get(number);
+              scheduleAccompaniment.setRoom(r);
+              break;
+            case "v":
+            case "V":
+              break;
+            default:
+              System.out.println("Opcao Errada!!!\n");
+          }
+        } while (!"v".equals(op) && !"V".equals(op));
+        return scheduleAccompaniment;
       }
     }
     System.out.println("Teacher - editScheduleAccompaniment(): ScheduleAccompaniment not exists!!!");
@@ -309,7 +333,7 @@ public class Teacher extends Person {
    * @param u
    * @param path
    */
-  public void loadScheduleAccompaniment(University u, String path)
+  public static void loadScheduleAccompaniment(University u, String path)
   {
     In in = new In(path);
 
@@ -351,7 +375,7 @@ public class Teacher extends Person {
    * @param path
    * @return
    */
-  public String saveScheduleAccompaniment(University u,String path){
+  public static void saveScheduleAccompaniment(University u,String path){
     Out o = new Out(path);
     for(String email: u.getTeachersST().keys()){
       Teacher t = u.getTeachersST().get(email);
@@ -360,7 +384,6 @@ public class Teacher extends Person {
         o.println(sa.toStringFileScheduleAccompaniment());
       }
     }
-    return "Saved ScheduleAccompaniment on TXT";
   }
 
 

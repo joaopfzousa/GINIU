@@ -299,7 +299,7 @@ public class Class {
     return false;
   }
 
-  public void loadScheduleClass(University u, String path)
+  public static void loadScheduleClass(University u, String path)
   {
     In in = new In(path);
 
@@ -344,7 +344,7 @@ public class Class {
    * @param path
    * @return
    */
-  public String saveScheduleClass(University u, String path){
+  public static void saveScheduleClass(University u, String path){
     Out o = new Out(path);
 
     for(String name : u.getClassesST().keys()){
@@ -354,7 +354,6 @@ public class Class {
         o.println(sc.toStringFileScheduleClass());
       }
     }
-    return "Saved ScheduleClass on TXT";
   }
 
   /**

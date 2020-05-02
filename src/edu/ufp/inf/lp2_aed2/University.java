@@ -6,6 +6,7 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class University {
 
@@ -82,9 +83,33 @@ public class University {
         if(this.roomST.contains(numberRoom))
         {
             Room r = this.roomST.get(numberRoom);
-
-            r.setCapacity(300);
-            r.setSocket(false);
+            Scanner sca = new Scanner(System.in);
+            String op;
+            do {
+                System.out.println("\t\t -----> Editar Room <-----\n");
+                System.out.println(" [1] -> Alterar Tomadas (true/false)");
+                System.out.println(" [2] -> Alterar Capacidade");
+                System.out.println(" [V] -> SAIR\n");
+                System.out.println("OP: ");
+                op = sca.nextLine();
+                switch (op) {
+                    case "1":
+                        System.out.println("Tomadas(true/false): ");
+                        Boolean socket = Boolean.parseBoolean(sca.nextLine());
+                        r.setSocket(socket);
+                        break;
+                    case "2":
+                        System.out.println("Capacidade: ");
+                        Integer capacity = Integer.parseInt(sca.nextLine());
+                        r.setCapacity(capacity);
+                        break;
+                    case "v":
+                    case "V":
+                        break;
+                    default:
+                        System.out.println("Opcao Errada!!!\n");
+                }
+            } while (!"v".equals(op) && !"V".equals(op));
             return r;
         }
 
@@ -183,12 +208,35 @@ public class University {
         if(this.teachersST.contains(email))
         {
             Teacher t = this.teachersST.get(email);
-
-            t.setName("Beatriz Gomes");
-
+            Scanner sca = new Scanner(System.in);
+            String op;
+            do {
+                System.out.println("\t\t -----> Editar Teacher <-----\n");
+                System.out.println(" [1] -> Alterar Nome");
+                System.out.println(" [2] -> Alterar Email");
+                System.out.println(" [V] -> SAIR\n");
+                System.out.println("OP: ");
+                op = sca.nextLine();
+                switch (op) {
+                    case "1":
+                        System.out.println("Alterar Nome: ");
+                        String name = sca.nextLine();
+                        t.setName(name);
+                        break;
+                    case "2":
+                        System.out.println("Alterar Email: ");
+                        String emailT = sca.nextLine();
+                        t.setEmail(emailT);
+                        break;
+                    case "v":
+                    case "V":
+                        break;
+                    default:
+                        System.out.println("Opcao Errada!!!\n");
+                }
+            } while (!"v".equals(op) && !"V".equals(op));
             return t;
         }
-
         System.out.println("University - editTeacher(): email not exist inside teachersST");
         return null;
     }
@@ -283,8 +331,39 @@ public class University {
         if(this.studentsST.contains(numberStudent))
         {
             Student s = this.studentsST.get(numberStudent);
-
-            s.setName("João Sousa");
+            Scanner sca = new Scanner(System.in);
+            String op;
+            do {
+                System.out.println("\t\t -----> Editar Student <-----\n");
+                System.out.println(" [1] -> Alterar Nome");
+                System.out.println(" [2] -> Alterar Email");
+                System.out.println(" [3] -> Alterar Tipo");
+                System.out.println(" [V] -> SAIR\n");
+                System.out.println("OP: ");
+                op = sca.nextLine();
+                switch (op) {
+                    case "1":
+                        System.out.println("Alterar Nome: ");
+                        String name = sca.nextLine();
+                        s.setName(name);
+                        break;
+                    case "2":
+                        System.out.println("Alterar Email: ");
+                        String emailT = sca.nextLine();
+                        s.setEmail(emailT);
+                        break;
+                    case "3":
+                        System.out.println("Alterar Tipo (Noturno/Diurno): ");
+                        String tipo = sca.nextLine();
+                        s.setType(tipo);
+                        break;
+                    case "v":
+                    case "V":
+                        break;
+                    default:
+                        System.out.println("Opcao Errada!!!\n");
+                }
+            } while (!"v".equals(op) && !"V".equals(op));
             return s;
         }
 
@@ -382,7 +461,33 @@ public class University {
         if(this.courseUnitsST.contains(id))
         {
             CourseUnit cu = this.courseUnitsST.get(id);
-
+            Scanner sca = new Scanner(System.in);
+            String op;
+            do {
+                System.out.println("\t\t -----> Editar CourseUnit <-----\n");
+                System.out.println(" [1] -> Alterar Nome");
+                System.out.println(" [2] -> Alterar Ects");
+                System.out.println(" [V] -> SAIR\n");
+                System.out.println("OP: ");
+                op = sca.nextLine();
+                switch (op) {
+                    case "1":
+                        System.out.println("Nome: ");
+                        String name = sca.nextLine();
+                        cu.setName(name);
+                        break;
+                    case "2":
+                        System.out.println("Ects: ");
+                        Integer ects = Integer.parseInt(sca.nextLine());
+                        cu.setEcts(ects);
+                        break;
+                    case "v":
+                    case "V":
+                        break;
+                    default:
+                        System.out.println("Opcao Errada!!!\n");
+                }
+            } while (!"v".equals(op) && !"V".equals(op));
             cu.setName("LP3");
             cu.setEcts(9);
             return cu;
@@ -637,7 +742,6 @@ public class University {
         Out o = new Out(path);
         for(Integer numberStudent : this.studentsST.keys()){
             Student s = studentsST.get(numberStudent);
-            System.out.println(s);
             o.println(s.toStringFileStudent());
         }
         return "Saved Student on TXT";

@@ -145,7 +145,7 @@ public class Student extends Person {
    * @param u
    * @param path
    */
-  public void loadStudentCourse(University u,  String path)
+  public static void loadStudentCourse(University u,  String path)
   {
     In in = new In(path);
 
@@ -174,7 +174,7 @@ public class Student extends Person {
    * @param path
    * @return
    */
-  public String saveStudentCourse(University u, String path){
+  public static void saveStudentCourse(University u, String path){
     Out o = new Out(path);
     for(Integer numberStudent : u.getStudentsST().keys()){
       Student s = u.getStudentsST().get(numberStudent);
@@ -185,7 +185,6 @@ public class Student extends Person {
         o.println(s.getNumberStudent() + ";" + idCourse);
       }
     }
-    return "Saved StudentCourse on TXT";
   }
 
   /**

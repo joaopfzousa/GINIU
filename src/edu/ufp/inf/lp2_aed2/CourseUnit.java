@@ -3,6 +3,8 @@ package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.util.Scanner;
+
 public class CourseUnit {
   /**
    * Atributos
@@ -88,11 +90,57 @@ public class CourseUnit {
    * @param name
    * @return Class editada
    */
-  public Class editClass(String name)
+  public Class editClass(University u, String name)
   {
     if(this.classesST.contains(name))
     {
       Class c = this.classesST.get(name);
+      Scanner sca = new Scanner(System.in);
+      String op;
+      do {
+        System.out.println("\t\t -----> Editar CourseUnit <-----\n");
+        System.out.println(" [1] -> Alterar Nome");
+        System.out.println(" [2] -> Alterar type");
+        System.out.println(" [3] -> Alterar Professor");
+        System.out.println(" [V] -> SAIR\n");
+        System.out.println("OP: ");
+        op = sca.nextLine();
+        switch (op) {
+          case "1":
+            System.out.println("Nome: ");
+            String nome = sca.nextLine();
+            c.setName(nome);
+            break;
+          case "2":
+            System.out.println("Type (Noturno/Diurno): ");
+            String type = sca.nextLine();
+            c.setType(type);
+            break;
+          case "3":
+            u.printAllTeacher();
+
+            System.out.println("Escolha o email do Professor: ");
+            String email = sca.nextLine();
+
+            while(u.validTeacher(email))
+            {
+              System.out.println("o email não existe");
+              System.out.println("Escolha o email do Professor: ");
+              email = sca.nextLine();
+            }
+
+            Teacher t = u.getTeachersST().get(email);
+
+            c.setTeacher(t);
+            break;
+          case "v":
+          case "V":
+            break;
+          default:
+            System.out.println("Opcao Errada!!!\n");
+        }
+      } while (!"v".equals(op) && !"V".equals(op));
+
       CourseUnit cu = new CourseUnit(1, "LP", 10);
       Teacher t = new Teacher(5, "Rui Moreira", "moreira@teste.com");
 
