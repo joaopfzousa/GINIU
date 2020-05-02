@@ -156,6 +156,27 @@ public class CourseUnit {
   }
 
   /**
+   * Pesquisa de estudantes por Unidade Curricular
+   * @return
+   */
+  public SeparateChainingHashST<String, Teacher> searchTeacherbyCourseUnit()
+  {
+    SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+
+    for(String nome: this.getClassesST().keys())
+    {
+      Class c = this.getClassesST().get(nome);
+      Teacher t = c.getTeacher();
+
+      if(!teachersST.contains(t.getEmail()))
+      {
+        teachersST.put(t.getEmail(), t);
+      }
+    }
+    return teachersST;
+  }
+
+  /**
    * Get's e Set's
    */
   public Integer getId() {

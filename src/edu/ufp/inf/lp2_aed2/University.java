@@ -5,6 +5,8 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.util.ArrayList;
+
 public class University {
 
     private String name;
@@ -607,6 +609,7 @@ public class University {
 
             Class c = new Class(id, name, type, t, cu);
             cu.addClass(c);
+            t.getClassesST().put(c.getName(), c);
             this.classesST.put(name, c);
         }
     }
@@ -680,6 +683,81 @@ public class University {
             o.println(cl.toStringFileClass());
         }
         return "Saved Class on TXT";
+    }
+
+    /**
+     * Pesquisar todas as salas que não estão ocupadas num horário
+     * @param dinicio
+     * @return as salas que não estão ocupadas num horario
+     */
+    public RedBlackBST<String, Room> searchRoomByDate(Date dinicio){
+        RedBlackBST<String, Room> res = new RedBlackBST<>();
+        ArrayList<Room> used = new ArrayList<>();
+
+        RedBlackBST<Date, ScheduleClass> scheduleClassesST = new RedBlackBST<>();
+        RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
+
+        for(String aux : this.roomST.keys()){
+            Room r = this.roomST.get(aux);
+            //System.out.println(r);
+
+            scheduleClassesST = r.getScheduleClassesST();
+            scheduleAccompanimentST = r.getScheduleAccompanimentST();
+
+            for(Date dinit: scheduleClassesST.keys())
+            {
+                ScheduleClass sc = scheduleClassesST.get(dinit);
+                //System.out.println(sc);
+                System.out.println(r.getNumberRoom() + " sc.getStartDate().compareTo(dinicio) = " + sc.getStartDate().compareTo(dinicio));
+
+                if(sc.getStartDate().compareTo(dinicio) != 0){
+                    System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom().getNumberRoom()));
+
+                    if(!res.contains(sc.getRoom().getNumberRoom()) && !used.contains(sc.getRoom()))
+                        res.put(sc.getRoom().getNumberRoom(), sc.getRoom());
+                }else{
+                    used.add(sc.getRoom());
+                }
+            }
+
+            for(Date dinicial: scheduleAccompanimentST.keys())
+            {
+                ScheduleAccompaniment sa = scheduleAccompanimentST.get(dinicial);
+                //System.out.println(sa);
+                System.out.println(r.getNumberRoom() + " sa.getStartDate().compareTo(dinicio) =" + sa.getStartDate().compareTo(dinicio));
+                if(sa.getStartDate().compareTo(dinicio) != 0){
+                    System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom().getNumberRoom()));
+                    if(!res.contains(sa.getRoom().getNumberRoom()) && !used.contains(sa.getRoom()) )
+                        res.put(sa.getRoom().getNumberRoom(), sa.getRoom());
+                }else{
+                    used.add(sa.getRoom());
+                }
+            }
+        }
+        return res;
+    }
+
+
+    public RedBlackBST<String, Room> searchRoomByAttr(Integer capacity, boolean socket, Integer floor)
+    {
+        RedBlackBST<String, Room> rooms = new RedBlackBST<>();
+
+        for(String numberRoom: this.getRoomST().keys())
+        {
+            Room r = this.getRoomST().get(numberRoom);
+
+            if(r.getCapacity() == capacity && !rooms.contains(r.getNumberRoom()))
+            {
+                if(r.isSocket() == socket && !rooms.contains(r.getNumberRoom()))
+                {
+                    if(r.getFloor()== floor && !rooms.contains(r.getNumberRoom()))
+                    {
+                        rooms.put(r.getNumberRoom(), r);
+                    }
+                }
+            }
+        }
+        return rooms;
     }
 
     /**

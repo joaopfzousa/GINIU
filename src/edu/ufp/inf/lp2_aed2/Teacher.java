@@ -338,6 +338,7 @@ public class Teacher extends Person {
         Teacher t = u.searchTeacher(email);
 
         ScheduleAccompaniment sa = new ScheduleAccompaniment(stdate, fldate, r, t);
+        r.getScheduleAccompanimentST().put(stdate, sa);
         t.addScheduleAccompaniment(sa);
       }else{
         System.out.println("[Teacher] - loadScheduleAccompaniment(): This Room or Teacher not exists!!!");
@@ -360,6 +361,27 @@ public class Teacher extends Person {
       }
     }
     return "Saved ScheduleAccompaniment on TXT";
+  }
+
+
+  /**
+   * Procura todas as turmas de um professor
+   * @return todas as turmas do professor
+   */
+  public SeparateChainingHashST<String, Class> searchClassByTeacher()
+  {
+    SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+
+    for(String nome: this.getClassesST().keys())
+    {
+      Class c = this.getClassesST().get(nome);
+
+      if(!classesST.contains(c.getName()))
+      {
+        classesST.put(c.getName(), c);
+      }
+    }
+    return classesST;
   }
 
   /**

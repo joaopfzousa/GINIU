@@ -329,6 +329,7 @@ public class Class {
         Class cl = u.searchClass(name);
 
         ScheduleClass sc = new ScheduleClass(stdate, fldate, r, cl);
+        r.getScheduleClassesST().put(stdate, sc);
         cl.scheduleClassesST.put(stdate, sc);
         Teacher t = cl.getTeacher();
         t.addScheduleClass(sc);
