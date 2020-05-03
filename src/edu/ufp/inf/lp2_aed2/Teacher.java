@@ -305,24 +305,14 @@ public class Teacher extends Person {
 
   /**
    * Valida se ScheduleAccompaniment exite na ST
-   * @param teacher
    * @param startDate
    * @return true se existir, false se não existir
    */
-  public boolean validScheduleAccompaniment(Teacher teacher, Date startDate)
+  public boolean validScheduleAccompaniment(Date startDate)
   {
     if(this.scheduleAccompanimentsST.contains(startDate))
     {
-      for (Date stdate : this.scheduleAccompanimentsST.keys())
-      {
-        ScheduleAccompaniment scheduleAccompaniment = this.scheduleAccompanimentsST.get(stdate);
-        Teacher t = scheduleAccompaniment.getTeacher();
-
-        if(t.getEmail().equals(teacher.getEmail()))
-        {
-          return true;
-        }
-      }
+      return true;
     }
     return false;
   }

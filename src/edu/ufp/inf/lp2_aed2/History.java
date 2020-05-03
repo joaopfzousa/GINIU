@@ -32,101 +32,127 @@ public class History {
 
     /**
      * Guarda no historico os professores
+     * @param u
      * @param t
      */
-    public void archiveTeacher(Teacher t){
-
-        if(this.teachersST.contains(t.toStringFileTeacher()))
+    public void archiveTeacher(University u, Teacher t)
+    {
+        if(u.validTeacher(t.getEmail()))
         {
-            System.out.println("History - archiveTeacher(): Teacher already add on archive!!!");
-            return;
+            if(this.teachersST.contains(t.getEmail()))
+            {
+                System.out.println("[History] - archiveTeacher(): Teacher already exists in history!");
+            }else{
+                this.teachersST.put(t.getEmail(), t);
+            }
         }
-        this.teachersST.put(t.toStringFileTeacher(),t);
     }
 
     /**
      * Guarda no historico os estudantes
+     * @param u
      * @param s
      */
-    public void archiveStudent(Student s){
-
-        if(this.studentsST.contains(Integer.valueOf(s.toStringFileStudent())))
+    public void archiveStudent(University u, Student s)
+    {
+        if(u.validStudent(s.getNumberStudent()))
         {
-            System.out.println("History - archiveStudent(): Student already add on archive!!!");
-            return;
+            if(this.studentsST.contains(s.getNumberStudent()))
+            {
+                System.out.println("[History] - archiveStudent(): Student already exists in history!");
+            }else{
+                this.studentsST.put(s.getNumberStudent(), s);
+            }
         }
-        this.studentsST.put(Integer.valueOf(s.toStringFileStudent()),s);
     }
 
     /**
      * Guarda no historico as salas
+     * @param u
      * @param r
      */
-    public void archiveRoom(Room r){
-
-        if(this.roomST.contains(r.toStringFileRoom()))
+    public void archiveRoom(University u, Room r)
+    {
+        if(u.validRoom(r.getNumberRoom()))
         {
-            System.out.println("History - archiveRoom(): Room already add on archive!!!");
-            return;
+            if(this.roomST.contains(r.getNumberRoom()))
+            {
+                System.out.println("[History] - archiveRoom(): Room already exists in history!");
+            }else{
+                this.roomST.put(r.getNumberRoom(), r);
+            }
         }
-        this.roomST.put(r.toStringFileRoom(),r);
     }
 
     /**
      * Guarda no historico as disciplinas
+     * @param u
      * @param cu
      */
-    public void archiveCourse(CourseUnit cu){
-
-        if(this.courseUnitsST.contains(Integer.valueOf(cu.toStringFileCourseUnit())))
+    public void archiveCourse(University u, CourseUnit cu)
+    {
+        if(u.validCourseUnit(cu.getId()))
         {
-            System.out.println("History - archiveCourse(): Course already add on archive!!!");
-            return;
+            if(this.courseUnitsST.contains(cu.getId()))
+            {
+                System.out.println("[History] - archiveCourse(): CourseUnit already exists in history!");
+            }else{
+                this.courseUnitsST.put(cu.getId(), cu);
+            }
         }
-        this.courseUnitsST.put(Integer.valueOf(cu.toStringFileCourseUnit()),cu);
     }
 
     /**
      * Guarda no historico as turmas
+     * @param cu
      * @param cl
      */
-    public void archiveClass(Class cl){
-
-        if(this.classesST.contains(cl.toStringFileClass()))
+    public void archiveClass(CourseUnit cu, Class cl)
+    {
+        if(cu.validClass(cl.getName()))
         {
-            System.out.println("History - archiveClass(): Class already add on archive!!!");
-            return;
+            if(this.classesST.contains(cl.getName()))
+            {
+                System.out.println("History - archiveClass(): Class already exists in history!");
+            }else{
+                this.classesST.put(cl.getName(), cl);
+            }
         }
-        this.classesST.put(cl.toStringFileClass(),cl);
     }
 
     /**
      * guarda no historico os horarios atendimento
+     * @param t
      * @param sa
      */
-    public void archiveScheduleAccompaniment (ScheduleAccompaniment sa){
-
-        if(this.scheduleAccompanimentsST.contains(sa.toStringFileScheduleAccompaniment()))
+    public void archiveScheduleAccompaniment (Teacher t, ScheduleAccompaniment sa)
+    {
+        if(t.validScheduleAccompaniment(sa.getStartDate()))
         {
-            
-            System.out.println("History - archiveScheduleAccompaniment(): ScheduleAccompaniment already add on archive!!!");
-            return;
+            if(this.scheduleAccompanimentsST.contains(sa.getStartDate()))
+            {
+                System.out.println("History - archiveScheduleAccompaniment(): ScheduleAccompaniment already exists in history!");
+            }else{
+                this.scheduleAccompanimentsST.put(sa.getStartDate(), sa);
+            }
         }
-        this.scheduleAccompanimentsST.put(sa.toStringFileScheduleAccompaniment(),sa);
     }
 
     /**
      * Guarda no historico os horarios das turmas
+     * @param c
      * @param sc
      */
-    public void archiveScheduleClass(ScheduleClass sc){
-
-        if(this.schedulesClassST.contains(sc.toStringFileScheduleClass()))
+    public void archiveScheduleClass(Class c, ScheduleClass sc)
+    {
+        if(c.validScheduleClass(sc.getStartDate()))
         {
-            System.out.println("History - archiveScheduleClass(): ScheduleClass already add on archive!!!");
-            return;
+            if(this.schedulesClassST.contains(sc.getStartDate())){
+                System.out.println("History - archiveScheduleClass(): ScheduleClass already exists in history!");
+            }else{
+                this.schedulesClassST.put(sc.getStartDate(),sc);
+            }
         }
-        this.schedulesClassST.put(sc.toStringFileScheduleClass(),sc);
     }
 
     /**

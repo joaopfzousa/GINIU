@@ -150,12 +150,9 @@ public class Student extends Person {
 
   public Class registerCourseUnit(CourseUnit cu)
   {
-    SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
-    classesST = cu.getClassesST();
-
-    for (String name : classesST.keys())
+    for(String name : cu.getClassesST().keys())
     {
-      Class c = classesST.get(name);
+      Class c = cu.getClassesST().get(name);
 
       if(this.getType().equals(c.getType()))
       {

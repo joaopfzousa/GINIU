@@ -303,20 +303,13 @@ public class Class {
   /**
    * Valida se o ScheduleClass existe na ST
    * @param startDate
-   * @param c
    * @return true se exister, false se não existir
    */
-  public boolean validScheduleClass(Date startDate, Class c)
+  public boolean validScheduleClass(Date startDate)
   {
-    for(Date stDate: this.scheduleClassesST.keys())
+    if(this.scheduleClassesST.contains(startDate))
     {
-      ScheduleClass sc = this.scheduleClassesST.get(stDate);
-      Class c2 = sc.getClasse();
-
-      if(c2.getName().equals(c.getName()))
-      {
-        return true;
-      }
+      return true;
     }
     return false;
   }
