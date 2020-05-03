@@ -23,91 +23,110 @@ public class History {
     // Lista de Classes do University - chave é o nome da Class
     private SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
 
+    // Lista de Schedule pela Teacher - chave é data
+    public RedBlackBST<Date, ScheduleClass> schedulesClassST = new RedBlackBST<>();
+
+    // Lista de ScheduleAccompaniment pela Teacher - chave é data
+    public RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentsST = new RedBlackBST<>();
+
+
     /**
      * Guarda no historico os professores
-     * @param email
-     * @param path
-     * @return
+     * @param t
      */
-    public String archiveTeacher(String email, String path){
-        Out o = new Out(path);
-        for(String emailaux : teachersST.keys()){
-            Teacher t = teachersST.get(emailaux);
-            if(t.getEmail().equals(email)){
-                o.println(t.toStringFileTeacher());
-            }
+    public void archiveTeacher(Teacher t){
+
+        if(this.teachersST.contains(t.toStringFileTeacher()))
+        {
+            System.out.println("History - archiveTeacher(): Teacher already add on archive!!!");
+            return;
         }
-        return "Saved teacher's history" + email + "successfully";
+        this.teachersST.put(t.toStringFileTeacher(),t);
     }
 
     /**
-     * Guarda no historico os alunos
-     * @param numberStudent
-     * @param path
-     * @return
+     * Guarda no historico os estudantes
+     * @param s
      */
-    public String archiveStudent(Integer numberStudent, String path){
-        Out o = new Out(path);
-        for(Integer numberaux : studentsST.keys()){
-            Student s = studentsST.get(numberaux);
-            if(s.getNumberStudent().equals(numberStudent)){
-                o.println(s.toStringFileStudent());
-            }
+    public void archiveStudent(Student s){
+
+        if(this.studentsST.contains(Integer.valueOf(s.toStringFileStudent())))
+        {
+            System.out.println("History - archiveStudent(): Student already add on archive!!!");
+            return;
         }
-        return "Saved student's history" + numberStudent + "successfully";
+        this.studentsST.put(Integer.valueOf(s.toStringFileStudent()),s);
     }
 
     /**
      * Guarda no historico as salas
-     * @param numberRoom
-     * @param path
-     * @return
+     * @param r
      */
-    public String archiveRoom(String numberRoom, String path){
-        Out o = new Out(path);
-        for(String numberraux : roomST.keys()){
-            Room r = roomST.get(numberraux);
-            if(r.getNumberRoom().equals(numberRoom)){
-                o.println(r.toStringFileRoom());
-            }
+    public void archiveRoom(Room r){
+
+        if(this.roomST.contains(r.toStringFileRoom()))
+        {
+            System.out.println("History - archiveRoom(): Room already add on archive!!!");
+            return;
         }
-        return "Saved room's history" + numberRoom + "successfully";
+        this.roomST.put(r.toStringFileRoom(),r);
     }
 
     /**
      * Guarda no historico as disciplinas
-     * @param id
-     * @param path
-     * @return
+     * @param cu
      */
-    public String archiveCourseUnit(Integer id, String path){
-        Out o = new Out(path);
-        for(Integer idaux : courseUnitsST.keys()){
-            CourseUnit cu = courseUnitsST.get(idaux);
-            if(cu.getId().equals(id)){
-                o.println(cu.toStringFileCourseUnit());
-            }
+    public void archiveCourse(CourseUnit cu){
+
+        if(this.courseUnitsST.contains(Integer.valueOf(cu.toStringFileCourseUnit())))
+        {
+            System.out.println("History - archiveCourse(): Course already add on archive!!!");
+            return;
         }
-        return "Saved course unit's history" + id + "successfully";
+        this.courseUnitsST.put(Integer.valueOf(cu.toStringFileCourseUnit()),cu);
     }
 
     /**
      * Guarda no historico as turmas
-     * @param name
-     * @param path
-     * @return
+     * @param cl
      */
-    public String archiveClass(String name, String path){
-        Out o = new Out(path);
-        for(String nameaux : classesST.keys()){
-            Class cl = classesST.get(nameaux);
-            if(cl.getName().equals(name)){
-                o.println(cl.toStringFileClass());
-            }
+    public void archiveClass(Class cl){
+
+        if(this.classesST.contains(cl.toStringFileClass()))
+        {
+            System.out.println("History - archiveClass(): Class already add on archive!!!");
+            return;
         }
-        return "Saved class's history" + name + "successfully";
+        this.classesST.put(cl.toStringFileClass(),cl);
     }
 
+    /**
+     * guarda no historico os horarios atendimento
+     * @param sa
+     */
+    public void archiveScheduleAccompaniment (ScheduleAccompaniment sa){
+
+        if(this.scheduleAccompanimentsST.contains(sa.toStringFileScheduleAccompaniment()))
+        {
+            System.out.println("History - archiveScheduleAccompaniment(): ScheduleAccompaniment already add on archive!!!");
+            return;
+        }
+        this.scheduleAccompanimentsST.put(sa.toStringFileScheduleAccompaniment(),sa);
+    }
+
+    /**
+     * Guarda no historico os horarios das turmas
+     * @param sc
+     */
+    public void archiveScheduleClass(ScheduleClass sc){
+
+        if(this.schedulesClassST.contains(sc.toStringFileScheduleClass()))
+        {
+            System.out.println("History - archiveScheduleClass(): ScheduleClass already add on archive!!!");
+            return;
+        }
+        this.schedulesClassST.put(sc.toStringFileScheduleClass(),sc);
+    }
 
     /**
      * Get's and Set's
@@ -151,4 +170,21 @@ public class History {
     public void setClassesST(SeparateChainingHashST<String, Class> classesST) {
         this.classesST = classesST;
     }
+
+    public RedBlackBST<Date, ScheduleClass> getSchedulesClassST() {
+        return schedulesClassST;
+    }
+
+    public void setSchedulesClassST(RedBlackBST<Date, ScheduleClass> schedulesClassST) {
+        this.schedulesClassST = schedulesClassST;
+    }
+
+    public RedBlackBST<Date, ScheduleAccompaniment> getScheduleAccompanimentsST() {
+        return scheduleAccompanimentsST;
+    }
+
+    public void setScheduleAccompanimentsST(RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentsST) {
+        this.scheduleAccompanimentsST = scheduleAccompanimentsST;
+    }
 }
+
