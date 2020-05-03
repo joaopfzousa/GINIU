@@ -155,6 +155,67 @@ public class History {
     }
 
     /**
+     * Imprimir todas as ST's do Histótico
+     */
+    public void printAllHistory()
+    {
+        System.out.println("Salas no Histórico!");
+        for(String numberRoom: this.roomST.keys())
+        {
+            Room r = this.roomST.get(numberRoom);
+            System.out.println(r);
+        }
+
+        System.out.println();
+        System.out.println("Professores no Histótico!");
+        for(String email: this.teachersST.keys())
+        {
+            Teacher t = this.teachersST.get(email);
+            System.out.println(t);
+        }
+
+        System.out.println();
+        System.out.println("Estudantes no Histórico");
+        for(Integer numberStudent: this.studentsST.keys())
+        {
+            Student s = this.studentsST.get(numberStudent);
+            System.out.println(s);
+        }
+
+        System.out.println();
+        System.out.println("CourseUnit no Histórico");
+        for(Integer id: this.courseUnitsST.keys())
+        {
+            CourseUnit cu = this.courseUnitsST.get(id);
+            System.out.println(cu);
+        }
+
+        System.out.println();
+        System.out.println("Class no Histótico!");
+        for(String nome: this.classesST.keys())
+        {
+            Class c = this.classesST.get(nome);
+            System.out.println(c);
+        }
+
+        System.out.println();
+        System.out.println("ScheduleClass no Histótico!");
+        for(Date date: this.schedulesClassST.keys())
+        {
+            ScheduleClass sc = this.schedulesClassST.get(date);
+            System.out.println(sc);
+        }
+
+        System.out.println();
+        System.out.println("ScheduleAccompaniment no Histótico!");
+        for(Date stdate: this.scheduleAccompanimentsST.keys())
+        {
+            ScheduleAccompaniment sa = this.scheduleAccompanimentsST.get(stdate);
+            System.out.println(sa);
+        }
+    }
+
+    /**
      * Get's and Set's
      */
     public RedBlackBST<String, Room> getRoomST() {

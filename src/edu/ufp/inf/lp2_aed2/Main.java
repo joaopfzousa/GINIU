@@ -20,6 +20,7 @@ public class Main {
             System.out.println(" [4] -> Unidades Curriculares");
             System.out.println(" [5] -> Pesquisas");
             System.out.println(" [6] -> Gestão de Fichieros");
+            System.out.println(" [7] -> Histórico");
             System.out.println(" [S] -> SAIR\n");
             System.out.println("OP: ");
             op = sca.nextLine();
@@ -41,6 +42,9 @@ public class Main {
                     break;
                 case "6":
                     menuGestaoFiles(u);
+                    break;
+                case "7":
+                    menuHistory(h);
                     break;
                 case "s":
                 case "S":
@@ -959,5 +963,28 @@ public class Main {
                     System.out.println("Opcao Errada!!!\n");
             }
         } while (!"s".equals(op) && !"S".equals(op));
+    }
+
+    public static void menuHistory(History h)
+    {
+        Scanner sca = new Scanner(System.in);
+        String op;
+        do {
+            System.out.println("\t\t -----> Histórico <-----\n");
+            System.out.println(" [1] -> Imprimir todo o Histórico");
+            System.out.println(" [V] -> SAIR\n");
+            System.out.println("OP: ");
+            op = sca.nextLine();
+            switch (op) {
+                case "1":
+                    h.printAllHistory();
+                    break;
+                case "v":
+                case "V":
+                    break;
+                default:
+                    System.out.println("Opcao Errada!!!\n");
+            }
+        } while (!"v".equals(op) && !"V".equals(op));
     }
 }
