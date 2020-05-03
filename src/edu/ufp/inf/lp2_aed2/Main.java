@@ -801,7 +801,7 @@ public class Main {
         Scanner sca = new Scanner(System.in);
         String op;
         do {
-            System.out.println("\t\t -----> Gestão de Informação e Navegação Indoor numa Universidade <-----\n");
+            System.out.println("\t\t -----> Pesquisas <-----\n");
             System.out.println(" [1] -> Todas as salas livres num determinado horário");
             System.out.println(" [2] -> Todos os professores de uma unidade curricular");
             System.out.println(" [3] -> Todas as turmas de um professor");
@@ -809,7 +809,7 @@ public class Main {
             System.out.println(" [5] -> A ocupação de uma sala entre datas");
             System.out.println(" [6] -> Pesquisas de salas por diferentes critérios (ocupação, número de tomadas, piso)");
             System.out.println(" [7] -> now()");
-            System.out.println(" [S] -> SAIR\n");
+            System.out.println(" [V] -> SAIR\n");
             System.out.println("OP: ");
             op = sca.nextLine();
             switch (op) {
@@ -956,13 +956,13 @@ public class Main {
                     System.out.println(" [7] -> now()");
                     u.now();
                     break;
-                case "s":
-                case "S":
+                case "v":
+                case "V":
                     break;
                 default:
                     System.out.println("Opcao Errada!!!\n");
             }
-        } while (!"s".equals(op) && !"S".equals(op));
+        } while (!"v".equals(op) && !"V".equals(op));
     }
 
     public static void menuHistory(History h)
