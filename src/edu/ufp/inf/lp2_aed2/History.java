@@ -1,6 +1,5 @@
 package edu.ufp.inf.lp2_aed2;
 
-import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 

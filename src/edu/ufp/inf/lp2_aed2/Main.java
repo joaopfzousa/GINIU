@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
         University u = new University("UFP");
+        History h = new History();
         Scanner sca = new Scanner(System.in);
         String op;
         do {
@@ -24,16 +25,16 @@ public class Main {
             op = sca.nextLine();
             switch (op) {
                 case "1":
-                    menuSalas(u);
+                    menuSalas(u, h);
                     break;
                 case "2":
-                    menuProfessores(u);
+                    menuProfessores(u, h);
                     break;
                 case "3":
-                    menuEstudantes(u);
+                    menuEstudantes(u, h);
                     break;
                 case "4":
-                    menuCourseUnit(u);
+                    menuCourseUnit(u, h);
                     break;
                 case "5":
                     menuPesquisas(u);
@@ -93,7 +94,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuSalas(University u)
+    public static void menuSalas(University u, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -144,9 +145,11 @@ public class Main {
                     String nRoom = roomScApagar.nextLine();
                     Room rApagar = u.removeRoom(nRoom);
 
+                    h.archiveRoom(u, rApagar);
+
                     if(rApagar != null)
                     {
-                        System.out.println("A sala " + rApagar.getNumberRoom() + " foi Apagada!");
+                        System.out.println("A sala " + rApagar.getNumberRoom() + " foi Apagada e Arquivada!");
                     }
                     break;
                 case "4":
@@ -165,7 +168,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuProfessores(University u)
+    public static void menuProfessores(University u, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -214,9 +217,25 @@ public class Main {
                     String emailT = teacherScApagar.nextLine();
                     Teacher tApagar = u.removeTeacher(emailT);
 
+                    h.archiveTeacher(u, tApagar);
+
+                    for(Date stdate: tApagar.getScheduleAccompanimentsST().keys())
+                    {
+                        ScheduleAccompaniment saApagar = tApagar.getScheduleAccompanimentsST().get(stdate);
+
+                        ScheduleAccompaniment sAapagar = tApagar.removeScheduleAccompaniment(saApagar.getStartDate());
+
+                        h.archiveScheduleAccompaniment(tApagar, sAapagar);
+
+                        if(sAapagar != null)
+                        {
+                            System.out.println("O ScheduleAccompaniment com a Data inicial = " + sAapagar.getStartDate() + " foi Apagado e Arquivado!");
+                        }
+                    }
+
                     if(tApagar != null)
                     {
-                        System.out.println("O Professor com o email " + tApagar.getEmail() + " foi Apagado!");
+                        System.out.println("O Professor com o email " + tApagar.getEmail() + " foi Apagado e Arquivado!");
                     }
                     break;
                 case "4":
@@ -232,7 +251,7 @@ public class Main {
                     System.out.println("Selecione um Professor para ver o Menu de Horários de Atendimento");
                     String emailTeacher = teacherScAtend.nextLine();
                     Teacher tea = u.getTeachersST().get(emailTeacher);
-                    menuHorarioAtendimento(u, tea);
+                    menuHorarioAtendimento(u, tea, h);
                     break;
                 case "v":
                 case "V":
@@ -243,7 +262,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuHorarioAtendimento(University u, Teacher t)
+    public static void menuHorarioAtendimento(University u, Teacher t, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -306,9 +325,11 @@ public class Main {
 
                     ScheduleAccompaniment saApagar = t.removeScheduleAccompaniment(startDateElim);
 
+                    h.archiveScheduleAccompaniment(t, saApagar);
+
                     if(saApagar != null)
                     {
-                        System.out.println("A ScheduleAccompaniment com a Data inicioal " + saApagar.getStartDate() + " foi Apagada!");
+                        System.out.println("A ScheduleAccompaniment com a Data inicioal " + saApagar.getStartDate() + " foi Apagada e Arquivado!");
                     }
                     break;
                 case "4":
@@ -334,7 +355,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuEstudantes(University u)
+    public static void menuEstudantes(University u, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -387,9 +408,11 @@ public class Main {
                     Integer nStudent = Integer.parseInt(studentScApagar.nextLine());
                     Student sApagar = u.removeStudent(nStudent);
 
+                    h.archiveStudent(u, sApagar);
+
                     if(sApagar != null)
                     {
-                        System.out.println("O Estudante com o Nº " + sApagar.getNumberStudent() + " foi Apagado!");
+                        System.out.println("O Estudante com o Nº " + sApagar.getNumberStudent() + " foi Apagado e Arquivado!");
                     }
                     break;
                 case "4":
@@ -409,7 +432,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuCourseUnit(University u)
+    public static void menuCourseUnit(University u, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -460,9 +483,39 @@ public class Main {
                     Integer id = Integer.parseInt(cuScApagar.nextLine());
                     CourseUnit cuApagar = u.removeCourseUnit(id);
 
+                    for(String nome : cuApagar.getClassesST().keys())
+                    {
+                        Class cApagar = cuApagar.getClassesST().get(nome);
+
+                        Class Capagar = cuApagar.removeClass(cApagar.getName());
+
+                        h.archiveClass(cuApagar, Capagar);
+
+                        if(Capagar != null)
+                        {
+                            System.out.println("O Class com o nome " + Capagar.getName() + " foi Apagado e Arquivado!");
+                        }
+
+                        for(Date date: Capagar.getScheduleClassesST().keys())
+                        {
+                            ScheduleClass scApagar = Capagar.getScheduleClassesST().get(date);
+
+                            ScheduleClass sCapagar = Capagar.removeScheduleClass(scApagar.getStartDate());
+
+                            h.archiveScheduleClass(Capagar, sCapagar);
+
+                            if(sCapagar != null)
+                            {
+                                System.out.println("O ScheduleClass com a Data Inicial =  " + sCapagar.getStartDate() + " foi Apagado e Arquivado!");
+                            }
+                        }
+                    }
+
+                    h.archiveCourse(u, cuApagar);
+
                     if(cuApagar != null)
                     {
-                        System.out.println("O CourseUnit com o id " + cuApagar.getId() + " foi Apagado!");
+                        System.out.println("O CourseUnit com o id " + cuApagar.getId() + " foi Apagado e Arquivado!");
                     }
                     break;
                 case "4":
@@ -484,7 +537,7 @@ public class Main {
                     System.out.println("Selecione um id para o menu Turmas");
                     Integer idCuMenu = Integer.parseInt(cuMenuClass.nextLine());
                     CourseUnit cuMenu = u.getCourseUnitsST().get(idCuMenu);
-                    menuTurmas(u, cuMenu);
+                    menuTurmas(u, cuMenu, h);
                     break;
                 case "v":
                 case "V":
@@ -495,7 +548,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuTurmas(University u, CourseUnit cu)
+    public static void menuTurmas(University u, CourseUnit cu, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -572,9 +625,25 @@ public class Main {
                     String nameC = cScApagar.nextLine();
                     Class cApagar = cu.removeClass(nameC);
 
+                    h.archiveClass(cu, cApagar);
+
+                    for(Date date: cApagar.getScheduleClassesST().keys())
+                    {
+                        ScheduleClass scApagar = cApagar.getScheduleClassesST().get(date);
+
+                        ScheduleClass sCapagar = cApagar.removeScheduleClass(scApagar.getStartDate());
+
+                        h.archiveScheduleClass(cApagar, sCapagar);
+
+                        if(sCapagar != null)
+                        {
+                            System.out.println("O ScheduleClass com a Data Inicial =  " + sCapagar.getStartDate() + " foi Apagado e Arquivado!");
+                        }
+                    }
+
                     if(cApagar != null)
                     {
-                        System.out.println("A Class com o nome " + cApagar.getName() + " foi Apagada!");
+                        System.out.println("A Class com o nome " + cApagar.getName() + " foi Apagada e Arquivado!");
                     }
                     break;
                 case "4":
@@ -596,7 +665,7 @@ public class Main {
                     System.out.println("Selecione um nome para o Menu Horário Turmas");
                     String nameCr = cMenuClass.nextLine();
                     Class cM = cu.getClassesST().get(nameCr);
-                    menuHorarioTurmas(u, cu, cM);
+                    menuHorarioTurmas(u, cu, cM, h);
                     break;
                 case "v":
                 case "V":
@@ -607,7 +676,7 @@ public class Main {
         } while (!"v".equals(op) && !"V".equals(op));
     }
 
-    public static void menuHorarioTurmas(University u, CourseUnit cu, Class c)
+    public static void menuHorarioTurmas(University u, CourseUnit cu, Class c, History h)
     {
         Scanner sca = new Scanner(System.in);
         String op;
@@ -691,9 +760,11 @@ public class Main {
 
                     ScheduleClass scApagar = c.removeScheduleClass(startDateElim);
 
+                    h.archiveScheduleClass(c, scApagar);
+
                     if(scApagar != null)
                     {
-                        System.out.println("O Horario da class com a Data Inicial " + scApagar.getStartDate() + " foi Apagado!");
+                        System.out.println("O Horario da class com a Data Inicial " + scApagar.getStartDate() + " foi Apagado e Arquivado!");
                     }
 
                     break;
