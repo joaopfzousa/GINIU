@@ -108,6 +108,7 @@ public class History {
 
         if(this.scheduleAccompanimentsST.contains(sa.toStringFileScheduleAccompaniment()))
         {
+            
             System.out.println("History - archiveScheduleAccompaniment(): ScheduleAccompaniment already add on archive!!!");
             return;
         }
