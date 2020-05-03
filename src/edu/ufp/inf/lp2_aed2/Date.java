@@ -78,13 +78,8 @@ public class Date implements Comparable<Date> {
      */
     public Date() {
         GregorianCalendar gregCalendar = new GregorianCalendar();
-        this.day = gregCalendar.get(Calendar.DAY_OF_MONTH);
-        this.month = gregCalendar.get(Calendar.MONTH) + 1;
-        this.year = gregCalendar.get(Calendar.YEAR);
         this.hour = gregCalendar.get(Calendar.HOUR_OF_DAY);
         this.minute = gregCalendar.get(Calendar.MINUTE);
-        this.second = gregCalendar.get(Calendar.SECOND);
-        this.milisecond = gregCalendar.get(Calendar.MILLISECOND);
         this.dayOfWeek = gregCalendar.get(Calendar.DAY_OF_WEEK);
     }
 

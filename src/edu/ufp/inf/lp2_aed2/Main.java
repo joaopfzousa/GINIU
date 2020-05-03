@@ -641,7 +641,7 @@ public class Main {
                     System.out.println("Inserir Data Final (Dia da semana/hora/minutos)");
                     String flDate = chSc.nextLine();
 
-                    String[] split2 =  stDate.split("/");
+                    String[] split2 =  flDate.split("/");
                     int fldayOfWeek = Integer.parseInt(split2[0]);
                     int flhour = Integer.parseInt(split2[1]);
                     int flmin = Integer.parseInt(split2[2]);
@@ -797,12 +797,64 @@ public class Main {
                 case "4":
                     System.out.println(" [4] -> Todos os horários disponíveis para marcação de atendimento ");
 
-                    menuCourseUnit(u);
+                    u.printAllStudent();
+                    System.out.println("Inserir o numberStudent do Estudante");
+                    Integer numberStudent = Integer.parseInt(sca.nextLine());
+
+                    Student stu = u.getStudentsST().get(numberStudent);
+
+                    u.printAllTeacher();
+
+                    System.out.println("Inserir o email do Professor");
+                    String emailTea = sca.nextLine();
+
+                    Teacher teac = u.getTeachersST().get(emailTea);
+
+                    RedBlackBST<Date, ScheduleAccompaniment> saST = new RedBlackBST<>();
+
+                    saST = stu.searchSaByTeacher(teac);
+
+                    for (Date date : saST.keys()) {
+                        ScheduleAccompaniment sa = saST.get(date);
+                        System.out.println(sa);
+                    }
                     break;
                 case "5":
                     System.out.println(" [5] -> A ocupação de uma sala entre datas");
 
-                    menuPesquisas(u);
+                    System.out.println("Inserir uma Data (Dia da semana/hora/minutos)");
+                    String stDateS = sca.nextLine();
+
+                    String[] split3 =  stDateS.split("/");
+                    int stdayOfWeekS = Integer.parseInt(split3[0]);
+                    int sthourS = Integer.parseInt(split3[1]);
+                    int stminS = Integer.parseInt(split3[2]);
+                    Date startDateS = new Date(sthourS, stminS, stdayOfWeekS);
+
+
+                    System.out.println("Inserir outra Data (Dia da semana/hora/minutos)");
+                    String flDate = sca.nextLine();
+
+                    String[] split2 =  flDate.split("/");
+                    int fldayOfWeek = Integer.parseInt(split2[0]);
+                    int flhour = Integer.parseInt(split2[1]);
+                    int flmin = Integer.parseInt(split2[2]);
+                    Date finalDate = new Date(flhour, flmin, fldayOfWeek);
+
+                    u.printAllRoom();
+                    System.out.println("Selecione uma sala pelo numberRoom");
+                    String sala = sca.nextLine();
+
+                    Room r = u.getRoomST().get(sala);
+
+                    RedBlackBST<Date, Schedule> sST = new RedBlackBST<>();
+                    sST = r.searchLeaveRoomBetweenDates(startDateS, finalDate);
+
+                    for (Date date1 : sST.keys()) {
+                        Schedule s = sST.get(date1);
+                        System.out.println(s);
+                    }
+
                     break;
                 case "6":
                     System.out.println(" [6] -> Pesquisas de salas por diferentes critérios (ocupação, número de tomadas, piso)");
@@ -821,13 +873,13 @@ public class Main {
 
                     System.out.println("As salas com os critérios -> capacidade: "+ capacity + " andar: "+ floor + " tomadas: "+ socket);
                     for (String numberRoom : roomsAttr.keys()) {
-                        Room r = roomsAttr.get(numberRoom);
-                        System.out.println(r);
+                        Room r1 = roomsAttr.get(numberRoom);
+                        System.out.println(r1);
                     }
                     break;
                 case "7":
                     System.out.println(" [7] -> now()");
-
+                    u.now();
                     break;
                 case "s":
                 case "S":

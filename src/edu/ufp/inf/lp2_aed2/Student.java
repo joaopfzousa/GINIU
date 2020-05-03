@@ -50,6 +50,38 @@ public class Student extends Person {
 
   //Metodos
 
+
+  /**
+   * Retornar os horarios de acompanhamento para aquele professor em que o aluno pode ir
+   * @param t
+   * @return
+   */
+  public RedBlackBST<Date, ScheduleAccompaniment> searchSaByTeacher(Teacher t)
+  {
+    RedBlackBST<Date, ScheduleAccompaniment> saST = new RedBlackBST<>();
+
+    for(Date d: t.getScheduleAccompanimentsST().keys())
+    {
+      ScheduleAccompaniment sa = t.getScheduleAccompanimentsST().get(d);
+
+      for(String name : this.getClassesST().keys())
+      {
+        Class c = this.getClassesST().get(name);
+
+        for(Date stdate : c.getScheduleClassesST().keys())
+        {
+          ScheduleClass sC = c.getScheduleClassesST().get(stdate);
+
+          if(sa.getStartDate().compareTo(sC.getStartDate()) == 0)
+          {
+            saST.put(sa.getStartDate(), sa);
+          }
+        }
+      }
+    }
+    return saST;
+  }
+
   /**
    * Adicionar uma Class na ST
    * @param c Class para adicionar na ST

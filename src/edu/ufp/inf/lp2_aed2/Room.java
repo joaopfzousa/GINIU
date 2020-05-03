@@ -66,6 +66,33 @@ public class Room {
   }
 
   /**
+   * Procura ocupações das salas por datas
+   * @param frstDate
+   * @param finalDate
+   * @return as salas por aquelas datas
+   */
+  public RedBlackBST<Date, Schedule> searchLeaveRoomBetweenDates(Date frstDate, Date finalDate)
+  {
+    RedBlackBST<Date, Schedule> sST = new RedBlackBST<>();
+
+    for(Date d : this.getScheduleAccompanimentST().keys(frstDate, finalDate))
+    {
+      ScheduleAccompaniment sa = this.getScheduleAccompanimentST().get(d);
+
+      sST.put(sa.getStartDate(), sa);
+    }
+
+    for(Date dt: this.getScheduleClassesST().keys(frstDate, finalDate))
+    {
+      ScheduleClass sc = this.getScheduleClassesST().get(dt);
+
+      sST.put(sc.getStartDate(), sc);
+    }
+
+    return sST;
+  }
+
+  /**
    * Get's e Set's
    */
   public Integer getId() {

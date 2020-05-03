@@ -39,8 +39,6 @@ public class University {
                 '}';
     }
 
-
-
     /**
      * Adicionar uma Room na ST
      * @param r Room para adicionar na ST
@@ -164,7 +162,6 @@ public class University {
         }
         return false;
     }
-
 
     /**
      * Adicionar um Teacher na ST
@@ -841,7 +838,13 @@ public class University {
         return res;
     }
 
-
+    /**
+     * Procurar Salas pelos diversos atibutos passados
+     * @param capacity
+     * @param socket
+     * @param floor
+     * @return as salas disponiveis com os atributos
+     */
     public RedBlackBST<String, Room> searchRoomByAttr(Integer capacity, boolean socket, Integer floor)
     {
         RedBlackBST<String, Room> rooms = new RedBlackBST<>();
@@ -862,6 +865,119 @@ public class University {
             }
         }
         return rooms;
+    }
+
+    /**
+     * Tudo o que está a acontecer na faculdade neste momento
+     */
+    public void now()
+    {
+        SeparateChainingHashST<String, Teacher> teachersSTUsed = new SeparateChainingHashST<>();
+
+        SeparateChainingHashST<String, Teacher> teachersSTUnused = new SeparateChainingHashST<>();
+
+        SeparateChainingHashST<String, Class> classesSTUsed = new SeparateChainingHashST<>();
+
+        SeparateChainingHashST<String, Class> classesSTUnused = new SeparateChainingHashST<>();
+
+        RedBlackBST<String, Room> roomSTUsed = new RedBlackBST<>();
+
+        RedBlackBST<String, Room> roomSTUnused = new RedBlackBST<>();
+
+        SeparateChainingHashST<Integer, CourseUnit> courseUnitsSTUsed = new SeparateChainingHashST<>();
+
+        SeparateChainingHashST<Integer, CourseUnit> courseUnitsSTUnused = new SeparateChainingHashST<>();
+
+        Date now = new Date();
+
+        for(String name : this.teachersST.keys())
+        {
+            Teacher t = this.teachersST.get(name);
+
+            for(Date d : t.getScheduleAccompanimentsST().keys())
+            {
+                ScheduleAccompaniment sa = t.getScheduleAccompanimentsST().get(d);
+
+                if(sa.getStartDate().getDayOfWeekInt() >= now.getDayOfWeekInt() && sa.getFinalDate().getDayOfWeekInt() <= now.getDayOfWeekInt() &&
+                sa.getStartDate().getHour() >= now.getHour() && sa.getFinalDate().getHour() <= now.getHour() &&
+                sa.getStartDate().getMinute() >= now.getHour() && sa.getFinalDate().getHour() <= now.getMinute())
+                {
+                    teachersSTUsed.put(t.getEmail(), t);
+                    roomSTUsed.put(sa.getRoom().getNumberRoom(), sa.getRoom());
+                }else{
+                    teachersSTUnused.put(t.getEmail(), t);
+                    roomSTUnused.put(sa.getRoom().getNumberRoom(), sa.getRoom());
+                }
+            }
+        }
+
+        for(String name : this.classesST.keys())
+        {
+            Class c = this.classesST.get(name);
+
+            for(Date d1: c.getScheduleClassesST().keys())
+            {
+                ScheduleClass sc = c.getScheduleClassesST().get(d1);
+
+                if(sc.getStartDate().getDayOfWeekInt() >= now.getDayOfWeekInt() && sc.getFinalDate().getDayOfWeekInt() <= now.getDayOfWeekInt() &&
+                        sc.getStartDate().getHour() >= now.getHour() && sc.getFinalDate().getHour() <= now.getHour() &&
+                        sc.getStartDate().getMinute() >= now.getHour() && sc.getFinalDate().getHour() <= now.getMinute())
+                {
+                    classesSTUsed.put(c.getName(), c);
+                    courseUnitsSTUsed.put(c.getCourse().getId(), c.getCourse());
+                    teachersSTUsed.put(c.getTeacher().getEmail(), c.getTeacher());
+                    roomSTUsed.put(sc.getRoom().getNumberRoom(), sc.getRoom());
+
+                }else{
+                    classesSTUnused.put(c.getName(), c);
+                    courseUnitsSTUnused.put(c.getCourse().getId(), c.getCourse());
+                    teachersSTUnused.put(c.getTeacher().getEmail(), c.getTeacher());
+                    roomSTUnused.put(sc.getRoom().getNumberRoom(), sc.getRoom());
+                }
+            }
+        }
+
+        System.out.println("Professores ocupados:");
+        for(String email: teachersSTUsed.keys())
+        {
+            Teacher tUsed = teachersSTUsed.get(email);
+            System.out.println(tUsed);
+        }
+
+        System.out.println("Professores que não estão ocupados:");
+        for(String email: teachersSTUnused.keys())
+        {
+            Teacher tUsed = teachersSTUnused.get(email);
+            System.out.println(tUsed);
+        }
+
+        System.out.println("Unidades curriculares a ter aulas:");
+        for(Integer id: courseUnitsSTUsed.keys())
+        {
+            CourseUnit cuUsed = courseUnitsSTUsed.get(id);
+            System.out.println(cuUsed);
+        }
+
+        System.out.println("Turmas a ter aulas:");
+        for(String email: classesSTUsed.keys())
+        {
+            Class cUsed = classesSTUsed.get(email);
+            System.out.println(cUsed);
+        }
+
+        System.out.println("Salas ocupadas:");
+        for(String numberRoom: roomSTUsed.keys())
+        {
+            Room rUsed = roomSTUsed.get(numberRoom);
+            System.out.println(rUsed);
+        }
+
+        System.out.println("Salas que não estão ocupadas:");
+        for(String numberRoom: roomSTUnused.keys())
+        {
+            Room rUnused = roomSTUnused.get(numberRoom);
+            System.out.println(rUnused);
+        }
     }
 
     /**
