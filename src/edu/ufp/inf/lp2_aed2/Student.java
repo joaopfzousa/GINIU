@@ -178,7 +178,6 @@ public class Student extends Person {
     Out o = new Out(path);
     for(Integer numberStudent : u.getStudentsST().keys()){
       Student s = u.getStudentsST().get(numberStudent);
-      System.out.println(u.getStudentsST().get(numberStudent));
       for(String name : s.getClassesST().keys()){
         Class cl = s.classesST.get(name);
         Integer idCourse = cl.getCourse().getId();
