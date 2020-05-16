@@ -23,8 +23,7 @@ public class Room {
   // Lista de Schedule pela Class - chave é data
   private RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
 
-
-  //public Vector  myPoint;
+  private Point myPoint;
 
   /**
    * Construtor
@@ -40,6 +39,7 @@ public class Room {
     this.numberRoom = numberRoom;
     this.socket = socket;
     this.capacity = capacity;
+    this.myPoint = null;
   }
 
   /**
@@ -54,6 +54,7 @@ public class Room {
             ", numberRoom=" + numberRoom +
             ", socket=" + socket +
             ", capacity=" + capacity +
+            ", point=" + myPoint +
             '}';
   }
 
@@ -149,5 +150,13 @@ public class Room {
 
   public void setScheduleAccompanimentST(RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST) {
     this.scheduleAccompanimentST = scheduleAccompanimentST;
+  }
+
+  public Point getMyPoint() {
+    return myPoint;
+  }
+
+  public void setMyPoint(Point myPoint) {
+    this.myPoint = myPoint;
   }
 }
