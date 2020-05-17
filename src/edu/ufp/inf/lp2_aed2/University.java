@@ -677,7 +677,7 @@ public class University {
     }
 
     /**
-     * Carregar o ficheiro txt da classe Room
+     * Carregar o ficheiro txt da classe Point
      * @param path
      */
     public void loadRoomPonts(String path){

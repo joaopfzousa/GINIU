@@ -2,7 +2,7 @@ package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.RedBlackBST;
 
-public class Room {
+public class Room extends Node{
   /**
    * Atributos
    */
@@ -34,6 +34,7 @@ public class Room {
    * @param capacity
    */
   public Room(Integer id, Integer floor, String numberRoom, boolean socket, Integer capacity) {
+    super();
     this.id = id;
     this.floor = floor;
     this.numberRoom = numberRoom;
@@ -64,6 +65,11 @@ public class Room {
    */
   public String toStringFileRoom(){
     return id + ";" + floor + ";" + numberRoom + ";" + socket + ";" + capacity + ";" ;
+  }
+
+  public Integer getNode()
+  {
+    return super.getId();
   }
 
   /**
