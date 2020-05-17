@@ -2,14 +2,36 @@ package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Scanner;
 
-public class Main {
+public class Main extends Application {
     public static void main(String[] args) throws IOException {
         University u = new University("UFP");
         History h = new History();
+
+        launch(args);
+        //menuPrincipal(u, h);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("./Graphic/university.fxml"));
+        Scene scene = new Scene(root);
+
+        primaryStage.setTitle("University");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void menuPrincipal(University u, History h)
+    {
         Scanner sca = new Scanner(System.in);
         String op;
         do {

@@ -55,9 +55,9 @@ public class Point
       this.y+=dy;
     }
 
+    /*
     //Rectangulo
     public static void main(String[] args) {
-      // TODO code application logic here
       Point p1=new Point(1.0f,1.0f);
       Point p2=new Point();
       double dx = p1.distX(p2);
@@ -66,7 +66,7 @@ public class Point
 
 
       System.out.printf("Valor =",dx);
-    }
+    }*/
 
     public boolean xBetweenPoints(Point up, Point down)
     {
