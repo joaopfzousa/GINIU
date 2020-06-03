@@ -1,7 +1,5 @@
 package edu.ufp.inf.lp2_aed2.Graphic;
 
-
-import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2_aed2.*;
 import edu.ufp.inf.lp2_aed2.Class;
 import javafx.event.ActionEvent;
@@ -11,12 +9,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-
 import java.io.*;
 import java.net.URL;
-import java.util.Collection;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class UniversityController implements Initializable {
     /**
@@ -438,8 +433,9 @@ public class UniversityController implements Initializable {
                 break;
         }
     }
-    /** Falta o teacher e o course
+    // Falta o teacher e o course
     public void handleEditClassAction(TableColumn.CellEditEvent<edu.ufp.inf.lp2_aed2.Class, String> classStringCellEditEvent) {
+        /*
         int col = classStringCellEditEvent.getTablePosition().getColumn();
         switch (col){
             case 0 :
@@ -455,8 +451,9 @@ public class UniversityController implements Initializable {
                 classStringCellEditEvent.getRowValue().setCourse(classStringCellEditEvent.getNewValue());
                 break;
         }
+         */
     }
-     */
+
 
     /**
      * Remover

@@ -687,8 +687,8 @@ public class University {
             String  numberRoom = split[0];
             Double x = Double.parseDouble(split[1]);
             Double y = Double.parseDouble(split[2]);
-            Point p = new Point(x, y);
-            this.roomST.get(numberRoom).setMyPoint(p);
+            //Point p = new Point(x, y);
+            //this.roomST.get(numberRoom).setMyPoint(p);
         }
     }
 

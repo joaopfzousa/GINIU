@@ -1,4 +1,4 @@
-package edu.ufp.inf.lp2_aed2;
+package edu.ufp.inf.lp2_aed2.points;
 
 public abstract class Node {
 

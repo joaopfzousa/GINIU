@@ -1,4 +1,4 @@
-package edu.ufp.inf.lp2_aed2;
+package edu.ufp.inf.lp2_aed2.points;
 
 public class Point
 {
@@ -6,9 +6,15 @@ public class Point
 
     private double y;
 
-    public Point(double x,double y){ //a e b
-      this.x=x;
-      this.y=y;
+    private double z;
+
+    private final Double secondByM = 1.5;
+
+
+    public Point(double x,double y, double z){ //a e b
+      this.x = x;
+      this.y = y;
+      this.z = z;
     }
 
     @Override
@@ -16,6 +22,7 @@ public class Point
         return "Point{" +
                 "x=" + x +
                 ", y=" + y +
+                ", z=" + z +
                 '}';
     }
 
@@ -55,18 +62,16 @@ public class Point
       this.y+=dy;
     }
 
-    /*
-    //Rectangulo
-    public static void main(String[] args) {
-      Point p1=new Point(1.0f,1.0f);
-      Point p2=new Point();
-      double dx = p1.distX(p2);
-      dx = p2.distX(p1);
-      double dy=p2.distY(p1);
+    public Double distancia(Point point) {
+        Double x = (point.getX() - this.x) * (point.getX() - this.x);
+        Double y = (point.getY() - this.y) * (point.getY() - this.y);
+        Double z = (point.getZ() - this.z) * (point.getZ() - this.z);
+        return Math.sqrt(x+y+z);
+    }
 
-
-      System.out.printf("Valor =",dx);
-    }*/
+    public Double segundoPelaDistancia(Point point){
+        return secondByM*distancia(point);
+    }
 
     public boolean xBetweenPoints(Point up, Point down)
     {
@@ -88,13 +93,25 @@ public class Point
       }
     }
 
-  /**
-   * Distancia entre dois pontos, peso das arestas
-   * @param p ponto
-   * @return distancia
-   */
-    public Double distPoints(Point p)
-    {
-      return Math.sqrt(p.distX(this) * p.distX(this) + p.distY(this) * p.distY(this));
+    public void setX(double x) {
+        this.x = x;
     }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getZ() {
+        return z;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+
+    public double getSecondByM() {
+        return secondByM;
+    }
+
+
 }

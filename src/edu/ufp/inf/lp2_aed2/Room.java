@@ -1,8 +1,10 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.RedBlackBST;
+import edu.ufp.inf.lp2_aed2.points.Node;
+import edu.ufp.inf.lp2_aed2.points.Point;
 
-public class Room extends Node{
+public class Room extends Node {
   /**
    * Atributos
    */
