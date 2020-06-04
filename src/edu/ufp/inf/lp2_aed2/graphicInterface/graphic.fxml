@@ -53,11 +53,11 @@
                            <children>
                                <TableView fx:id="roomTable" editable="true" prefHeight="499.0" prefWidth="800.0">
                                 <columns>
-                                  <TableColumn fx:id="idRoomCol" prefWidth="75.0" text="ID" />
-                                  <TableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
-                                    <TableColumn fx:id="numberRoomCol" prefWidth="168.0" text="NumberRoom" />
-                                    <TableColumn fx:id="socketCol" prefWidth="162.0" text="Socket" />
-                                    <TableColumn fx:id="capacityCol" prefWidth="173.0" text="Capacity" />
+                                  <TableColumn fx:id="idRoomCol" onEditCommit="#handleEditIntegersRoomAction" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="floorCol" onEditCommit="#handleEditIntegersRoomAction" prefWidth="75.0" text="Floor" />
+                                    <TableColumn fx:id="numberRoomCol" onEditCommit="#handleEditStringsRoomAction" prefWidth="168.0" text="NumberRoom" />
+                                    <TableColumn fx:id="socketCol" onEditCommit="#handleEditBooleanRoomAction" prefWidth="162.0" text="Socket" />
+                                    <TableColumn fx:id="capacityCol" onEditCommit="#handleEditIntegersRoomAction" prefWidth="173.0" text="Capacity" />
                                     <TableColumn fx:id="pointCol" prefWidth="146.0" text="Point" />
                                 </columns>
                               </TableView>
@@ -93,9 +93,9 @@
                            <children>
                               <TableView fx:id="teacherTable" editable="true" prefHeight="504.0" prefWidth="800.0">
                                  <columns>
-                                    <TableColumn fx:id="idTeacherCol" prefWidth="112.0" text="ID" />
-                                    <TableColumn fx:id="nameTeacherCol" minWidth="0.0" prefWidth="280.0" text="Name" />
-                                    <TableColumn fx:id="emailTeacherCol" minWidth="0.0" prefWidth="407.0" text="Email" />
+                                    <TableColumn fx:id="idTeacherCol" onEditCommit="#handleEditIntegerTeacherAction" prefWidth="112.0" text="ID" />
+                                    <TableColumn fx:id="nameTeacherCol" minWidth="0.0" onEditCommit="#handleEditStringsTeacherAction" prefWidth="280.0" text="Name" />
+                                    <TableColumn fx:id="emailTeacherCol" minWidth="0.0" onEditCommit="#handleEditStringsTeacherAction" prefWidth="407.0" text="Email" />
                                  </columns>
                               </TableView>
                               <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
@@ -128,8 +128,8 @@
                               <TableView fx:id="SATable" editable="true" prefHeight="497.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="startDateSACol" prefWidth="188.0" text="Start Date" />
-                                    <TableColumn fx:id="finalDateSACol" minWidth="0.0" prefWidth="157.0" text="Final Date" />
-                                    <TableColumn fx:id="roomSACol" minWidth="0.0" prefWidth="264.0" text="Room" />
+                                    <TableColumn fx:id="finalDateSACol" minWidth="0.0" prefWidth="181.0" text="Final Date" />
+                                    <TableColumn fx:id="roomSACol" minWidth="0.0" prefWidth="240.0" text="Room" />
                                     <TableColumn fx:id="teacherSACol" minWidth="0.0" prefWidth="190.0" text="Teacher" />
                                  </columns>
                               </TableView>
@@ -163,11 +163,11 @@
                            <children>
                               <TableView fx:id="studentTable" editable="true" prefHeight="499.0" prefWidth="800.0">
                                  <columns>
-                                    <TableColumn fx:id="idStudentCol" prefWidth="60.0" text="ID" />
-                                    <TableColumn fx:id="nameStudentCol" minWidth="0.0" prefWidth="152.0" text="Name" />
-                                    <TableColumn fx:id="numberStudentCol" minWidth="0.0" prefWidth="98.0" text="Number Student" />
-                                    <TableColumn fx:id="typeStudentCol" minWidth="0.0" prefWidth="94.0" text="Type" />
-                                    <TableColumn fx:id="emailStudentCol" minWidth="0.0" prefWidth="207.0" text="Email" />
+                                    <TableColumn fx:id="idStudentCol" onEditCommit="#handleEditIntegerStudentAction" prefWidth="60.0" text="ID" />
+                                    <TableColumn fx:id="nameStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="152.0" text="Name" />
+                                    <TableColumn fx:id="numberStudentCol" minWidth="0.0" onEditCommit="#handleEditIntegerStudentAction" prefWidth="98.0" text="Number Student" />
+                                    <TableColumn fx:id="typeStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="94.0" text="Type" />
+                                    <TableColumn fx:id="emailStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="207.0" text="Email" />
                                     <TableColumn fx:id="pointStudentCol" minWidth="0.0" prefWidth="188.0" text="Point" />
                                  </columns>
                               </TableView>
@@ -203,9 +203,9 @@
                            <children>
                               <TableView fx:id="CourseUnitTable" editable="true" prefHeight="503.0" prefWidth="800.0">
                                  <columns>
-                                    <TableColumn fx:id="idCourseUnitCol" prefWidth="112.0" text="ID" />
-                                    <TableColumn fx:id="nameCourseUnitCol" minWidth="0.0" prefWidth="455.0" text="Name" />
-                                    <TableColumn fx:id="ectsCol" minWidth="0.0" prefWidth="232.0" text="Ects" />
+                                    <TableColumn fx:id="idCourseUnitCol" onEditCommit="#handleEditIntegerCourseAction" prefWidth="112.0" text="ID" />
+                                    <TableColumn fx:id="nameCourseUnitCol" minWidth="0.0" onEditCommit="#handleEditStringCourseAction" prefWidth="455.0" text="Name" />
+                                    <TableColumn fx:id="ectsCol" minWidth="0.0" onEditCommit="#handleEditIntegerCourseAction" prefWidth="232.0" text="Ects" />
                                  </columns>
                               </TableView>
                               <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
@@ -237,9 +237,9 @@
                            <children>
                               <TableView fx:id="ClassTable" editable="true" prefHeight="497.0" prefWidth="800.0">
                                  <columns>
-                                    <TableColumn fx:id="idClassCol" prefWidth="65.0" text="ID" />
-                                    <TableColumn fx:id="nameClassCol" minWidth="0.0" prefWidth="127.0" text="Name" />
-                                    <TableColumn fx:id="typeClassCol" minWidth="0.0" prefWidth="121.0" text="Type" />
+                                    <TableColumn fx:id="idClassCol" onEditCommit="#handleEditIntegerClassAction" prefWidth="65.0" text="ID" />
+                                    <TableColumn fx:id="nameClassCol" minWidth="0.0" onEditCommit="#handleEditStringClassAction" prefWidth="127.0" text="Name" />
+                                    <TableColumn fx:id="typeClassCol" minWidth="0.0" onEditCommit="#handleEditStringClassAction" prefWidth="121.0" text="Type" />
                                     <TableColumn fx:id="teacherClassCol" minWidth="0.0" prefWidth="253.0" text="Teacher" />
                                     <TableColumn fx:id="courseUnitClassCol" minWidth="0.0" prefWidth="233.0" text="Course Unit" />
                                  </columns>

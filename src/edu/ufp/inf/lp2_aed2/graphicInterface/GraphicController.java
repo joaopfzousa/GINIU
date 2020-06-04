@@ -12,6 +12,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.BooleanStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,7 +32,7 @@ public class GraphicController implements Initializable {
     public TableColumn<Room, Integer> floorCol;
     public TableColumn<Room, String> numberRoomCol;
     public TableColumn<Room, Boolean> socketCol;
-    public TableColumn<Room, String> capacityCol;
+    public TableColumn<Room, Integer> capacityCol;
     public TableColumn<Room, Point> pointCol;
     public TextField idRoomField;
     public TextField floorField;
@@ -155,12 +158,23 @@ public class GraphicController implements Initializable {
         capacityCol.setCellValueFactory(new PropertyValueFactory<>("capacity"));
         pointCol.setCellValueFactory(new PropertyValueFactory<>("myPoint"));
 
+        idRoomCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        floorCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        numberRoomCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        socketCol.setCellFactory(TextFieldTableCell.forTableColumn(new BooleanStringConverter()));
+        capacityCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
+
         /**
          * Teacher
          */
         idTeacherCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameTeacherCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailTeacherCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+
+        idTeacherCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        nameTeacherCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailTeacherCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
         /**
          * ScheduleAccompaniment
@@ -169,6 +183,7 @@ public class GraphicController implements Initializable {
         finalDateSACol.setCellValueFactory(new PropertyValueFactory<>("finalDate"));
         roomSACol.setCellValueFactory(new PropertyValueFactory<>("room"));
         teacherSACol.setCellValueFactory(new PropertyValueFactory<>("teacher"));
+
 
         /**
          * Student
@@ -180,6 +195,13 @@ public class GraphicController implements Initializable {
         numberStudentCol.setCellValueFactory(new PropertyValueFactory<>("numberStudent"));
         typeStudentCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
+        idStudentCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        nameStudentCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        emailStudentCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        numberStudentCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        typeStudentCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        
+
         /**
          * CourseUnit
          */
@@ -187,14 +209,23 @@ public class GraphicController implements Initializable {
         nameCourseUnitCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         ectsCol.setCellValueFactory(new PropertyValueFactory<>("ects"));
 
+        idCourseUnitCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        nameCourseUnitCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        ectsCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
         /**
-         * Student
+         * Class
          */
         idClassCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameClassCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeClassCol.setCellValueFactory(new PropertyValueFactory<>("type"));
         teacherClassCol.setCellValueFactory(new PropertyValueFactory<>("teacher"));
         courseUnitClassCol.setCellValueFactory(new PropertyValueFactory<>("course"));
+
+        idClassCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        nameClassCol.setCellFactory(TextFieldTableCell.forTableColumn());
+        typeClassCol.setCellFactory(TextFieldTableCell.forTableColumn());
+
 
         /**
          * ScheduleClass
@@ -281,6 +312,14 @@ public class GraphicController implements Initializable {
     }
 
     public void handleSaveTextFileAction(ActionEvent actionEvent) {
+        university.saveTeacher("./data/SaveTeacher");
+        university.saveStudent("./data/SaveStudent");
+        university.saveRoom("./data/SaveRoom");
+        university.saveCourseUnit("./data/SaveCourseUnit");
+        university.saveClass("./data/SaveClass");
+        Class.saveScheduleClass(university,"./data/SaveScheduleClass");
+        Student.saveStudentCourse(university, "./data/SaveStudentCourse");
+        Teacher.saveScheduleAccompaniment(university, "./data/SaveTeacherScheduleAccompaniment");
     }
 
     public void handleSaveBinFileAction(ActionEvent actionEvent) {
@@ -475,5 +514,162 @@ public class GraphicController implements Initializable {
         {
             classSCCombo.getItems().add(name);
         }
+    }
+
+    public void handleEditIntegersRoomAction(TableColumn.CellEditEvent<Room, Integer> roomIntegerCellEditEvent) {
+        int col = roomIntegerCellEditEvent.getTablePosition().getColumn();
+        Room room = roomIntegerCellEditEvent.getRowValue();
+        System.out.println(room);
+        switch (col){
+            case 0:
+                room.setId(roomIntegerCellEditEvent.getNewValue());
+                break;
+            case 1:
+                room.setFloor(roomIntegerCellEditEvent.getNewValue());
+                break;
+            case 4:
+                room.setCapacity(roomIntegerCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(room);
+    }
+
+    public void handleEditStringsRoomAction(TableColumn.CellEditEvent<Room, String> roomStringCellEditEvent) {
+        int col = roomStringCellEditEvent.getTablePosition().getColumn();
+        Room room = roomStringCellEditEvent.getRowValue();
+        System.out.println(room);
+        switch (col){
+            case 2:
+                room.setNumberRoom(roomStringCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(room);
+    }
+
+    public void handleEditBooleanRoomAction(TableColumn.CellEditEvent<Room, Boolean> roomBooleanCellEditEvent) {
+        int col = roomBooleanCellEditEvent.getTablePosition().getColumn();
+        Room room = roomBooleanCellEditEvent.getRowValue();
+        System.out.println(room);
+        switch (col){
+            case 3:
+                room.setSocket(roomBooleanCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(room);
+    }
+
+    public void handleEditIntegerTeacherAction(TableColumn.CellEditEvent<Teacher, Integer> teacherIntegerCellEditEvent) {
+        int col = teacherIntegerCellEditEvent.getTablePosition().getColumn();
+        Teacher teacher = teacherIntegerCellEditEvent.getRowValue();
+        System.out.println(teacher);
+        switch (col){
+            case 0:
+                teacher.setId(teacherIntegerCellEditEvent.getNewValue());
+                break;
+
+        }
+        System.out.println(teacher);
+    }
+
+    public void handleEditStringsTeacherAction(TableColumn.CellEditEvent<Teacher, String> teacherStringCellEditEvent) {
+        int col = teacherStringCellEditEvent.getTablePosition().getColumn();
+        Teacher teacher = teacherStringCellEditEvent.getRowValue();
+        System.out.println(teacher);
+        switch (col){
+            case 1:
+                teacher.setName(teacherStringCellEditEvent.getNewValue());
+                break;
+            case 2:
+                teacher.setEmail(teacherStringCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(teacher);
+    }
+
+    public void handleEditIntegerStudentAction(TableColumn.CellEditEvent<Student, Integer> studentIntegerCellEditEvent) {
+        int col = studentIntegerCellEditEvent.getTablePosition().getColumn();
+        Student student = studentIntegerCellEditEvent.getRowValue();
+        System.out.println(student);
+        switch (col){
+            case 0:
+                student.setId(studentIntegerCellEditEvent.getNewValue());
+                break;
+            case 2:
+                student.setNumberStudent(studentIntegerCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(student);
+    }
+
+    public void handleEditStringsStudentAction(TableColumn.CellEditEvent<Student, String> studentStringCellEditEvent) {
+        int col = studentStringCellEditEvent.getTablePosition().getColumn();
+        Student student = studentStringCellEditEvent.getRowValue();
+        System.out.println(student);
+        switch (col){
+            case 1:
+                student.setName(studentStringCellEditEvent.getNewValue());
+                break;
+            case 3:
+                student.setType(studentStringCellEditEvent.getNewValue());
+                break;
+            case 4:
+                student.setEmail(studentStringCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(student);
+    }
+
+    public void handleEditIntegerCourseAction(TableColumn.CellEditEvent<CourseUnit, Integer> courseUnitIntegerCellEditEvent) {
+        int col = courseUnitIntegerCellEditEvent.getTablePosition().getColumn();
+        CourseUnit courseUnit = courseUnitIntegerCellEditEvent.getRowValue();
+        System.out.println(courseUnit);
+        switch (col){
+            case 0:
+                courseUnit.setId(courseUnitIntegerCellEditEvent.getNewValue());
+                break;
+            case 2:
+                courseUnit.setEcts(courseUnitIntegerCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(courseUnit);
+    }
+
+    public void handleEditStringCourseAction(TableColumn.CellEditEvent<CourseUnit, String> courseUnitStringCellEditEvent) {
+        int col = courseUnitStringCellEditEvent.getTablePosition().getColumn();
+        CourseUnit courseUnit = courseUnitStringCellEditEvent.getRowValue();
+        System.out.println(courseUnit);
+        switch (col){
+            case 1:
+                courseUnit.setName(courseUnitStringCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(courseUnit);
+    }
+
+    public void handleEditIntegerClassAction(TableColumn.CellEditEvent<Class, Integer> classIntegerCellEditEvent) {
+        int col = classIntegerCellEditEvent.getTablePosition().getColumn();
+        Class clase = classIntegerCellEditEvent.getRowValue();
+        System.out.println(clase);
+        switch (col){
+            case 0:
+                clase.setId(classIntegerCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(clase);
+    }
+
+    public void handleEditStringClassAction(TableColumn.CellEditEvent<Class, String> classStringCellEditEvent) {
+        int col = classStringCellEditEvent.getTablePosition().getColumn();
+        Class clase = classStringCellEditEvent.getRowValue();
+        System.out.println(clase);
+        switch (col){
+            case 1:
+                clase.setName(classStringCellEditEvent.getNewValue());
+                break;
+            case 2:
+                clase.setType(classStringCellEditEvent.getNewValue());
+                break;
+        }
+        System.out.println(clase);
     }
 }
