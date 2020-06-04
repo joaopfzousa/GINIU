@@ -1,5 +1,7 @@
 package edu.ufp.inf.lp2_aed2.graphicInterface;
 
+import edu.princeton.cs.algs4.RedBlackBST;
+import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2_aed2.*;
 import edu.ufp.inf.lp2_aed2.Class;
 import edu.ufp.inf.lp2_aed2.points.Point;
@@ -118,7 +120,7 @@ public class GraphicController implements Initializable {
     public TextField nameClassField;
     public TextField typeClassField;
     public ComboBox<String> teacherFieldCombo;
-    public ComboBox<String> courseFieldCombo;
+    public ComboBox<Integer> courseFieldCombo;
 
     private static final String PATH_BINCLASSES_READ = "./data/bin/ClassBin.bin";
     private static final String PATH_BINCLASSES_SAVE = "./data/bin/SaveClassBin.bin";
@@ -134,7 +136,7 @@ public class GraphicController implements Initializable {
     public TextField startDateSCField;
     public TextField finalDateSCField;
     public ComboBox<String> roomSCCombo;
-    public ComboBox<String> teacherSCCombo;
+    public ComboBox<String> classSCCombo;
 
     private static final String PATH_BINSCHEDULECLASSES_READ = "./data/bin/ScheduleClassBin.bin";
     private static final String PATH_BINSCHEDULECLASSES_SAVE = "./data/bin/SaveScheduleClassBin.bin";
@@ -212,6 +214,7 @@ public class GraphicController implements Initializable {
             Room room = university.getRoomST().get(r);
             roomTable.getItems().add(room);
         }
+        addRoomsToComboBoxs(university.getRoomST());
 
         teacherTable.getItems().clear();
         SATable.getItems().clear();
@@ -230,6 +233,7 @@ public class GraphicController implements Initializable {
                 SATable.getItems().add(sa);
             }
         }
+        addTeacherToComboBoxs(university.getTeachersST());
 
         studentTable.getItems().clear();
         university.loadStudent("./data/Student");
@@ -248,6 +252,7 @@ public class GraphicController implements Initializable {
             courseUnit = university.getCourseUnitsST().get(cu);
             CourseUnitTable.getItems().add(courseUnit);
         }
+        addCourseToComboBoxs(university.getCourseUnitsST());
 
         ClassTable.getItems().clear();
         SCTable.getItems().clear();
@@ -266,6 +271,9 @@ public class GraphicController implements Initializable {
             }
 
         }
+
+        addClassToComboBoxs(university.getClassesST());
+
         Student.loadStudentCourse(university, "./data/StudentCourse");
     }
 
@@ -279,38 +287,193 @@ public class GraphicController implements Initializable {
     }
 
     public void handleAddRoomAction(ActionEvent actionEvent) {
+        Room r = new Room(Integer.parseInt(idRoomField.getText()), Integer.parseInt(floorField.getText()), numberRoomField.getText(), Boolean.parseBoolean(socketField.getText()), Integer.parseInt(capacityField.getText()));
+        roomTable.getItems().add(r);
+        idRoomField.setText("");
+        floorField.setText("");
+        numberRoomField.setText("");
+        socketField.setText("");
+        capacityField.setText("");
+        //falta implementar
+        pointField.setText("");
+
+        university.getRoomST().put(r.getNumberRoom(), r);
     }
 
     public void handleRemoveRoomAction(ActionEvent actionEvent) {
+        Room room = roomTable.getSelectionModel().getSelectedItem();
+        roomTable.getItems().remove(room);
+        university.removeRoom(room.getNumberRoom());
     }
 
     public void handleAddTeacherAction(ActionEvent actionEvent) {
+        Teacher t = new Teacher(Integer.parseInt(idTeacherField.getText()), nameTeacherField.getText(), emailTeacherField.getText());
+        teacherTable.getItems().add(t);
+        idTeacherField.setText("");
+        nameTeacherField.setText("");
+        emailTeacherField.setText("");
+
+        university.getTeachersST().put(t.getEmail(), t);
     }
 
     public void handleRemoveTeacherAction(ActionEvent actionEvent) {
+        Teacher teacher = teacherTable.getSelectionModel().getSelectedItem();
+        teacherTable.getItems().remove(teacher);
+        university.removeTeacher(teacher.getEmail());
     }
 
     public void handleAddSAAction(ActionEvent actionEvent) {
+        String startDate = startDateSAField.getText();
+
+        String[] split =  startDate.split("/");
+        int stdayOfWeek = Integer.parseInt(split[0]);
+        int sthour = Integer.parseInt(split[1]);
+        int stmin = Integer.parseInt(split[2]);
+        Date stD = new Date(sthour, stmin, stdayOfWeek);
+
+        String finalDate = finalDateSAField.getText();
+
+        String[] split2 =  finalDate.split("/");
+        int fldayOfWeek = Integer.parseInt(split2[0]);
+        int flhour = Integer.parseInt(split2[1]);
+        int flmin = Integer.parseInt(split2[2]);
+        Date flD = new Date(flhour, flmin, fldayOfWeek);
+
+        Room r = university.getRoomST().get(roomSaCombo.getValue());
+        Teacher t = university.getTeachersST().get(teacherSACombo.getValue());
+
+        ScheduleAccompaniment sa = new ScheduleAccompaniment(stD, flD, r, t);
+        SATable.getItems().add(sa);
+        startDateSAField.setText("");
+        finalDateSAField.setText("");
     }
 
     public void handleRemoveSAAction(ActionEvent actionEvent) {
+        ScheduleAccompaniment sa = SATable.getSelectionModel().getSelectedItem();
+        SATable.getItems().remove(sa);
+        sa.getTeacher().removeScheduleAccompaniment(sa.getStartDate());
     }
 
     public void handleAddStudentAction(ActionEvent actionEvent) {
+        Student s = new Student(Integer.parseInt(idStudentField.getText()), nameStudentField.getText(), emailStudentField.getText(), Integer.parseInt(numberStudentField.getText()), typeStudentField.getText());
+        studentTable.getItems().add(s);
+        idStudentField.setText("");
+        nameStudentField.setText("");
+        emailStudentField.setText("");
+        numberStudentField.setText("");
+        typeStudentField.setText("");
+
+        //falta para os pontos
+        //pointStudentField
     }
 
     public void handleRemoveStudentAction(ActionEvent actionEvent) {
+        Student s = studentTable.getSelectionModel().getSelectedItem();
+        studentTable.getItems().remove(s);
+        university.removeStudent(s.getNumberStudent());
     }
 
     public void handleAddClassAction(ActionEvent actionEvent) {
+        Teacher t = university.getTeachersST().get(teacherFieldCombo.getValue());
+        CourseUnit cu = university.getCourseUnitsST().get(courseFieldCombo.getValue());
+
+        Class c = new Class(Integer.parseInt(idClassField.getText()), nameClassField.getText(), typeClassField.getText(), t, cu);
+        ClassTable.getItems().add(c);
+        idClassField.setText("");
+        nameClassField.setText("");
+        typeClassField.setText("");
     }
 
     public void handleRemoveClassAction(ActionEvent actionEvent) {
+        Class c = ClassTable.getSelectionModel().getSelectedItem();
+        ClassTable.getItems().remove(c);
+        university.removeClass(c.getName());
     }
 
     public void handleAddSCAction(ActionEvent actionEvent) {
+        String startDate = startDateSCField.getText();
+
+        String[] split =  startDate.split("/");
+        int stdayOfWeek = Integer.parseInt(split[0]);
+        int sthour = Integer.parseInt(split[1]);
+        int stmin = Integer.parseInt(split[2]);
+        Date stD = new Date(sthour, stmin, stdayOfWeek);
+
+        String finalDate = finalDateSCField.getText();
+
+        String[] split2 =  finalDate.split("/");
+        int fldayOfWeek = Integer.parseInt(split2[0]);
+        int flhour = Integer.parseInt(split2[1]);
+        int flmin = Integer.parseInt(split2[2]);
+        Date flD = new Date(flhour, flmin, fldayOfWeek);
+
+
+        Room r = university.getRoomST().get(roomSCCombo.getValue());
+        Class c = university.getClassesST().get(classSCCombo.getValue());
+
+        ScheduleClass sc = new ScheduleClass(stD, flD, r, c);
+        SCTable.getItems().add(sc);
+        startDateSCField.setText("");
+        finalDateSCField.setText("");
     }
 
     public void handleRemoveSCAction(ActionEvent actionEvent) {
+        ScheduleClass sc = SCTable.getSelectionModel().getSelectedItem();
+        SCTable.getItems().remove(sc);
+        sc.getClasse().removeScheduleClass(sc.getStartDate());
+    }
+
+    private void addRoomsToComboBoxs(RedBlackBST<String, Room> roomST){
+        roomSaCombo.getItems().clear();
+        roomSCCombo.getItems().clear();
+
+        for(String numberRoom: roomST.keys())
+        {
+            roomSaCombo.getItems().add(numberRoom);
+            roomSCCombo.getItems().add(numberRoom);
+        }
+    }
+
+    public void handleAddCourseAction(ActionEvent actionEvent) {
+        CourseUnit cu = new CourseUnit(Integer.parseInt(idCourseUnitField.getText()), nameCourseUnitField.getText(), Integer.parseInt(ectsField.getText()));
+        CourseUnitTable.getItems().add(cu);
+        idCourseUnitField.setText("");
+        nameCourseUnitField.setText("");
+        ectsField.setText("");
+    }
+
+    public void handleRemoveCourseAction(ActionEvent actionEvent) {
+        CourseUnit c = CourseUnitTable.getSelectionModel().getSelectedItem();
+        CourseUnitTable.getItems().remove(c);
+        university.removeCourseUnit(c.getId());
+    }
+
+    private void addTeacherToComboBoxs(SeparateChainingHashST<String, Teacher> teachersST){
+        teacherSACombo.getItems().clear();
+        teacherFieldCombo.getItems().clear();
+
+        for(String email: teachersST.keys())
+        {
+            teacherSACombo.getItems().add(email);
+            teacherFieldCombo.getItems().add(email);
+        }
+    }
+
+    private void addCourseToComboBoxs(SeparateChainingHashST<Integer, CourseUnit> courseUnitsST){
+        courseFieldCombo.getItems().clear();
+
+        for(Integer id: courseUnitsST.keys())
+        {
+            courseFieldCombo.getItems().add(id);
+        }
+    }
+
+    private void addClassToComboBoxs(SeparateChainingHashST<String, Class> classesST){
+        classSCCombo.getItems().clear();
+
+        for(String name: classesST.keys())
+        {
+            classSCCombo.getItems().add(name);
+        }
     }
 }

@@ -51,7 +51,7 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="roomTable" prefHeight="499.0" prefWidth="800.0">
+                               <TableView fx:id="roomTable" editable="true" prefHeight="499.0" prefWidth="800.0">
                                 <columns>
                                   <TableColumn fx:id="idRoomCol" prefWidth="75.0" text="ID" />
                                   <TableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
@@ -91,7 +91,7 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="teacherTable" prefHeight="504.0" prefWidth="800.0">
+                              <TableView fx:id="teacherTable" editable="true" prefHeight="504.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="idTeacherCol" prefWidth="112.0" text="ID" />
                                     <TableColumn fx:id="nameTeacherCol" minWidth="0.0" prefWidth="280.0" text="Name" />
@@ -125,7 +125,7 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="SATable" prefHeight="497.0" prefWidth="800.0">
+                              <TableView fx:id="SATable" editable="true" prefHeight="497.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="startDateSACol" prefWidth="188.0" text="Start Date" />
                                     <TableColumn fx:id="finalDateSACol" minWidth="0.0" prefWidth="157.0" text="Final Date" />
@@ -161,7 +161,7 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="studentTable" prefHeight="499.0" prefWidth="800.0">
+                              <TableView fx:id="studentTable" editable="true" prefHeight="499.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="idStudentCol" prefWidth="60.0" text="ID" />
                                     <TableColumn fx:id="nameStudentCol" minWidth="0.0" prefWidth="152.0" text="Name" />
@@ -201,11 +201,11 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="CourseUnitTable" prefHeight="503.0" prefWidth="800.0">
+                              <TableView fx:id="CourseUnitTable" editable="true" prefHeight="503.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="idCourseUnitCol" prefWidth="112.0" text="ID" />
-                                    <TableColumn fx:id="nameCourseUnitCol" minWidth="0.0" prefWidth="343.0" text="Name" />
-                                    <TableColumn fx:id="ectsCol" minWidth="0.0" prefWidth="246.0" text="Ects" />
+                                    <TableColumn fx:id="nameCourseUnitCol" minWidth="0.0" prefWidth="455.0" text="Name" />
+                                    <TableColumn fx:id="ectsCol" minWidth="0.0" prefWidth="232.0" text="Ects" />
                                  </columns>
                               </TableView>
                               <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
@@ -219,8 +219,8 @@
                                     <TextField fx:id="idCourseUnitField" prefHeight="27.0" prefWidth="71.0" promptText="ID" />
                                     <TextField fx:id="nameCourseUnitField" prefHeight="27.0" prefWidth="209.0" promptText="Name" />
                                     <TextField fx:id="ectsField" prefHeight="27.0" prefWidth="141.0" promptText="Ects" />
-                                    <Button mnemonicParsing="false" onAction="#handleAddClassAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
-                                    <Button mnemonicParsing="false" onAction="#handleRemoveClassAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddCourseAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveCourseAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
                                  </children>
                               </HBox>
                            </children>
@@ -235,7 +235,7 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="ClassTable" prefHeight="497.0" prefWidth="800.0">
+                              <TableView fx:id="ClassTable" editable="true" prefHeight="497.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="idClassCol" prefWidth="65.0" text="ID" />
                                     <TableColumn fx:id="nameClassCol" minWidth="0.0" prefWidth="127.0" text="Name" />
@@ -257,8 +257,8 @@
                                     <TextField fx:id="typeClassField" prefHeight="27.0" prefWidth="128.0" promptText="Type" />
                                     <ComboBox fx:id="teacherFieldCombo" prefHeight="27.0" prefWidth="125.0" promptText="Teacher" />
                                     <ComboBox fx:id="courseFieldCombo" prefHeight="27.0" prefWidth="146.0" promptText="Course" />
-                                    <Button mnemonicParsing="false" onAction="#handleAddTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
-                                    <Button mnemonicParsing="false" onAction="#handleRemoveRoomAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddClassAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveClassAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
                                  </children>
                               </HBox>
                            </children>
@@ -273,7 +273,7 @@
                      <children>
                         <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
                            <children>
-                              <TableView fx:id="SCTable" prefHeight="498.0" prefWidth="800.0">
+                              <TableView fx:id="SCTable" editable="true" prefHeight="498.0" prefWidth="800.0">
                                  <columns>
                                     <TableColumn fx:id="startDateSCCol" prefWidth="123.0" text="Start Date" />
                                     <TableColumn fx:id="finalDateSCCol" minWidth="0.0" prefWidth="172.0" text="Final Date" />
@@ -292,7 +292,7 @@
                                     <TextField fx:id="startDateSCField" prefHeight="27.0" prefWidth="155.0" promptText="Start Date" />
                                     <TextField fx:id="finalDateSCField" prefHeight="27.0" prefWidth="144.0" promptText="Final Date" />
                                     <ComboBox fx:id="roomSCCombo" prefHeight="27.0" prefWidth="152.0" promptText="Room" />
-                                    <ComboBox fx:id="teacherSCCombo" prefHeight="27.0" prefWidth="160.0" promptText="Class" />
+                                    <ComboBox fx:id="classSCCombo" prefHeight="27.0" prefWidth="160.0" promptText="Class" />
                                     <Button mnemonicParsing="false" onAction="#handleAddSCAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                     <Button mnemonicParsing="false" onAction="#handleRemoveSCAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
                                  </children>
