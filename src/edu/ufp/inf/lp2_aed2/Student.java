@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
+import edu.ufp.inf.lp2_aed2.points.Point;
 
 public class Student extends Person {
   /**
@@ -18,6 +19,8 @@ public class Student extends Person {
 
   // Lista de Class pela Student - chave é nome da Class
   private RedBlackBST<String, Class> classesST = new RedBlackBST<>();
+
+  private Point mypoint;
 
   /**
    * Construtor
@@ -248,5 +251,13 @@ public class Student extends Person {
 
   public void setClassesST(RedBlackBST<String, Class> classesST) {
     this.classesST = classesST;
+  }
+
+  public Point getMypoint() {
+    return mypoint;
+  }
+
+  public void setMypoint(Point mypoint) {
+    this.mypoint = mypoint;
   }
 }

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ufp.inf.lp2_aed2.graphicInterface.GraphicController">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="800.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <Menu mnemonicParsing="false" text="Open">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleReadTextFileAction" text="Open Text File" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleReadBinFileAction" text="Open Binary File" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Save">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handleSaveTextFileAction" text="Save Text File" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveBinFileAction" text="Save Bin File" />
+                    </items>
+                  </Menu>
+              <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane layoutY="29.0" prefHeight="571.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Room">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="roomTable" prefHeight="499.0" prefWidth="800.0">
+                                <columns>
+                                  <TableColumn fx:id="idRoomCol" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
+                                    <TableColumn fx:id="numberRoomCol" prefWidth="168.0" text="NumberRoom" />
+                                    <TableColumn fx:id="socketCol" prefWidth="162.0" text="Socket" />
+                                    <TableColumn fx:id="capacityCol" prefWidth="173.0" text="Capacity" />
+                                    <TableColumn fx:id="pointCol" prefWidth="146.0" text="Point" />
+                                </columns>
+                              </TableView>
+                               <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                   <VBox.margin>
+                                       <Insets />
+                                   </VBox.margin>
+                                   <padding>
+                                       <Insets left="5.0" top="5.0" />
+                                   </padding>
+                                   <children>
+                                       <TextField fx:id="idRoomField" prefHeight="27.0" prefWidth="40.0" promptText="ID" />
+                                       <TextField fx:id="floorField" prefHeight="27.0" prefWidth="102.0" promptText="Floor" />
+                                       <TextField fx:id="numberRoomField" prefHeight="27.0" prefWidth="127.0" promptText="NumberRoom" />
+                                       <TextField fx:id="socketField" prefHeight="27.0" prefWidth="117.0" promptText="Socket" />
+                                    <TextField fx:id="capacityField" prefHeight="27.0" prefWidth="97.0" promptText="Capacity" />
+                                    <TextField fx:id="pointField" prefHeight="27.0" prefWidth="120.0" promptText="Point" />
+                                       <Button mnemonicParsing="false" onAction="#handleAddRoomAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveRoomAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                   </children>
+                               </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Teacher">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="teacherTable" prefHeight="504.0" prefWidth="800.0">
+                                 <columns>
+                                    <TableColumn fx:id="idTeacherCol" prefWidth="112.0" text="ID" />
+                                    <TableColumn fx:id="nameTeacherCol" minWidth="0.0" prefWidth="280.0" text="Name" />
+                                    <TableColumn fx:id="emailTeacherCol" minWidth="0.0" prefWidth="407.0" text="Email" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                                 <children>
+                                    <TextField fx:id="idTeacherField" prefHeight="27.0" prefWidth="71.0" promptText="ID" />
+                                    <TextField fx:id="nameTeacherField" prefHeight="27.0" prefWidth="212.0" promptText="Name" />
+                                    <TextField fx:id="emailTeacherField" prefHeight="27.0" prefWidth="312.0" promptText="Email" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Schedule Accompaniment">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="SATable" prefHeight="497.0" prefWidth="800.0">
+                                 <columns>
+                                    <TableColumn fx:id="startDateSACol" prefWidth="188.0" text="Start Date" />
+                                    <TableColumn fx:id="finalDateSACol" minWidth="0.0" prefWidth="157.0" text="Final Date" />
+                                    <TableColumn fx:id="roomSACol" minWidth="0.0" prefWidth="264.0" text="Room" />
+                                    <TableColumn fx:id="teacherSACol" minWidth="0.0" prefWidth="190.0" text="Teacher" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                                 <children>
+                                    <TextField fx:id="startDateSAField" prefHeight="27.0" prefWidth="131.0" promptText="Start Date" />
+                                    <TextField fx:id="finalDateSAField" prefHeight="27.0" prefWidth="164.0" promptText="Final Date" />
+                                    <ComboBox fx:id="roomSaCombo" prefHeight="27.0" prefWidth="150.0" promptText="Room" />
+                                    <ComboBox fx:id="teacherSACombo" prefHeight="27.0" prefWidth="173.0" promptText="Techer" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddSAAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveSAAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Student">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="studentTable" prefHeight="499.0" prefWidth="800.0">
+                                 <columns>
+                                    <TableColumn fx:id="idStudentCol" prefWidth="60.0" text="ID" />
+                                    <TableColumn fx:id="nameStudentCol" minWidth="0.0" prefWidth="152.0" text="Name" />
+                                    <TableColumn fx:id="numberStudentCol" minWidth="0.0" prefWidth="98.0" text="Number Student" />
+                                    <TableColumn fx:id="typeStudentCol" minWidth="0.0" prefWidth="94.0" text="Type" />
+                                    <TableColumn fx:id="emailStudentCol" minWidth="0.0" prefWidth="207.0" text="Email" />
+                                    <TableColumn fx:id="pointStudentCol" minWidth="0.0" prefWidth="188.0" text="Point" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                                 <children>
+                                    <TextField fx:id="idStudentField" prefHeight="27.0" prefWidth="53.0" promptText="ID" />
+                                    <TextField fx:id="nameStudentField" prefHeight="27.0" prefWidth="120.0" promptText="Name" />
+                                    <TextField fx:id="numberStudentField" prefHeight="27.0" prefWidth="106.0" promptText="Number Student" />
+                                    <TextField fx:id="typeStudentField" prefHeight="27.0" prefWidth="79.0" promptText="Type" />
+                                    <TextField fx:id="emailStudentField" prefHeight="27.0" prefWidth="117.0" promptText="Email" />
+                                    <TextField fx:id="pointStudentField" prefHeight="27.0" prefWidth="130.0" promptText="Point" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddStudentAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveStudentAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Course Unit">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="CourseUnitTable" prefHeight="503.0" prefWidth="800.0">
+                                 <columns>
+                                    <TableColumn fx:id="idCourseUnitCol" prefWidth="112.0" text="ID" />
+                                    <TableColumn fx:id="nameCourseUnitCol" minWidth="0.0" prefWidth="343.0" text="Name" />
+                                    <TableColumn fx:id="ectsCol" minWidth="0.0" prefWidth="246.0" text="Ects" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                                 <children>
+                                    <TextField fx:id="idCourseUnitField" prefHeight="27.0" prefWidth="71.0" promptText="ID" />
+                                    <TextField fx:id="nameCourseUnitField" prefHeight="27.0" prefWidth="209.0" promptText="Name" />
+                                    <TextField fx:id="ectsField" prefHeight="27.0" prefWidth="141.0" promptText="Ects" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddClassAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveClassAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Class">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="ClassTable" prefHeight="497.0" prefWidth="800.0">
+                                 <columns>
+                                    <TableColumn fx:id="idClassCol" prefWidth="65.0" text="ID" />
+                                    <TableColumn fx:id="nameClassCol" minWidth="0.0" prefWidth="127.0" text="Name" />
+                                    <TableColumn fx:id="typeClassCol" minWidth="0.0" prefWidth="121.0" text="Type" />
+                                    <TableColumn fx:id="teacherClassCol" minWidth="0.0" prefWidth="253.0" text="Teacher" />
+                                    <TableColumn fx:id="courseUnitClassCol" minWidth="0.0" prefWidth="233.0" text="Course Unit" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                                 <children>
+                                    <TextField fx:id="idClassField" prefHeight="27.0" prefWidth="32.0" promptText="ID" />
+                                    <TextField fx:id="nameClassField" prefHeight="27.0" prefWidth="182.0" promptText="Name" />
+                                    <TextField fx:id="typeClassField" prefHeight="27.0" prefWidth="128.0" promptText="Type" />
+                                    <ComboBox fx:id="teacherFieldCombo" prefHeight="27.0" prefWidth="125.0" promptText="Teacher" />
+                                    <ComboBox fx:id="courseFieldCombo" prefHeight="27.0" prefWidth="146.0" promptText="Course" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveRoomAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Schedule Class">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                           <children>
+                              <TableView fx:id="SCTable" prefHeight="498.0" prefWidth="800.0">
+                                 <columns>
+                                    <TableColumn fx:id="startDateSCCol" prefWidth="123.0" text="Start Date" />
+                                    <TableColumn fx:id="finalDateSCCol" minWidth="0.0" prefWidth="172.0" text="Final Date" />
+                                    <TableColumn fx:id="roomSCCol" minWidth="0.0" prefWidth="227.0" text="Room" />
+                                    <TableColumn fx:id="ClassSCCol" minWidth="0.0" prefWidth="276.0" text="Class" />
+                                 </columns>
+                              </TableView>
+                              <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="5.0" top="5.0" />
+                                 </padding>
+                                 <children>
+                                    <TextField fx:id="startDateSCField" prefHeight="27.0" prefWidth="155.0" promptText="Start Date" />
+                                    <TextField fx:id="finalDateSCField" prefHeight="27.0" prefWidth="144.0" promptText="Final Date" />
+                                    <ComboBox fx:id="roomSCCombo" prefHeight="27.0" prefWidth="152.0" promptText="Room" />
+                                    <ComboBox fx:id="teacherSCCombo" prefHeight="27.0" prefWidth="160.0" promptText="Class" />
+                                    <Button mnemonicParsing="false" onAction="#handleAddSCAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                    <Button mnemonicParsing="false" onAction="#handleRemoveSCAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

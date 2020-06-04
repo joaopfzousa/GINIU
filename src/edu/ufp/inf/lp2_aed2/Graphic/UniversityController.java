@@ -97,13 +97,9 @@ public class UniversityController implements Initializable {
     private static final String PATH_BINCLASSES_READ = "./Data/ClassBin.bin";
     private static final String PATH_BINCLASSES_SAVE = "./Data/SaveClassBin.bin";
 
+
     University u = new University("UFP");
     History h = new History();
-    private Integer idAux;
-    private String name;
-    private Integer ects;
-    CourseUnit cu = new CourseUnit(idAux, name, ects);
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -173,6 +169,9 @@ public class UniversityController implements Initializable {
         u.loadCourseUnit("./data/CourseUnit");
         u.loadClass("./data/Class");
         u.loadRoomPonts("./data/RoomPoint");
+        Class.loadScheduleClass(u, "./data/ScheduleClass");
+        Student.loadStudentCourse(u, "./data/StudentCourse");
+        Teacher.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");
     }
 
     /**
@@ -483,26 +482,4 @@ public class UniversityController implements Initializable {
         System.out.println(classe);
     }
 
-    /**
-     * Listar
-     */
-    public void handleListRoomAction(ActionEvent actionEvent) {
-        u.printAllRoom();
-    }
-
-    public void handleListTeacherAction(ActionEvent actionEvent) {
-        u.printAllTeacher();
-    }
-
-    public void handleListStudentAction(ActionEvent actionEvent) {
-        u.printAllStudent();
-    }
-
-    public void handleListCourseUnitAction(ActionEvent actionEvent) {
-        u.printAllCourseUnit();
-    }
-
-    public void handleListClassAction(ActionEvent actionEvent) {
-        cu.printAllClass();
-    }
 }

@@ -103,7 +103,6 @@
                                 <Button mnemonicParsing="false" onAction="#handleAddRoomAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                 <Button mnemonicParsing="false" onAction="#handleEditRoomAction" prefHeight="27.0" prefWidth="73.0" text="Edit" />
                                 <Button mnemonicParsing="false" onAction="#handleRemoveRoomAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
-                                <Button mnemonicParsing="false" onAction="#handleListRoomAction" prefHeight="27.0" prefWidth="73.0" text="List" />
 
                             </children>
                         </HBox>
@@ -137,7 +136,6 @@
                                 <Button mnemonicParsing="false" onAction="#handleAddTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                 <Button mnemonicParsing="false" onAction="#handleEditTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Edit" />
                                 <Button mnemonicParsing="false" onAction="#handleRemoveTeacherAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
-                                <Button mnemonicParsing="false" onAction="#handleListTeacherAction" prefHeight="27.0" prefWidth="73.0" text="List" />
                             </children>
                         </HBox>
                     </children>
@@ -174,7 +172,6 @@
                                 <Button mnemonicParsing="false" onAction="#handleAddStudentAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                 <Button mnemonicParsing="false" onAction="#handleEditStudentAction" prefHeight="27.0" prefWidth="73.0" text="Edit" />
                                 <Button mnemonicParsing="false" onAction="#handleRemoveStudentAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
-                                <Button mnemonicParsing="false" onAction="#handleListStudentAction" prefHeight="27.0" prefWidth="73.0" text="List" />
                             </children>
                         </HBox>
                     </children>
@@ -207,7 +204,6 @@
                                 <Button mnemonicParsing="false" onAction="#handleAddCourseUnitAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                 <Button mnemonicParsing="false" onAction="#handleEditCourseUnitAction" prefHeight="27.0" prefWidth="73.0" text="Edit" />
                                 <Button mnemonicParsing="false" onAction="#handleRemoveCourseUnitAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
-                                <Button mnemonicParsing="false" onAction="#handleListCourseUnitAction" prefHeight="27.0" prefWidth="73.0" text="List" />
                             </children>
                         </HBox>
                     </children>
@@ -244,7 +240,6 @@
                                 <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                 <Button mnemonicParsing="false" onAction="#handleEditClassAction" prefHeight="27.0" prefWidth="73.0" text="Edit" />
                                 <Button mnemonicParsing="false" onAction="#handleRemoveClassAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
-                                <Button mnemonicParsing="false" onAction="#handleListClassAction" prefHeight="27.0" prefWidth="73.0" text="List" />
                             </children>
                         </HBox>
                     </children>
