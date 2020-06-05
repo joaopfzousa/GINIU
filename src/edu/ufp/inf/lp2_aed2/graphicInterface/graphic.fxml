@@ -10,6 +10,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -302,6 +303,88 @@
                      </children>
                   </AnchorPane>
                </content>
+            </Tab>
+            <Tab text="Search's">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TabPane prefHeight="541.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+                          <tabs>
+                            <Tab text="Students Class">
+                              <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                 <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                     <children>
+                                                         <ComboBox fx:id="studentsSeacrhComboBox" prefHeight="27.0" prefWidth="182.0" promptText="Student" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectStudentClassAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectStudentSaveClassAction" text="Save" />
+                                                     </children>
+                                                     <padding>
+                                                         <Insets left="5.0" right="5.0" top="5.0" />
+                                                     </padding>
+                                                 </HBox>
+                                                <TextArea fx:id="studentClassSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                              </content>
+                            </Tab>
+                              <Tab text="Free Rooms">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="startdateFieldSearch" prefHeight="27.0" prefWidth="185.0" promptText="Start Date" />
+                                                      <TextField fx:id="finalDateFieldSearch" promptText="Final Date" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectFreeRoomsClassAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectFreeRoomsSaveAction" text="Save" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <TextArea fx:id="freeRoomSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Teacher by Course Unit">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                   <children>
+                                                      <ComboBox fx:id="TeacherSearchComboBox" prefWidth="150.0" promptText="Teacher" />
+                                                      <Button mnemonicParsing="false" onAction="#handleTecherbyCourseUnitAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleTecherbyCourseUnitSaveAction" text="Save" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <TextArea fx:id="searchTeacherbyCUSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                          </tabs>
+                        </TabPane>
+                     </children>
+                  </AnchorPane>
+              </content>
             </Tab>
         </tabs>
       </TabPane>

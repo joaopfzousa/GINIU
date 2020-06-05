@@ -7,10 +7,7 @@ import edu.ufp.inf.lp2_aed2.Class;
 import edu.ufp.inf.lp2_aed2.points.Point;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.BooleanStringConverter;
@@ -122,6 +119,14 @@ public class GraphicController implements Initializable {
     public TextField finalDateSCField;
     public ComboBox<String> roomSCCombo;
     public ComboBox<String> classSCCombo;
+
+
+    /**
+     * Search's
+     */
+    public ComboBox<String> studentsSeacrhComboBox;
+    public TextArea studentClassSearchTextArea;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -253,6 +258,8 @@ public class GraphicController implements Initializable {
             studentTable.getItems().add(student);
         }
 
+        addStudentsToComboBoxs(university.getStudentsST());
+
         CourseUnitTable.getItems().clear();
         university.loadCourseUnit("./data/CourseUnit");
         CourseUnit courseUnit = null;
@@ -323,6 +330,8 @@ public class GraphicController implements Initializable {
             student = university.getStudentsST().get(s);
             studentTable.getItems().add(student);
         }
+
+        addStudentsToComboBoxs(university.getStudentsST());
 
         CourseUnitTable.getItems().clear();
 
@@ -565,6 +574,15 @@ public class GraphicController implements Initializable {
         }
     }
 
+    private void addStudentsToComboBoxs(SeparateChainingHashST<Integer, Student> studentsST){
+        studentsSeacrhComboBox.getItems().clear();
+
+        for(Integer numberStudent: studentsST.keys())
+        {
+            studentsSeacrhComboBox.getItems().add(String.valueOf(numberStudent));
+        }
+    }
+
     private void addCourseToComboBoxs(SeparateChainingHashST<Integer, CourseUnit> courseUnitsST){
         courseFieldCombo.getItems().clear();
 
@@ -738,5 +756,31 @@ public class GraphicController implements Initializable {
                 break;
         }
         System.out.println(clase);
+    }
+
+    public void handleSelectStudentClassAction(ActionEvent actionEvent) {
+        studentClassSearchTextArea.clear();
+        Student student = university.getStudentsST().get(Integer.parseInt(studentsSeacrhComboBox.getValue()));
+
+        for(String  nome : student.getClassesST().keys())
+        {
+            Class c = student.getClassesST().get(nome);
+            studentClassSearchTextArea.appendText(c.toString());
+        }
+    }
+
+    public void handleSelectStudentSaveClassAction(ActionEvent actionEvent) {
+    }
+
+    public void handleSelectFreeRoomsClassAction(ActionEvent actionEvent) {
+    }
+
+    public void handleSelectFreeRoomsSaveAction(ActionEvent actionEvent) {
+    }
+
+    public void handleTecherbyCourseUnitAction(ActionEvent actionEvent) {
+    }
+
+    public void handleTecherbyCourseUnitSaveAction(ActionEvent actionEvent) {
     }
 }
