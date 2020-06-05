@@ -1,6 +1,8 @@
 package edu.ufp.inf.lp2_aed2;
 
-public abstract class Schedule {
+import java.io.Serializable;
+
+public abstract class Schedule implements Serializable {
   /**
    * Atributos
    */

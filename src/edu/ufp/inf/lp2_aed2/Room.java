@@ -4,7 +4,9 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.lp2_aed2.points.Node;
 import edu.ufp.inf.lp2_aed2.points.Point;
 
-public class Room extends Node {
+import java.io.Serializable;
+
+public class Room extends Node implements Serializable {
   /**
    * Atributos
    */

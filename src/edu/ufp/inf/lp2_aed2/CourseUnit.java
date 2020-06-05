@@ -2,9 +2,10 @@ package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class CourseUnit {
+public class CourseUnit implements Serializable {
   /**
    * Atributos
    */

@@ -6,7 +6,9 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2_aed2.points.Point;
 
-public class Student extends Person {
+import java.io.Serializable;
+
+public class Student extends Person implements Serializable {
   /**
    * Atributos
    */

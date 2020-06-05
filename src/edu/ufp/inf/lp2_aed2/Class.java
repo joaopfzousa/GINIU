@@ -5,9 +5,10 @@ import edu.princeton.cs.algs4.Out;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Class {
+public class Class implements Serializable {
   /**
    * Atributos
    */

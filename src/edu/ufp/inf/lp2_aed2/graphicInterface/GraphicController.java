@@ -16,13 +16,14 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GraphicController implements Initializable {
 
     private University university;
-    private static final String FILE_DELIMITER = ";";
+    private static final String PATH_UNIVERSITY_READSAVE = "./data/bin/UniversityBin.bin";
 
     /**
      * Room
@@ -41,9 +42,6 @@ public class GraphicController implements Initializable {
     public TextField capacityField;
     public TextField pointField;
 
-    private static final String PATH_BINROOMS_READ = "./data/bin/RoomBin.bin";
-    private static final String PATH_BINROOMS_SAVE = "./data/bin/SaveRoomBin.bin";
-
     /**
      * Teacher
      */
@@ -54,9 +52,6 @@ public class GraphicController implements Initializable {
     public TextField idTeacherField;
     public TextField nameTeacherField;
     public TextField emailTeacherField;
-
-    private static final String PATH_BINTEACHERS_READ = "./data/bin/TeacherBin.bin";
-    private static final String PATH_BINTEACHERS_SAVE = "./data/bin/SaveTeacherBin.bin";
 
     /**
      * ScheduleAccompaniment
@@ -70,9 +65,6 @@ public class GraphicController implements Initializable {
     public TextField finalDateSAField;
     public ComboBox<String> roomSaCombo;
     public ComboBox<String> teacherSACombo;
-
-    private static final String PATH_BINSCHEDULEACCOMPANIMENT_READ = "./data/bin/ScheduleAccompanimentBin.bin";
-    private static final String PATH_BINSCHEDULEACCOMPANIMENT_SAVE = "./data/bin/SaveScheduleAccompanimentBin.bin";
 
     /**
      * Student
@@ -92,9 +84,6 @@ public class GraphicController implements Initializable {
     public TextField numberStudentField;
     public TextField typeStudentField;
 
-    private static final String PATH_BINSTUDENTS_READ = "./data/bin/StudentBin.bin";
-    private static final String PATH_BINSTUDENTS_SAVE = "./data/bin/SaveStudentBin.bin";
-
     /**
      * CourseUnit
      */
@@ -105,10 +94,6 @@ public class GraphicController implements Initializable {
     public TextField idCourseUnitField;
     public TextField nameCourseUnitField;
     public TextField ectsField;
-
-    private static final String PATH_BINCOURSEUNITS_READ = "./data/bin/CourseUnitBin.bin";
-    private static final String PATH_BINCOURSEUNITS_SAVE = "./data/bin/SaveCourseUnitBin.bin";
-
 
     /**
      * Class
@@ -125,9 +110,6 @@ public class GraphicController implements Initializable {
     public ComboBox<String> teacherFieldCombo;
     public ComboBox<Integer> courseFieldCombo;
 
-    private static final String PATH_BINCLASSES_READ = "./data/bin/ClassBin.bin";
-    private static final String PATH_BINCLASSES_SAVE = "./data/bin/SaveClassBin.bin";
-
     /**
      * ScheduleClass
      */
@@ -140,10 +122,6 @@ public class GraphicController implements Initializable {
     public TextField finalDateSCField;
     public ComboBox<String> roomSCCombo;
     public ComboBox<String> classSCCombo;
-
-    private static final String PATH_BINSCHEDULECLASSES_READ = "./data/bin/ScheduleClassBin.bin";
-    private static final String PATH_BINSCHEDULECLASSES_SAVE = "./data/bin/SaveScheduleClassBin.bin";
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -309,6 +287,71 @@ public class GraphicController implements Initializable {
     }
 
     public void handleReadBinFileAction(ActionEvent actionEvent) {
+        readFromBinFileUniversitary();
+        roomTable.getItems().clear();
+
+        for(String r: university.getRoomST().keys())
+        {
+            Room room = university.getRoomST().get(r);
+            roomTable.getItems().add(room);
+        }
+        addRoomsToComboBoxs(university.getRoomST());
+
+        teacherTable.getItems().clear();
+        SATable.getItems().clear();
+
+
+        Teacher teacher = null;
+        for(String t: university.getTeachersST().keys())
+        {
+            teacher = university.getTeachersST().get(t);
+            teacherTable.getItems().add(teacher);
+
+            for(Date d: teacher.getScheduleAccompanimentsST().keys())
+            {
+                ScheduleAccompaniment sa = teacher.getScheduleAccompanimentsST().get(d);
+                SATable.getItems().add(sa);
+            }
+        }
+        addTeacherToComboBoxs(university.getTeachersST());
+
+        studentTable.getItems().clear();
+
+        Student student = null;
+        for(Integer s: university.getStudentsST().keys())
+        {
+            student = university.getStudentsST().get(s);
+            studentTable.getItems().add(student);
+        }
+
+        CourseUnitTable.getItems().clear();
+
+        CourseUnit courseUnit = null;
+        for(Integer cu: university.getCourseUnitsST().keys())
+        {
+            courseUnit = university.getCourseUnitsST().get(cu);
+            CourseUnitTable.getItems().add(courseUnit);
+        }
+        addCourseToComboBoxs(university.getCourseUnitsST());
+
+        ClassTable.getItems().clear();
+        SCTable.getItems().clear();
+
+        Class classe = null;
+        for(String cl: university.getClassesST().keys())
+        {
+            classe = university.getClassesST().get(cl);
+            ClassTable.getItems().add(classe);
+
+            for(Date d: classe.getScheduleClassesST().keys())
+            {
+                ScheduleClass sc = classe.getScheduleClassesST().get(d);
+                SCTable.getItems().add(sc);
+            }
+
+        }
+
+        addClassToComboBoxs(university.getClassesST());
     }
 
     public void handleSaveTextFileAction(ActionEvent actionEvent) {
@@ -323,6 +366,30 @@ public class GraphicController implements Initializable {
     }
 
     public void handleSaveBinFileAction(ActionEvent actionEvent) {
+        saveRoomUniversitary();
+    }
+
+
+    private void saveRoomUniversitary(){
+        File f = new File(PATH_UNIVERSITY_READSAVE);
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(university);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readFromBinFileUniversitary(){
+        File f = new File(PATH_UNIVERSITY_READSAVE);
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            university = (University) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void handleAddRoomAction(ActionEvent actionEvent) {

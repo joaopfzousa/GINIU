@@ -1,6 +1,8 @@
 package edu.ufp.inf.lp2_aed2;
 
-public class ScheduleAccompaniment extends Schedule {
+import java.io.Serializable;
+
+public class ScheduleAccompaniment extends Schedule implements Serializable {
   /**
    * Atributo
    */
