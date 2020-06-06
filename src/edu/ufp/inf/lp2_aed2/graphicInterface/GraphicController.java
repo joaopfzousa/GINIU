@@ -21,6 +21,12 @@ public class GraphicController implements Initializable {
 
     private University university;
     private static final String PATH_UNIVERSITY_READSAVE = "./data/bin/UniversityBin.bin";
+    private static final String PATH_SEARCHSTUDENTCLASS_SAVE = "./data/search/StudentClass";
+    private static final String PATH_SEARCHFREEROOMS_SAVE = "./data/search/FreeRooms";
+    private static final String PATH_SEARCHTEACHERBYCU_SAVE = "./data/search/TeacherbyCourse";
+    private static final String PATH_SEARCHCLASSTEACHER_SAVE = "./data/search/ClassbyTeacher";
+    private static final String PATH_SEARCHSA_SAVE = "./data/search/SA";
+
 
     /**
      * Room
@@ -124,8 +130,26 @@ public class GraphicController implements Initializable {
     /**
      * Search's
      */
+    //Student Class
     public ComboBox<String> studentsSeacrhComboBox;
     public TextArea studentClassSearchTextArea;
+
+    //free rooms
+    public TextField dateFieldSearch;
+    public TextArea freeRoomSearchTextArea;
+
+    //Teacher by Course Unit
+    public ComboBox<Integer> CUSearchComboBox;
+    public TextArea searchTeacherbyCUSearchTextArea;
+
+    //Class by Teacher
+    public ComboBox<String> teacherSearchComboBox;
+    public TextArea searchClassByTeacherSearchTextArea;
+
+    //Horário de Atendimento
+    public ComboBox<Integer> studentSASearchComboBox;
+    public ComboBox<String> teacherSASearchComboBox;
+    public TextArea searchSASearchTextArea;
 
 
     @Override
@@ -566,29 +590,37 @@ public class GraphicController implements Initializable {
     private void addTeacherToComboBoxs(SeparateChainingHashST<String, Teacher> teachersST){
         teacherSACombo.getItems().clear();
         teacherFieldCombo.getItems().clear();
+        teacherSASearchComboBox.getItems().clear();
+        teacherSearchComboBox.getItems().clear();
 
         for(String email: teachersST.keys())
         {
             teacherSACombo.getItems().add(email);
             teacherFieldCombo.getItems().add(email);
+            teacherSASearchComboBox.getItems().add(email);
+            teacherSearchComboBox.getItems().add(email);
         }
     }
 
     private void addStudentsToComboBoxs(SeparateChainingHashST<Integer, Student> studentsST){
         studentsSeacrhComboBox.getItems().clear();
+        studentSASearchComboBox.getItems().clear();
 
         for(Integer numberStudent: studentsST.keys())
         {
             studentsSeacrhComboBox.getItems().add(String.valueOf(numberStudent));
+            studentSASearchComboBox.getItems().add(Integer.valueOf(String.valueOf(numberStudent)));
         }
     }
 
     private void addCourseToComboBoxs(SeparateChainingHashST<Integer, CourseUnit> courseUnitsST){
         courseFieldCombo.getItems().clear();
+        CUSearchComboBox.getItems().clear();
 
         for(Integer id: courseUnitsST.keys())
         {
             courseFieldCombo.getItems().add(id);
+            CUSearchComboBox.getItems().add(id);
         }
     }
 
@@ -765,22 +797,202 @@ public class GraphicController implements Initializable {
         for(String  nome : student.getClassesST().keys())
         {
             Class c = student.getClassesST().get(nome);
-            studentClassSearchTextArea.appendText(c.toString());
+            studentClassSearchTextArea.appendText(c.toString() + "\n");
         }
     }
 
     public void handleSelectStudentSaveClassAction(ActionEvent actionEvent) {
+        saveStudentClassSearchToFile(PATH_SEARCHSTUDENTCLASS_SAVE);
     }
 
     public void handleSelectFreeRoomsClassAction(ActionEvent actionEvent) {
+        freeRoomSearchTextArea.clear();
+        String stDate = dateFieldSearch.getText();
+
+        String[] split1 =  stDate.split("/");
+        int stdayOfWeek = Integer.parseInt(split1[0]);
+        int sthour = Integer.parseInt(split1[1]);
+        int stmin = Integer.parseInt(split1[2]);
+        Date startDate = new Date(sthour, stmin, stdayOfWeek);
+
+        RedBlackBST<String, Room> rooms = new RedBlackBST<>();
+        rooms = university.searchRoomByDate(startDate);
+
+        for (String numberRoom : rooms.keys()) {
+            Room r = rooms.get(numberRoom);
+            freeRoomSearchTextArea.appendText(r.toString() + "\n");
+        }
     }
 
     public void handleSelectFreeRoomsSaveAction(ActionEvent actionEvent) {
+        saveFreeRoomSearchToFile(PATH_SEARCHFREEROOMS_SAVE);
     }
 
     public void handleTecherbyCourseUnitAction(ActionEvent actionEvent) {
+        searchTeacherbyCUSearchTextArea.clear();
+        CourseUnit cu = university.getCourseUnitsST().get(CUSearchComboBox.getValue());
+        SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+        teachersST = cu.searchTeacherbyCourseUnit();
+
+        for (String email : teachersST.keys()) {
+            Teacher t = teachersST.get(email);
+            searchTeacherbyCUSearchTextArea.appendText(t.toString() + "\n");
+        }
     }
 
     public void handleTecherbyCourseUnitSaveAction(ActionEvent actionEvent) {
+        saveTeacherByCUSearchToFile(PATH_SEARCHTEACHERBYCU_SAVE);
+    }
+
+    private void saveTeacherByCUSearchToFile(String path)
+    {
+        PrintWriter pw = openPrintWriter(path);
+        if(pw != null)
+        {
+            CourseUnit cu = university.getCourseUnitsST().get(CUSearchComboBox.getValue());
+            SeparateChainingHashST<String, Teacher> teachersST = new SeparateChainingHashST<>();
+            teachersST = cu.searchTeacherbyCourseUnit();
+
+            for (String email : teachersST.keys()) {
+                Teacher t = teachersST.get(email);
+                pw.write(t.toStringFileTeacher() +"\n");
+            }
+            pw.close();
+        }
+    }
+
+    private void saveFreeRoomSearchToFile(String path)
+    {
+        PrintWriter pw = openPrintWriter(path);
+        if(pw != null)
+        {
+            String stDate = dateFieldSearch.getText();
+
+            String[] split1 =  stDate.split("/");
+            int stdayOfWeek = Integer.parseInt(split1[0]);
+            int sthour = Integer.parseInt(split1[1]);
+            int stmin = Integer.parseInt(split1[2]);
+            Date startDate = new Date(sthour, stmin, stdayOfWeek);
+
+            RedBlackBST<String, Room> rooms = new RedBlackBST<>();
+            rooms = university.searchRoomByDate(startDate);
+
+            for (String numberRoom : rooms.keys()) {
+                Room r = rooms.get(numberRoom);
+                pw.write(r.toStringFileRoom() +"\n");
+            }
+            pw.close();
+        }
+    }
+
+    private void saveStudentClassSearchToFile(String path)
+    {
+        PrintWriter pw = openPrintWriter(path);
+        if(pw != null)
+        {
+            Student student = university.getStudentsST().get(Integer.parseInt(studentsSeacrhComboBox.getValue()));
+
+            for(String  nome : student.getClassesST().keys())
+            {
+                Class c = student.getClassesST().get(nome);
+                pw.write(c.toStringFileClass() +"\n");
+            }
+            pw.close();
+        }
+    }
+
+    private PrintWriter openPrintWriter(String path)
+    {
+        try {
+            FileWriter fw = new FileWriter(path);
+            PrintWriter pw = new PrintWriter(fw);
+            return pw;
+        } catch (IOException e) {
+            System.out.println("I/O Exception" + e);
+        }
+        return null;
+    }
+
+    public void handleClassByTeacherSearchAction(ActionEvent actionEvent) {
+        searchClassByTeacherSearchTextArea.clear();
+
+        Teacher t = university.getTeachersST().get(teacherSearchComboBox.getValue());
+        SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+        classesST = t.searchClassByTeacher();
+
+        for (String nome : classesST.keys()) {
+            Class clas = classesST.get(nome);
+            searchClassByTeacherSearchTextArea.appendText(clas.toString() + "\n");
+        }
+    }
+
+    public void handleClassbyTecherSaveAction(ActionEvent actionEvent) {
+        saveClassTeacherSearchToFile(PATH_SEARCHCLASSTEACHER_SAVE);
+    }
+
+    private void saveClassTeacherSearchToFile(String path)
+    {
+        PrintWriter pw = openPrintWriter(path);
+        if(pw != null)
+        {
+            Teacher t = university.getTeachersST().get(teacherSearchComboBox.getValue());
+            SeparateChainingHashST<String, Class> classesST = new SeparateChainingHashST<>();
+            classesST = t.searchClassByTeacher();
+
+            for (String nome : classesST.keys()) {
+                Class clas = classesST.get(nome);
+                pw.write(clas.toStringFileClass() +"\n");
+            }
+            pw.close();
+        }
+    }
+
+    public void handleExitAction(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+    public void handleSASearchAction(ActionEvent actionEvent) {
+        searchSASearchTextArea.clear();
+
+        Student stu = university.getStudentsST().get(studentSASearchComboBox.getValue());
+        Teacher teac = university.getTeachersST().get(teacherSASearchComboBox.getValue());
+
+        System.out.println(stu);
+        System.out.println(teac);
+
+        RedBlackBST<Date, ScheduleAccompaniment> saST = new RedBlackBST<>();
+
+        saST = stu.searchSaByTeacher(teac);
+
+        for (Date date : saST.keys()) {
+            ScheduleAccompaniment sa = saST.get(date);
+            System.out.println(sa);
+            searchSASearchTextArea.appendText(sa.toString() + "\n");
+        }
+    }
+
+    public void handleSASaveAction(ActionEvent actionEvent) {
+        savSASearchToFile(PATH_SEARCHSA_SAVE);
+    }
+
+    private void savSASearchToFile(String path)
+    {
+        PrintWriter pw = openPrintWriter(path);
+        if(pw != null)
+        {
+            Student stu = university.getStudentsST().get(studentSASearchComboBox.getValue());
+            Teacher teac = university.getTeachersST().get(teacherSASearchComboBox.getValue());
+
+            RedBlackBST<Date, ScheduleAccompaniment> saST = new RedBlackBST<>();
+
+            saST = stu.searchSaByTeacher(teac);
+
+            for (Date date : saST.keys()) {
+                ScheduleAccompaniment sa = saST.get(date);
+                pw.write(sa.toStringFileScheduleAccompaniment() +"\n");
+            }
+
+            pw.close();
+        }
     }
 }

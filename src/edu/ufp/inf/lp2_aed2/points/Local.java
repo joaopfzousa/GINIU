@@ -1,57 +1,60 @@
 package edu.ufp.inf.lp2_aed2.points;
 
-public class Local extends Node {
+import java.io.Serializable;
 
-    private Point ponto;
+public class Local extends Point3D implements Serializable {
 
-    private String descricao;
+    private Integer capacity;
 
-    private Boolean indoorOutdoor;
+    private Integer occupation;
 
-    public Local(Point ponto, String descricao, Boolean indoorOutdoor) {
-        this.ponto = ponto;
-        this.descricao = descricao;
-        this.indoorOutdoor=indoorOutdoor;
+    public Local(double x, double y, Integer z, String descricao, Integer capacity, Integer occupation, Boolean indoor) {
+        super(x, y, z, descricao,indoor);
+        this.capacity = capacity;
+        this.occupation = occupation;
     }
 
-    public void setPonto(Point ponto) {
-        this.ponto = ponto;
+    public Local(Integer id, Integer z, String descricao, Integer capacity, Integer occupation) {
+        super(id, z, descricao,true);
+        this.capacity = capacity;
+        this.occupation = occupation;
     }
 
-    public Boolean getIndoorOutdoor() {
-        return indoorOutdoor;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setIndoorOutdoor(Boolean indoorOutdoor) {
-        this.indoorOutdoor = indoorOutdoor;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
-    public Point getPonto() {
-        return ponto;
+    public Integer getOccupation() {
+        return occupation;
     }
 
-    public void setPoint(Point ponto) {
-        this.ponto = ponto;
+    public void setCccupationExit() {
+        if (this.occupation == 0) {
+            return;
+        }
+        this.occupation -= 1;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public void setCccupationEntry() {
+        if (this.occupation == this.occupation) {
+            System.out.println("Esta cheio!");
+            return;
+        }
+        this.occupation += 1;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setOccupation(Integer occupation) {
+        this.occupation = occupation;
     }
 
     @Override
     public String toString() {
-        return "PontosPassagem{" +
-                "point=" + ponto +
-                ", descricao='" + descricao + '\'' +
-                '}';
-    }
+        return "Ponto de interesse - " + this.description() + " Tem uma lotacao de " + capacity + " tem uma ocupacao de " + occupation + " fica localizada no " +
+                this.getZ() + "piso - " + super.toString();
 
-    public static void main(String[] args) {
-        Local novo = new Local(new Point(2.33,2.21,232.1),"Casa de banho",false);
-        System.out.println(novo);
     }
 }

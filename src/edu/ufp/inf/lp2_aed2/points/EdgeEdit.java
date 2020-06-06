@@ -1,6 +1,5 @@
 package edu.ufp.inf.lp2_aed2.points;
 
-
 import edu.princeton.cs.algs4.StdOut;
 
 class EdgeEdit implements Comparable<EdgeEdit> {

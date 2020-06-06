@@ -34,7 +34,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleSaveBinFileAction" text="Save Bin File" />
                     </items>
                   </Menu>
-              <MenuItem mnemonicParsing="false" text="Exit" />
+              <MenuItem mnemonicParsing="false" onAction="#handleExitAction" text="Exit" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -341,8 +341,7 @@
                                              <children>
                                                 <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
                                                    <children>
-                                                      <TextField fx:id="startdateFieldSearch" prefHeight="27.0" prefWidth="185.0" promptText="Start Date" />
-                                                      <TextField fx:id="finalDateFieldSearch" promptText="Final Date" />
+                                                      <TextField fx:id="dateFieldSearch" prefHeight="27.0" prefWidth="185.0" promptText="Date" />
                                                       <Button mnemonicParsing="false" onAction="#handleSelectFreeRoomsClassAction" text="Search" />
                                                       <Button mnemonicParsing="false" onAction="#handleSelectFreeRoomsSaveAction" text="Save" />
                                                    </children>
@@ -365,7 +364,7 @@
                                              <children>
                                                 <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
                                                    <children>
-                                                      <ComboBox fx:id="TeacherSearchComboBox" prefWidth="150.0" promptText="Teacher" />
+                                                      <ComboBox fx:id="CUSearchComboBox" prefWidth="150.0" promptText="Course Unit" />
                                                       <Button mnemonicParsing="false" onAction="#handleTecherbyCourseUnitAction" text="Search" />
                                                       <Button mnemonicParsing="false" onAction="#handleTecherbyCourseUnitSaveAction" text="Save" />
                                                    </children>
@@ -374,6 +373,53 @@
                                                    </padding>
                                                 </HBox>
                                                 <TextArea fx:id="searchTeacherbyCUSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Class by Teacher">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                   <children>
+                                                      <ComboBox fx:id="teacherSearchComboBox" prefWidth="150.0" promptText="Teacher" />
+                                                      <Button mnemonicParsing="false" onAction="#handleClassByTeacherSearchAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleClassbyTecherSaveAction" text="Save" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <TextArea fx:id="searchClassByTeacherSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Horário de Atendimento">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                   <children>
+                                                      <ComboBox fx:id="studentSASearchComboBox" prefWidth="150.0" promptText="Student" />
+                                                      <ComboBox fx:id="teacherSASearchComboBox" prefWidth="150.0" promptText="Teacher" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSASearchAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSASaveAction" text="Save" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <TextArea fx:id="searchSASearchTextArea" prefHeight="469.0" prefWidth="800.0" />
                                              </children>
                                           </VBox>
                                        </children>

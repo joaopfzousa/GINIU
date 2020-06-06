@@ -826,10 +826,10 @@ public class University implements Serializable {
             {
                 ScheduleClass sc = scheduleClassesST.get(dinit);
                 //System.out.println(sc);
-                System.out.println(r.getNumberRoom() + " sc.getStartDate().compareTo(dinicio) = " + sc.getStartDate().compareTo(dinicio));
+                //System.out.println(r.getNumberRoom() + " sc.getStartDate().compareTo(dinicio) = " + sc.getStartDate().compareTo(dinicio));
 
                 if(sc.getStartDate().compareTo(dinicio) != 0){
-                    System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom().getNumberRoom()));
+                    //System.out.println("!res.contains(sc.getRoom()) = " + !res.contains(sc.getRoom().getNumberRoom()));
 
                     if(!res.contains(sc.getRoom().getNumberRoom()) && !used.contains(sc.getRoom()))
                         res.put(sc.getRoom().getNumberRoom(), sc.getRoom());
@@ -842,9 +842,9 @@ public class University implements Serializable {
             {
                 ScheduleAccompaniment sa = scheduleAccompanimentST.get(dinicial);
                 //System.out.println(sa);
-                System.out.println(r.getNumberRoom() + " sa.getStartDate().compareTo(dinicio) =" + sa.getStartDate().compareTo(dinicio));
+                //System.out.println(r.getNumberRoom() + " sa.getStartDate().compareTo(dinicio) =" + sa.getStartDate().compareTo(dinicio));
                 if(sa.getStartDate().compareTo(dinicio) != 0){
-                    System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom().getNumberRoom()));
+                    //System.out.println("!res.contains(sa.getRoom()) = " + !res.contains(sa.getRoom().getNumberRoom()));
                     if(!res.contains(sa.getRoom().getNumberRoom()) && !used.contains(sa.getRoom()) )
                         res.put(sa.getRoom().getNumberRoom(), sa.getRoom());
                 }else{

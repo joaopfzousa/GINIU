@@ -1,12 +1,11 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.RedBlackBST;
-import edu.ufp.inf.lp2_aed2.points.Node;
 import edu.ufp.inf.lp2_aed2.points.Point;
 
 import java.io.Serializable;
 
-public class Room extends Node implements Serializable {
+public class Room implements Serializable {
   /**
    * Atributos
    */
@@ -69,11 +68,6 @@ public class Room extends Node implements Serializable {
    */
   public String toStringFileRoom(){
     return id + ";" + floor + ";" + numberRoom + ";" + socket + ";" + capacity + ";" ;
-  }
-
-  public Integer getNode()
-  {
-    return super.getId();
   }
 
   /**

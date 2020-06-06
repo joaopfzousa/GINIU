@@ -72,7 +72,6 @@ public class Student extends Person implements Serializable {
       for(String name : this.getClassesST().keys())
       {
         Class c = this.getClassesST().get(name);
-
         for(Date stdate : c.getScheduleClassesST().keys())
         {
           ScheduleClass sC = c.getScheduleClassesST().get(stdate);
