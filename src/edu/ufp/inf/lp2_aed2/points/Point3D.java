@@ -61,7 +61,7 @@ public class Point3D extends Point implements Comparable<Point3D>, Serializable 
         this.id = id;
     }
 
-    public String description() {
+    public String getDescription() {
         return description;
     }
 

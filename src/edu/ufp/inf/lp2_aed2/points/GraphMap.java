@@ -177,8 +177,9 @@ public class GraphMap implements Serializable {
             Integer z = Integer.parseInt(fields[3]);
 
             boolean indoor = Boolean.parseBoolean(fields[4]);
-            String descricao = fields[5];
-            Point3D novo = new Point3D(x, y, z, descricao, indoor);
+            String description = fields[5];
+
+            Point3D novo = new Point3D(x, y, z, description, indoor);
             novo.setId(id);
             points3D.add(novo);
 
@@ -431,7 +432,7 @@ public class GraphMap implements Serializable {
             BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
             System.out.print(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd + "\n");
         }
-        System.out.println("\n" + print.description());
+        System.out.println("\n" + print.getDescription());
     }
 
     /**
@@ -444,7 +445,7 @@ public class GraphMap implements Serializable {
 
         ArrayList<Point3D> saida = outdoor(); // retorna as saidas
 
-        DijkstraSP_ProjectTempo sp = new DijkstraSP_ProjectTempo(this.graphGeral, reference.getId()); // aplica dijkstraSP
+        DijkstraSP_ProjectTemp sp = new DijkstraSP_ProjectTemp(this.graphGeral, reference.getId()); // aplica dijkstraSP
 
         Point3D print = saida.get(0); // primeiro no do arraylist
         double dist = 100000000.00;
@@ -469,7 +470,7 @@ public class GraphMap implements Serializable {
             BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
             System.out.print(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd + "\n");
         }
-        System.out.println("\n" + print.description());
+        System.out.println("\n" + print.getDescription());
     }
 
     /**
@@ -587,7 +588,7 @@ public class GraphMap implements Serializable {
      */
     public void shortestPathbetweenTwoPointsByTemp(Room r1, Room r2, EdgeWeightedDigraph_Project graphGeral)
     {
-        DijkstraSP_ProjectTempo dp = new DijkstraSP_ProjectTempo(graphGeral, r1.getPoint().getId());
+        DijkstraSP_ProjectTemp dp = new DijkstraSP_ProjectTemp(graphGeral, r1.getPoint().getId());
 
         if (dp.hasPathTo(r2.getId()))
         {

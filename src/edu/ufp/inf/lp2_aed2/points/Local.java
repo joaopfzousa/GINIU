@@ -8,8 +8,8 @@ public class Local extends Point3D implements Serializable {
 
     private Integer occupation;
 
-    public Local(double x, double y, Integer id, Integer z, String descricao, Boolean indoor, Integer capacity, Integer occupation) {
-        super(x, y, id, z, descricao, indoor);
+    public Local(double x, double y, Integer id, Integer z, String description, Boolean indoor, Integer capacity, Integer occupation) {
+        super(x, y, id, z, description, indoor);
         this.capacity = capacity;
         this.occupation = occupation;
     }
@@ -48,7 +48,7 @@ public class Local extends Point3D implements Serializable {
 
     @Override
     public String toString() {
-        return "Ponto de interesse - " + this.description() + " Tem uma lotacao de " + capacity + " tem uma ocupacao de " + occupation + " fica localizada no " +
+        return "Ponto de interesse - " + this.getDescription() + " Tem uma lotacao de " + capacity + " tem uma ocupacao de " + occupation + " fica localizada no " +
                 this.getZ() + "piso - " + super.toString();
 
     }

@@ -4,9 +4,12 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2_aed2.*;
 import edu.ufp.inf.lp2_aed2.Class;
+import edu.ufp.inf.lp2_aed2.points.GraphMap;
 import edu.ufp.inf.lp2_aed2.points.Point;
+import edu.ufp.inf.lp2_aed2.points.Point3D;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -20,6 +23,7 @@ import java.util.ResourceBundle;
 public class GraphicController implements Initializable {
 
     private University university;
+    private GraphMap graphMap;
     private static final String PATH_UNIVERSITY_READSAVE = "./data/bin/UniversityBin.bin";
     private static final String PATH_SEARCHSTUDENTCLASS_SAVE = "./data/search/StudentClass";
     private static final String PATH_SEARCHFREEROOMS_SAVE = "./data/search/FreeRooms";
@@ -126,6 +130,23 @@ public class GraphicController implements Initializable {
     public ComboBox<String> roomSCCombo;
     public ComboBox<String> classSCCombo;
 
+    /**
+     * Point3D
+     */
+    public TableView<Point3D> Point3DTable;
+    public TableColumn<Point3D, Double> XCol;
+    public TableColumn<Point3D, Double> YCol;
+    public TableColumn<Point3D, Integer> ZCol;
+    public TableColumn<Point3D, Boolean> IndoorCol;
+    public TableColumn<Point3D, String> DescriprionPointCol;
+    public TableColumn<Point3D, Integer> idPointCol;
+    public TextField XPointField;
+    public TextField YPointField;
+    public TextField ZPointField;
+    public TextField indoorPointField;
+    public TextField descriptionPointField;
+    public Group graphUniGroup;
+
 
     /**
      * Search's
@@ -155,6 +176,8 @@ public class GraphicController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.university = new University("UFP");
+        this.graphMap = new GraphMap();
+        
         /**
          * Room
          */
@@ -241,6 +264,16 @@ public class GraphicController implements Initializable {
         finalDateSCCol.setCellValueFactory(new PropertyValueFactory<>("finalDate"));
         roomSCCol.setCellValueFactory(new PropertyValueFactory<>("room"));
         ClassSCCol.setCellValueFactory(new PropertyValueFactory<>("classe"));
+
+        /**
+         * Point3D
+         */
+        XCol.setCellValueFactory(new PropertyValueFactory<>("x"));
+        YCol.setCellValueFactory(new PropertyValueFactory<>("y"));
+        ZCol.setCellValueFactory(new PropertyValueFactory<>("z"));
+        IndoorCol.setCellValueFactory(new PropertyValueFactory<>("indoor"));
+        idPointCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        DescriprionPointCol.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
 
     public void handleReadTextFileAction(ActionEvent actionEvent) {
@@ -315,6 +348,9 @@ public class GraphicController implements Initializable {
         addClassToComboBoxs(university.getClassesST());
 
         Student.loadStudentCourse(university, "./data/StudentCourse");
+        
+        graphMap.loadPoints3D();
+        Point3DTable.getItems().addAll(graphMap.getPoints3D());
     }
 
     public void handleReadBinFileAction(ActionEvent actionEvent) {
@@ -994,5 +1030,23 @@ public class GraphicController implements Initializable {
 
             pw.close();
         }
+    }
+
+    public void handleEditDoublePointsAction(TableColumn.CellEditEvent<Point3D, Double> point3DDoubleCellEditEvent) {
+    }
+
+    public void handleEditIntegerPointsAction(TableColumn.CellEditEvent<Point3D, Integer> point3DIntegerCellEditEvent) {
+    }
+
+    public void handleEditBooleanPointsAction(TableColumn.CellEditEvent<Point3D, Boolean> point3DBooleanCellEditEvent) {
+    }
+
+    public void handleEditStringsPointsAction(TableColumn.CellEditEvent<Point3D, String> point3DStringCellEditEvent) {
+    }
+
+    public void handleAddPointAction(ActionEvent actionEvent) {
+    }
+
+    public void handleRemovePointAction(ActionEvent actionEvent) {
     }
 }

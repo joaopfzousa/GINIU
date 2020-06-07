@@ -52,7 +52,7 @@ import edu.princeton.cs.algs4.*;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class DijkstraSP_ProjectTempo {
+public class DijkstraSP_ProjectTemp {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
     private DirectedEdge_Project[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
     private IndexMinPQ<Double> pq;    // priority queue of vertices
@@ -66,7 +66,7 @@ public class DijkstraSP_ProjectTempo {
      * @throws IllegalArgumentException if an edge weight is negative
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
-    public DijkstraSP_ProjectTempo(EdgeWeightedDigraph_Project G, int s) {
+    public DijkstraSP_ProjectTemp(EdgeWeightedDigraph_Project G, int s) {
         for (DirectedEdge_Project e : G.edges()) {
             if (e.getTempo() < 0)
                 throw new IllegalArgumentException("edge " + e + " has negative weight");
@@ -218,7 +218,7 @@ public class DijkstraSP_ProjectTempo {
         int s = Integer.parseInt(args[1]);
 
         // compute shortest paths
-        DijkstraSP_ProjectTempo sp = new DijkstraSP_ProjectTempo(G, s);
+        DijkstraSP_ProjectTemp sp = new DijkstraSP_ProjectTemp(G, s);
 
 
         // print shortest path
