@@ -8,17 +8,12 @@ public class Local extends Point3D implements Serializable {
 
     private Integer occupation;
 
-    public Local(double x, double y, Integer z, String descricao, Integer capacity, Integer occupation, Boolean indoor) {
-        super(x, y, z, descricao,indoor);
+    public Local(double x, double y, Integer id, Integer z, String descricao, Boolean indoor, Integer capacity, Integer occupation) {
+        super(x, y, id, z, descricao, indoor);
         this.capacity = capacity;
         this.occupation = occupation;
     }
 
-    public Local(Integer id, Integer z, String descricao, Integer capacity, Integer occupation) {
-        super(id, z, descricao,true);
-        this.capacity = capacity;
-        this.occupation = occupation;
-    }
 
     public Integer getCapacity() {
         return capacity;

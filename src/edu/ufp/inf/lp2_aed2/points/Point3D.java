@@ -14,24 +14,18 @@ public class Point3D extends Point implements Comparable<Point3D>, Serializable 
 
     private Boolean indoor;
 
+    public Point3D(double x, double y, Integer z, Integer id, String description, Boolean indoor) {
+        super(x, y);
+        this.id = id;
+        this.z = z;
+        this.description = description;
+        this.indoor = indoor;
+    }
     public Point3D(double x, double y, Integer z, String description, Boolean indoor) {
         super(x, y);
-        this.z = z;
         this.id = value++;
-        this.description = description;
-        this.indoor = indoor;
-    }
-    public Point3D(double x, double y, Integer z, Boolean indoor) {
-        super(x, y);
         this.z = z;
-        this.id = value++;
-        this.description = null;
-        this.indoor = indoor;
-    }
-    public Point3D(Integer id, Integer z, String description, Boolean indoor) {
-        this.id = id;
         this.description = description;
-        this.z = z;
         this.indoor = indoor;
     }
 

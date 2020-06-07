@@ -25,7 +25,23 @@ package edu.princeton.cs.algs4;
 public class DirectedEdge { 
     private final int v;
     private final int w;
-    private final double weight;
+    private double weight;
+
+    public int getV() {
+        return v;
+    }
+
+    public int getW() {
+        return w;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     /**
      * Initializes a directed edge from vertex {@code v} to vertex {@code w} with

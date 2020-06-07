@@ -1,7 +1,7 @@
 package edu.ufp.inf.lp2_aed2;
 
 import edu.princeton.cs.algs4.RedBlackBST;
-import edu.ufp.inf.lp2_aed2.points.Point;
+import edu.ufp.inf.lp2_aed2.points.Point3D;
 
 import java.io.Serializable;
 
@@ -26,8 +26,7 @@ public class Room implements Serializable {
   // Lista de Schedule pela Class - chave é data
   private RedBlackBST<Date, ScheduleAccompaniment> scheduleAccompanimentST = new RedBlackBST<>();
 
-  private Point myPoint;
-
+  private Point3D point;
   /**
    * Construtor
    * @param id
@@ -37,13 +36,12 @@ public class Room implements Serializable {
    * @param capacity
    */
   public Room(Integer id, Integer floor, String numberRoom, boolean socket, Integer capacity) {
-    super();
     this.id = id;
     this.floor = floor;
     this.numberRoom = numberRoom;
     this.socket = socket;
     this.capacity = capacity;
-    this.myPoint = null;
+    this.point = null;
   }
 
   /**
@@ -58,7 +56,6 @@ public class Room implements Serializable {
             ", numberRoom=" + numberRoom +
             ", socket=" + socket +
             ", capacity=" + capacity +
-            ", point=" + myPoint +
             '}';
   }
 
@@ -156,11 +153,11 @@ public class Room implements Serializable {
     this.scheduleAccompanimentST = scheduleAccompanimentST;
   }
 
-  public Point getMyPoint() {
-    return myPoint;
+  public Point3D getPoint() {
+    return point;
   }
 
-  public void setMyPoint(Point myPoint) {
-    this.myPoint = myPoint;
+  public void setPoint(Point3D point) {
+    this.point = point;
   }
 }
