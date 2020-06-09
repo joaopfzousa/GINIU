@@ -44,7 +44,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
 
     private final int V;                // number of vertices in this digraph
     private int E;                      // number of edges in this digraph
-    private Bag<DirectedEdge_Project>[] adj;    // adj[v] = adjacency list for vertex v
+    private Bag<Edge_Project>[] adj;    // adj[v] = adjacency list for vertex v
     private int[] indegree;             // indegree[v] = indegree of vertex v
 
     /**
@@ -58,9 +58,9 @@ public class EdgeWeightedDigraph_Project implements Serializable {
         this.V = V;
         this.E = 0;
         this.indegree = new int[V];
-        adj = (Bag<DirectedEdge_Project>[]) new Bag[V];
+        adj = (Bag<Edge_Project>[]) new Bag[V];
         for (int v = 0; v < V; v++)
-            adj[v] = new Bag<DirectedEdge_Project>();
+            adj[v] = new Bag<Edge_Project>();
     }
 
     /**
@@ -79,7 +79,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
             int w = StdRandom.uniform(V);
             double weight = 0.01 * StdRandom.uniform(100);
             double tempo = 0.01 * StdRandom.uniform(100);
-            DirectedEdge_Project e = new DirectedEdge_Project(v, w, weight,tempo);
+            Edge_Project e = new Edge_Project(v, w, weight,tempo);
             addEdge(e);
         }
     }
@@ -106,7 +106,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
             validateVertex(w);
             double weight = in.readDouble();
             double tempo = in.readDouble();
-            addEdge(new DirectedEdge_Project(v, w, weight,tempo));
+            addEdge(new Edge_Project(v, w, weight,tempo));
         }
     }
 
@@ -122,11 +122,11 @@ public class EdgeWeightedDigraph_Project implements Serializable {
             this.indegree[v] = G.indegree(v);
         for (int v = 0; v < G.V(); v++) {
             // reverse so that adjacency list is in same order as original
-            Stack<DirectedEdge_Project> reverse = new Stack<DirectedEdge_Project>();
-            for (DirectedEdge_Project e : G.adj[v]) {
+            Stack<Edge_Project> reverse = new Stack<Edge_Project>();
+            for (Edge_Project e : G.adj[v]) {
                 reverse.push(e);
             }
-            for (DirectedEdge_Project e : reverse) {
+            for (Edge_Project e : reverse) {
                 adj[v].add(e);
             }
         }
@@ -163,7 +163,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
      * @throws IllegalArgumentException unless endpoints of edge are between {@code 0}
      *         and {@code V-1}
      */
-    public void addEdge(DirectedEdge_Project e) {
+    public void addEdge(Edge_Project e) {
         int v = e.from();
         int w = e.to();
         validateVertex(v);
@@ -181,7 +181,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
      * @return the directed edges incident from vertex {@code v} as an Iterable
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge_Project> adj(int v) {
+    public Iterable<Edge_Project> adj(int v) {
         validateVertex(v);
         return adj[v];
     }
@@ -219,10 +219,10 @@ public class EdgeWeightedDigraph_Project implements Serializable {
      *
      * @return all edges in this edge-weighted digraph, as an iterable
      */
-    public Iterable<DirectedEdge_Project> edges() {
-        Bag<DirectedEdge_Project> list = new Bag<DirectedEdge_Project>();
+    public Iterable<Edge_Project> edges() {
+        Bag<Edge_Project> list = new Bag<Edge_Project>();
         for (int v = 0; v < V; v++) {
-            for (DirectedEdge_Project e : adj(v)) {
+            for (Edge_Project e : adj(v)) {
                 list.add(e);
             }
         }
@@ -232,7 +232,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
     public Digraph criarDigrafo() {
         Digraph reverse = new Digraph(V);
         for (int v = 0; v < V; v++) {
-            for (DirectedEdge_Project w : adj(v)) {
+            for (Edge_Project w : adj(v)) {
                 reverse.addEdge(w.to(), w.from());
             }
         }
@@ -250,7 +250,7 @@ public class EdgeWeightedDigraph_Project implements Serializable {
         s.append(V + " " + E + NEWLINE);
         for (int v = 0; v < V; v++) {
             s.append(v + ": ");
-            for (DirectedEdge_Project e : adj[v]) {
+            for (Edge_Project e : adj[v]) {
                 s.append(e + "  ");
             }
             s.append(NEWLINE);

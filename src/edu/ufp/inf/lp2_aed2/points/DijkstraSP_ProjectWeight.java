@@ -54,7 +54,7 @@ import edu.princeton.cs.algs4.*;
  */
 public class DijkstraSP_ProjectWeight {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
-    private DirectedEdge_Project[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
+    private Edge_Project[] edgeTo;    // edgeTo[v] = last edge on shortest s->v path
     private IndexMinPQ<Double> pq;    // priority queue of vertices
 
     /**
@@ -67,13 +67,13 @@ public class DijkstraSP_ProjectWeight {
      * @throws IllegalArgumentException unless {@code 0 <= s < V}
      */
     public DijkstraSP_ProjectWeight(EdgeWeightedDigraph_Project G, int s) {
-        for (DirectedEdge_Project e : G.edges()) {
+        for (Edge_Project e : G.edges()) {
             if (e.weight() < 0)
                 throw new IllegalArgumentException("edge " + e + " has negative weight");
         }
 
         distTo = new double[G.V()];
-        edgeTo = new DirectedEdge_Project[G.V()];
+        edgeTo = new Edge_Project[G.V()];
 
         validateVertex(s);
 
@@ -86,7 +86,7 @@ public class DijkstraSP_ProjectWeight {
         pq.insert(s, distTo[s]);
         while (!pq.isEmpty()) {
             int v = pq.delMin();
-            for (DirectedEdge_Project e : G.adj(v))
+            for (Edge_Project e : G.adj(v))
                 relax(e);
         }
 
@@ -95,7 +95,7 @@ public class DijkstraSP_ProjectWeight {
     }
 
     // relax edge e and update pq if changed
-    private void relax(DirectedEdge_Project e) {
+    private void relax(Edge_Project e) {
         int v = e.from(), w = e.to();
         if (distTo[w] > distTo[v] + e.weight()) {
             distTo[w] = distTo[v] + e.weight();
@@ -138,11 +138,11 @@ public class DijkstraSP_ProjectWeight {
      *         as an iterable of edges, and {@code null} if no such path
      * @throws IllegalArgumentException unless {@code 0 <= v < V}
      */
-    public Iterable<DirectedEdge_Project> pathTo(int v) {
+    public Iterable<Edge_Project> pathTo(int v) {
         validateVertex(v);
         if (!hasPathTo(v)) return null;
-        Stack<DirectedEdge_Project> path = new Stack<DirectedEdge_Project>();
-        for (DirectedEdge_Project e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+        Stack<Edge_Project> path = new Stack<Edge_Project>();
+        for (Edge_Project e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
             path.push(e);
         }
         return path;
@@ -155,7 +155,7 @@ public class DijkstraSP_ProjectWeight {
     private boolean check(EdgeWeightedDigraph_Project G, int s) {
 
         // check that edge weights are nonnegative
-        for (DirectedEdge_Project e : G.edges()) {
+        for (Edge_Project e : G.edges()) {
             if (e.weight() < 0) {
                 System.err.println("negative edge weight detected");
                 return false;
@@ -177,7 +177,7 @@ public class DijkstraSP_ProjectWeight {
 
         // check that all edges e = v->w satisfy distTo[w] <= distTo[v] + e.weight()
         for (int v = 0; v < G.V(); v++) {
-            for (DirectedEdge_Project e : G.adj(v)) {
+            for (Edge_Project e : G.adj(v)) {
                 int w = e.to();
                 if (distTo[v] + e.weight() < distTo[w]) {
                     System.err.println("edge " + e + " not relaxed");
@@ -189,7 +189,7 @@ public class DijkstraSP_ProjectWeight {
         // check that all edges e = v->w on SPT satisfy distTo[w] == distTo[v] + e.weight()
         for (int w = 0; w < G.V(); w++) {
             if (edgeTo[w] == null) continue;
-            DirectedEdge_Project e = edgeTo[w];
+            Edge_Project e = edgeTo[w];
             int v = e.from();
             if (w != e.to()) return false;
             if (distTo[v] + e.weight() != distTo[w]) {
@@ -225,7 +225,7 @@ public class DijkstraSP_ProjectWeight {
         for (int t = 0; t < G.V(); t++) {
             if (sp.hasPathTo(t)) {
                 StdOut.printf("%d to %d (%.2f)  ", s, t, sp.distTo(t));
-                for (DirectedEdge_Project e : sp.pathTo(t)) {
+                for (Edge_Project e : sp.pathTo(t)) {
                     StdOut.print(e + "   ");
                 }
                 StdOut.println();

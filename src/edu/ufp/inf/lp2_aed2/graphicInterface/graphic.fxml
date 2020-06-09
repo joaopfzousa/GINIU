@@ -447,12 +447,12 @@
                                              <children>
                                                 <TableView fx:id="Point3DTable" editable="true" prefHeight="468.0" prefWidth="800.0">
                                                    <columns>
-                                                      <TableColumn fx:id="idPointCol" onEditCommit="#handleEditIntegerPointsAction" prefWidth="112.0" text="ID" />
-                                                      <TableColumn fx:id="XCol" onEditCommit="#handleEditDoublePointsAction" prefWidth="98.0" text="X" />
-                                                      <TableColumn fx:id="YCol" minWidth="0.0" onEditCommit="#handleEditDoublePointsAction" prefWidth="99.0" text="Y" />
-                                                      <TableColumn fx:id="ZCol" minWidth="0.0" onEditCommit="#handleEditIntegerPointsAction" prefWidth="104.0" text="Z" />
-                                                      <TableColumn fx:id="IndoorCol" minWidth="0.0" onEditCommit="#handleEditBooleanPointsAction" prefWidth="120.0" text="Indoor" />
-                                                      <TableColumn fx:id="DescriprionPointCol" onEditCommit="#handleEditStringsPointsAction" prefWidth="266.0" text="Description" />
+                                                      <TableColumn fx:id="idPointCol" prefWidth="112.0" text="ID" />
+                                                      <TableColumn fx:id="XCol" prefWidth="98.0" text="X" />
+                                                      <TableColumn fx:id="YCol" minWidth="0.0" prefWidth="99.0" text="Y" />
+                                                      <TableColumn fx:id="ZCol" minWidth="0.0" prefWidth="104.0" text="Z" />
+                                                      <TableColumn fx:id="IndoorCol" minWidth="0.0" prefWidth="120.0" text="Indoor" />
+                                                      <TableColumn fx:id="DescriprionPointCol" prefWidth="266.0" text="Description" />
                                                    </columns>
                                                 </TableView>
                                                 <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
@@ -478,6 +478,42 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
+                              <Tab text="Edges">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0">
+                                             <children>
+                                                <TableView fx:id="EdgesTable" editable="true" prefHeight="468.0" prefWidth="800.0">
+                                                   <columns>
+                                                      <TableColumn fx:id="vEdgeCol" prefWidth="112.0" text="V" />
+                                                      <TableColumn fx:id="WEdgeCol" prefWidth="98.0" text="W" />
+                                                      <TableColumn fx:id="weightEdgeCol" minWidth="0.0" prefWidth="183.0" text="Weight" />
+                                                      <TableColumn fx:id="tempEdgeCol" minWidth="0.0" prefWidth="144.0" text="Temp" />
+                                                      <TableColumn fx:id="senseEdgeCol" minWidth="0.0" prefWidth="262.0" text="Direction" />
+                                                   </columns>
+                                                </TableView>
+                                                <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                   <padding>
+                                                      <Insets left="5.0" top="5.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <TextField fx:id="VEdgeField" prefHeight="27.0" prefWidth="71.0" promptText="V" />
+                                                      <TextField fx:id="WEdgesField" prefHeight="27.0" prefWidth="80.0" promptText="W" />
+                                                      <TextField fx:id="senseEdgeField" prefHeight="27.0" prefWidth="153.0" promptText="Sense" />
+                                                      <Button mnemonicParsing="false" onAction="#handleAddEdgeAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
+                                                      <Button mnemonicParsing="false" onAction="#handleRemoveEdgeAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                             <Tab text="Graph">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -487,6 +523,15 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
+                              <Tab text="Config">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0" />
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>

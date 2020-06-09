@@ -69,8 +69,9 @@ public class Point3D extends Point implements Comparable<Point3D>, Serializable 
         this.description = description;
     }
 
-    public double distZ(Point3D P) {
-        double dz = this.z - P.getZ();
+
+    public double distZ(Point3D p) {
+        double dz = this.z - p.getZ();
         return dz;
     }
 

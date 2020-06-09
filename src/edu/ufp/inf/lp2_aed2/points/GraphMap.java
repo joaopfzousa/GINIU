@@ -16,7 +16,7 @@ public class GraphMap implements Serializable {
 
     private static Integer pointsNr = 0;
 
-    private ArrayList<DirectedEdge_Project>  arrayLisDirectedEdge;
+    private ArrayList<Edge_Project> arrayLisDirectedEdge;
 
     private ArrayList<Point3D> points3D;
 
@@ -42,11 +42,11 @@ public class GraphMap implements Serializable {
         GraphMap.pointsNr = pointsNr;
     }
 
-    public ArrayList<DirectedEdge_Project> getArrayLisDirectedEdge() {
+    public ArrayList<Edge_Project> getArrayLisDirectedEdge() {
         return arrayLisDirectedEdge;
     }
 
-    public void setArrayLisDirectedEdge(ArrayList<DirectedEdge_Project> arrayLisDirectedEdge) {
+    public void setArrayLisDirectedEdge(ArrayList<Edge_Project> arrayLisDirectedEdge) {
         this.arrayLisDirectedEdge = arrayLisDirectedEdge;
     }
 
@@ -101,15 +101,18 @@ public class GraphMap implements Serializable {
      *  Adiciona uma Aresta com apenas com um sentido
      * @param p1
      * @param p2
-     * @param sentido
+     * @param direction
      */
-    public void addArestaUnidirecional(Point3D p1, Point3D p2, Boolean sentido) {
-        double tempo = 1.25;
-        double distancia = p1.distPontos(p2);
-        double tempoDistancia = distancia * tempo;
-        DirectedEdge_Project nova = new DirectedEdge_Project(p1.getId(), p2.getId(), distancia, tempoDistancia);
-        arrayLisDirectedEdge.add(nova);
-        this.graphGeral.addEdge(nova);
+    public Edge_Project addArestaUnidirecional(Point3D p1, Point3D p2, Boolean direction)
+    {
+        double temp = 1.25;
+        double distance = p1.distPontos(p2);
+        double tempoDistancia = distance * temp;
+        Edge_Project edge = new Edge_Project(p1.getId(), p2.getId(), distance, tempoDistancia);
+        edge.setDirection(direction);
+        arrayLisDirectedEdge.add(edge);
+        this.graphGeral.addEdge(edge);
+        return edge;
     }
 
     /**
@@ -123,10 +126,10 @@ public class GraphMap implements Serializable {
         double tempo = 1.25;
         double distancia = p1.distPontos(p2);
         double tempoDistancia = distancia * tempo;
-        DirectedEdge_Project nova = new DirectedEdge_Project(p1.getId(), p2.getId(), distancia, tempoDistancia);
-        DirectedEdge_Project nova1 = new DirectedEdge_Project(p2.getId(), p1.getId(), distancia, tempoDistancia);
-        nova.setSentido(sentido1);
-        nova1.setSentido(sentido2);
+        Edge_Project nova = new Edge_Project(p1.getId(), p2.getId(), distancia, tempoDistancia);
+        Edge_Project nova1 = new Edge_Project(p2.getId(), p1.getId(), distancia, tempoDistancia);
+        nova.setDirection(sentido1);
+        nova1.setDirection(sentido2);
         arrayLisDirectedEdge.add(nova);
         arrayLisDirectedEdge.add(nova1);
         this.graphGeral.addEdge(nova);
@@ -147,14 +150,15 @@ public class GraphMap implements Serializable {
             s = in.readLine();
 
             String[] fields = s.split(";");
-            Integer id = Integer.parseInt(fields[0]);
-            Integer id1 = Integer.parseInt(fields[1]);
+            int id = Integer.parseInt(fields[0]);
+            int id1 = Integer.parseInt(fields[1]);
 
-            Point3D um = returnNode(id);
-            Point3D dois = returnNode(id1);
+            Point3D point1 = returnNode(id);
+            Point3D point2 = returnNode(id1);
 
             boolean sentido = Boolean.parseBoolean(fields[2]);
-            addArestaUnidirecional(um, dois, sentido);
+
+            addArestaUnidirecional(point1, point2, sentido);
         }
     }
 
@@ -192,7 +196,7 @@ public class GraphMap implements Serializable {
      */
     public void listAllDirectedEdge()
     {
-        for (DirectedEdge_Project d : this.arrayLisDirectedEdge)
+        for (Edge_Project d : this.arrayLisDirectedEdge)
         {
             System.out.println(d);
         }
@@ -286,6 +290,27 @@ public class GraphMap implements Serializable {
         }
     }
 
+
+    /**
+     * Remove Point3D
+     * @param edge
+     */
+    public void removeDirectEdges(Edge_Project edge)
+    {
+        if(arrayLisDirectedEdge.size() > 0)
+        {
+            if(edge != null)
+            {
+                arrayLisDirectedEdge.remove(edge);
+            }else{
+                System.out.println("[GraphMap] -> This edge is null");
+            }
+        }else{
+            System.out.println("[GraphMap] -> arrayLisDirectedEdge is empty");
+        }
+
+    }
+
     /**
      * adicionar um ponto3D
      * @param x
@@ -325,16 +350,16 @@ public class GraphMap implements Serializable {
      * @param floor
      * @return
      */
-    public ArrayList<DirectedEdge_Project> mapEdges(int floor)
+    public ArrayList<Edge_Project> mapEdges(int floor)
     {
-        ArrayList<DirectedEdge_Project> aux = new ArrayList<DirectedEdge_Project>();
+        ArrayList<Edge_Project> aux = new ArrayList<Edge_Project>();
 
         for (Point3D t : this.points3D)
         {
             //check all vertices on floor
             if ((t.getZ() == floor))
             {
-                for (DirectedEdge_Project d : this.arrayLisDirectedEdge)
+                for (Edge_Project d : this.arrayLisDirectedEdge)
                 { // vai andar nas arestas
                     if (d.getV() == t.getId() || d.getW() == t.getId())  // verify if edge in id
                         aux.add(d);
@@ -349,12 +374,12 @@ public class GraphMap implements Serializable {
      * @param floor
      * @return
      */
-    public ArrayList<DirectedEdge_Project> mapEmergencyEdges(int floor)
+    public ArrayList<Edge_Project> mapEmergencyEdges(int floor)
     {
-        ArrayList<DirectedEdge_Project> aux = new ArrayList<DirectedEdge_Project>();
-        for (DirectedEdge_Project d : this.arrayLisDirectedEdge) //iterate on edges
+        ArrayList<Edge_Project> aux = new ArrayList<Edge_Project>();
+        for (Edge_Project d : this.arrayLisDirectedEdge) //iterate on edges
         {
-            if (d.getSentido())  // verify edge on id
+            if (d.getDirection())  // verify edge on id
                 aux.add(d);
         }
         return aux;
@@ -426,7 +451,7 @@ public class GraphMap implements Serializable {
         System.out.println(reference.getId()+ " to " + print.getId() + "("+ sp.distTo(print.getId()) +") \n");
 
         int j = 0;
-        for (DirectedEdge_Project e : sp.pathTo(print.getId()))
+        for (Edge_Project e : sp.pathTo(print.getId()))
         {
             j++;
             BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
@@ -464,7 +489,7 @@ public class GraphMap implements Serializable {
 
         System.out.println(reference.getId()+ " to " + print.getId() + "("+ sp.distTo(print.getId()) +") \n");
         int j = 0;
-        for (DirectedEdge_Project e : sp.pathTo(print.getId()))
+        for (Edge_Project e : sp.pathTo(print.getId()))
         {
             j++;
             BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
@@ -483,8 +508,8 @@ public class GraphMap implements Serializable {
         Point3D reference = returnClosestPoint(point);
 
         EdgeWeightedDigraph_Project aux = new EdgeWeightedDigraph_Project(this.graphGeral.V());
-        ArrayList<DirectedEdge_Project> aux1 = this.arrayLisDirectedEdge;
-        for (DirectedEdge_Project e : aux1)
+        ArrayList<Edge_Project> aux1 = this.arrayLisDirectedEdge;
+        for (Edge_Project e : aux1)
         {
             for (Integer i : points)
             {
@@ -500,7 +525,7 @@ public class GraphMap implements Serializable {
             if (sp.hasPathTo(t))
             {
                 System.out.println(reference.getId()+ " to " + t + "("+ sp.distTo(t) +") \n");
-                for (DirectedEdge_Project e : sp.pathTo(t))
+                for (Edge_Project e : sp.pathTo(t))
                 {
                     System.out.println(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
                 }
@@ -516,8 +541,8 @@ public class GraphMap implements Serializable {
      */
     public void avoidPointsPath(EdgeWeightedDigraph_Project graph, Integer id, ArrayList<Integer> pontos)
     {
-        ArrayList<DirectedEdge_Project> aux1 = this.arrayLisDirectedEdge;
-        for (DirectedEdge_Project e : aux1)
+        ArrayList<Edge_Project> aux1 = this.arrayLisDirectedEdge;
+        for (Edge_Project e : aux1)
         {
             for (Integer i : pontos)
             {
@@ -533,7 +558,7 @@ public class GraphMap implements Serializable {
             if (dp.hasPathTo(t))
             {
                 System.out.println(id+ " to " + t + "("+ dp.distTo(t) +") \n");
-                for (DirectedEdge_Project d : dp.pathTo(t))
+                for (Edge_Project d : dp.pathTo(t))
                     System.out.print(d);
                 System.out.println();
             }else {
@@ -573,7 +598,7 @@ public class GraphMap implements Serializable {
         {
             System.out.println(r1.getPoint().getId() + " to "+ r2.getPoint().getId() + "(" + dp.distTo(r2.getPoint().getId()) +")");
 
-            for (DirectedEdge_Project e : dp.pathTo(r2.getPoint().getId())) {
+            for (Edge_Project e : dp.pathTo(r2.getPoint().getId())) {
                 System.out.print(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
             }
             System.out.println();
@@ -594,7 +619,7 @@ public class GraphMap implements Serializable {
         {
             System.out.println(r1.getPoint().getId() + " to "+ r2.getPoint().getId() + "(" + dp.distTo(r2.getPoint().getId()) +")");
 
-            for (DirectedEdge_Project e : dp.pathTo(r2.getPoint().getId())) {
+            for (Edge_Project e : dp.pathTo(r2.getPoint().getId())) {
                 System.out.print(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
             }
             System.out.println();
@@ -610,7 +635,7 @@ public class GraphMap implements Serializable {
             if (sp.hasPathTo(t))
             {
                 System.out.println( p1.getId() + " to " + t + "(" + sp.distTo(t) + ")");
-                for (DirectedEdge_Project e : sp.pathTo(t))
+                for (Edge_Project e : sp.pathTo(t))
                     System.out.println(e + "  ");
 
                 System.out.println();
@@ -629,7 +654,7 @@ public class GraphMap implements Serializable {
             if (sp.hasPathTo(t))
             {
                 System.out.println( s1 + " to " + t + "(" + sp.distTo(t) + ")");
-                for (DirectedEdge_Project e : sp.pathTo(t))
+                for (Edge_Project e : sp.pathTo(t))
                     System.out.println(e + "  ");
 
                 System.out.println();

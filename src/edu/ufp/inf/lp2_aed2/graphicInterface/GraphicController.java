@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2_aed2.*;
 import edu.ufp.inf.lp2_aed2.Class;
+import edu.ufp.inf.lp2_aed2.points.Edge_Project;
 import edu.ufp.inf.lp2_aed2.points.GraphMap;
 import edu.ufp.inf.lp2_aed2.points.Point;
 import edu.ufp.inf.lp2_aed2.points.Point3D;
@@ -42,6 +43,7 @@ public class GraphicController implements Initializable {
     public TableColumn<Room, Boolean> socketCol;
     public TableColumn<Room, Integer> capacityCol;
     public TableColumn<Room, Point> pointCol;
+
     public TextField idRoomField;
     public TextField floorField;
     public TextField numberRoomField;
@@ -56,6 +58,7 @@ public class GraphicController implements Initializable {
     public TableColumn<Teacher, Integer> idTeacherCol;
     public TableColumn<Teacher, String> nameTeacherCol;
     public TableColumn<Teacher, String> emailTeacherCol;
+
     public TextField idTeacherField;
     public TextField nameTeacherField;
     public TextField emailTeacherField;
@@ -68,6 +71,7 @@ public class GraphicController implements Initializable {
     public TableColumn<ScheduleAccompaniment, Date> finalDateSACol;
     public TableColumn<ScheduleAccompaniment, Room> roomSACol;
     public TableColumn<ScheduleAccompaniment, Teacher> teacherSACol;
+
     public TextField startDateSAField;
     public TextField finalDateSAField;
     public ComboBox<String> roomSaCombo;
@@ -145,8 +149,25 @@ public class GraphicController implements Initializable {
     public TextField ZPointField;
     public TextField indoorPointField;
     public TextField descriptionPointField;
-    public Group graphUniGroup;
 
+    /**
+     * Edges
+     */
+    public TableView<Edge_Project> EdgesTable;
+    public TableColumn<Edge_Project, Integer> vEdgeCol;
+    public TableColumn<Edge_Project, Integer> WEdgeCol;
+    public TableColumn<Edge_Project, Double> weightEdgeCol;
+    public TableColumn<Edge_Project, Double> tempEdgeCol;
+    public TableColumn<Edge_Project, Boolean> senseEdgeCol;
+
+    public TextField VEdgeField;
+    public TextField WEdgesField;
+    public TextField senseEdgeField;
+
+    /**
+     * Graphs
+     */
+    public Group graphUniGroup;
 
     /**
      * Search's
@@ -256,7 +277,6 @@ public class GraphicController implements Initializable {
         nameClassCol.setCellFactory(TextFieldTableCell.forTableColumn());
         typeClassCol.setCellFactory(TextFieldTableCell.forTableColumn());
 
-
         /**
          * ScheduleClass
          */
@@ -274,6 +294,16 @@ public class GraphicController implements Initializable {
         IndoorCol.setCellValueFactory(new PropertyValueFactory<>("indoor"));
         idPointCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         DescriprionPointCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+        /**
+         * Edges
+         */
+        vEdgeCol.setCellValueFactory(new PropertyValueFactory<>("v"));
+        WEdgeCol.setCellValueFactory(new PropertyValueFactory<>("w"));
+        weightEdgeCol.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        tempEdgeCol.setCellValueFactory(new PropertyValueFactory<>("temp"));
+        senseEdgeCol.setCellValueFactory(new PropertyValueFactory<>("direction"));
+
     }
 
     public void handleReadTextFileAction(ActionEvent actionEvent) {
@@ -348,9 +378,15 @@ public class GraphicController implements Initializable {
         addClassToComboBoxs(university.getClassesST());
 
         Student.loadStudentCourse(university, "./data/StudentCourse");
-        
+
+        Point3DTable.getItems().clear();
+        EdgesTable.getItems().clear();
         graphMap.loadPoints3D();
         Point3DTable.getItems().addAll(graphMap.getPoints3D());
+
+        graphMap.loadDirectedEdge();
+        EdgesTable.getItems().addAll(graphMap.getArrayLisDirectedEdge());
+
     }
 
     public void handleReadBinFileAction(ActionEvent actionEvent) {
@@ -421,6 +457,11 @@ public class GraphicController implements Initializable {
         }
 
         addClassToComboBoxs(university.getClassesST());
+
+        Point3DTable.getItems().clear();
+        EdgesTable.getItems().clear();
+        Point3DTable.getItems().addAll(graphMap.getPoints3D());
+        EdgesTable.getItems().addAll(graphMap.getArrayLisDirectedEdge());
     }
 
     public void handleSaveTextFileAction(ActionEvent actionEvent) {
@@ -445,6 +486,7 @@ public class GraphicController implements Initializable {
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(university);
+            oos.writeObject(this.graphMap);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -456,6 +498,7 @@ public class GraphicController implements Initializable {
             FileInputStream fis = new FileInputStream(f);
             ObjectInputStream ois = new ObjectInputStream(fis);
             university = (University) ois.readObject();
+            this.graphMap = (GraphMap) ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -1032,21 +1075,41 @@ public class GraphicController implements Initializable {
         }
     }
 
-    public void handleEditDoublePointsAction(TableColumn.CellEditEvent<Point3D, Double> point3DDoubleCellEditEvent) {
-    }
-
-    public void handleEditIntegerPointsAction(TableColumn.CellEditEvent<Point3D, Integer> point3DIntegerCellEditEvent) {
-    }
-
-    public void handleEditBooleanPointsAction(TableColumn.CellEditEvent<Point3D, Boolean> point3DBooleanCellEditEvent) {
-    }
-
-    public void handleEditStringsPointsAction(TableColumn.CellEditEvent<Point3D, String> point3DStringCellEditEvent) {
-    }
-
     public void handleAddPointAction(ActionEvent actionEvent) {
+
+        Point3D point = graphMap.novoPonto(Double.parseDouble(XPointField.getText()), Double.parseDouble(YPointField.getText()), Integer.parseInt(ZPointField.getText()), descriptionPointField.getText(),  Boolean.parseBoolean(indoorPointField.getText()));
+        graphMap.addPoint3D(point);
+        Point3DTable.getItems().add(point);
+
+        XPointField.setText("");
+        YPointField.setText("");
+        ZPointField.setText("");
+        descriptionPointField.setText("");
+        indoorPointField.setText("");
     }
 
     public void handleRemovePointAction(ActionEvent actionEvent) {
+        Point3D point = Point3DTable.getSelectionModel().getSelectedItem();
+        Point3DTable.getItems().remove(point);
+        graphMap.removePoints(point);
+    }
+
+    public void handleAddEdgeAction(ActionEvent actionEvent)
+    {
+        Point3D point1 = graphMap.returnNode(Integer.parseInt(vEdgeCol.getText()));
+        Point3D point2 = graphMap.returnNode(Integer.parseInt(WEdgesField.getText()));
+
+        Edge_Project edge = graphMap.addArestaUnidirecional(point1, point2, Boolean.parseBoolean(senseEdgeField.getText()));
+
+        EdgesTable.getItems().add(edge);
+        vEdgeCol.setText("");
+        WEdgesField.setText("");
+        senseEdgeField.setText("");
+    }
+
+    public void handleRemoveEdgeAction(ActionEvent actionEvent) {
+        Edge_Project edge = EdgesTable.getSelectionModel().getSelectedItem();
+        EdgesTable.getItems().remove(edge);
+        graphMap.removeDirectEdges(edge);
     }
 }
