@@ -133,11 +133,8 @@ public class GraphMap implements Serializable {
     public Edge_Project addArestaUnidirecional(Point3D p1, Point3D p2, Boolean direction)
     {
         double temp = 1.25;
-        System.out.println(p1);
-        System.out.println(p2);
         double distance = p1.distPontos(p2);
         double tempoDistancia = distance * temp;
-        System.out.println(tempoDistancia);
         Edge_Project edge = new Edge_Project(p1.getId(), p2.getId(), distance, tempoDistancia, direction);
         arrayLisDirectedEdge.add(edge);
         this.graphGeral.addEdge(edge);
