@@ -1,0 +1,33 @@
+Professores ocupados: 
+Professores que não estão ocupados: 
+Person{id=7, name='Barbara Silva', email='bsilva@ufp.edu.pt'}
+Person{id=8, name='Jorge Magalhaes', email='jmagalhaes@ufp.edu.pt'}
+Person{id=3, name='Mafalda Pinheiro', email='mpinheiro@ufp.edu.pt'}
+Person{id=9, name='Marco Santos', email='msantos@ufp.edu.pt'}
+Person{id=10, name='Catarina Ferreira', email='cferreira@ufp.edu.pt'}
+Person{id=11, name='Rui Sousa', email='rsousa@ufp.edu.pt'}
+Person{id=13, name='Vasco Sodré', email='vsodre@ufp.edu.pt'}
+Person{id=1, name='Paulo Costa', email='pcosta@ufp.edu.pt'}
+Person{id=2, name='Ana Fonseca', email='afonseca@ufp.edu.pt'}
+Person{id=4, name='Tiago Martins', email='tmartins@ufp.edu.pt'}
+Person{id=6, name='Andre Guedes', email='aguedes@ufp.edu.pt'}
+Person{id=12, name='Iara Silva', email='isilva@ufp.edu.pt'}
+Unidades curriculares a ter aulas: 
+Turmas a ter aulas: 
+Salas ocupadas: 
+Salas que não estão ocupadas: 
+Room{id=1, floor=1, numberRoom=101, socket=false, capacity=20}
+Room{id=2, floor=1, numberRoom=102, socket=false, capacity=35}
+Room{id=3, floor=1, numberRoom=103, socket=false, capacity=30}
+Room{id=4, floor=1, numberRoom=104, socket=true, capacity=40}
+Room{id=5, floor=1, numberRoom=105, socket=true, capacity=25}
+Room{id=7, floor=2, numberRoom=201, socket=false, capacity=20}
+Room{id=8, floor=2, numberRoom=202, socket=false, capacity=35}
+Room{id=9, floor=2, numberRoom=203, socket=false, capacity=30}
+Room{id=10, floor=2, numberRoom=204, socket=true, capacity=40}
+Room{id=11, floor=2, numberRoom=205, socket=true, capacity=25}
+Room{id=13, floor=3, numberRoom=301, socket=false, capacity=20}
+Room{id=14, floor=3, numberRoom=302, socket=false, capacity=35}
+Room{id=15, floor=3, numberRoom=303, socket=false, capacity=30}
+Room{id=16, floor=3, numberRoom=304, socket=true, capacity=40}
+Room{id=17, floor=3, numberRoom=305, socket=true, capacity=25}

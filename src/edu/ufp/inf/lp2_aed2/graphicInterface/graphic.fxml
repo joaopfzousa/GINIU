@@ -427,6 +427,53 @@
                                     </AnchorPane>
                                  </content>
                               </Tab>
+                              <Tab text="Free Rooms between dates">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                   <children>
+                                                      <TextField fx:id="dateinitFieldSearch" prefHeight="27.0" prefWidth="185.0" promptText="Date Init" />
+                                                      <TextField fx:id="datefinalFieldSearch" prefHeight="27.0" prefWidth="185.0" promptText="Date final" />
+                                                      <ComboBox fx:id="salasBDComboBox" prefWidth="150.0" promptText="Room" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectFreeRoomsBDClassAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectFreeRoomsBDSaveAction" text="Save" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <TextArea fx:id="freeRoomBDSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab text="Now">
+                                 <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                       <children>
+                                          <VBox prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                <HBox alignment="TOP_CENTER" prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                   <children>
+                                                      <Button mnemonicParsing="false" onAction="#handleNowSearchAction" text="Search" />
+                                                      <Button mnemonicParsing="false" onAction="#handleNowSaveAction" text="Save" />
+                                                   </children>
+                                                   <padding>
+                                                      <Insets left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
+                                                </HBox>
+                                                <TextArea fx:id="nowSearchTextArea" prefHeight="469.0" prefWidth="800.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
                           </tabs>
                         </TabPane>
                      </children>

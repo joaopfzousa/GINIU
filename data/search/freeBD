@@ -1,0 +1,2 @@
+ScheduleClass{Schedule{startDate=Mon 8:00, finalDate=Mon 10:00, room=Room{id=2, floor=1, numberRoom=102, socket=false, capacity=35}}, classe=Class{id=8, name='TGV', type='Diurno', teacher=Person{id=6, name='Andre Guedes', email='aguedes@ufp.edu.pt'}, course=CourseUnit{id=7, name='Redes 2', ects=7}}}
+ScheduleAccompaniment{Schedule{startDate=Mon 16:00, finalDate=Mon 18:00, room=Room{id=2, floor=1, numberRoom=102, socket=false, capacity=35}}, teacher=Person{id=1, name='Paulo Costa', email='pcosta@ufp.edu.pt'}}
