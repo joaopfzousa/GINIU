@@ -1176,6 +1176,10 @@ public class GraphicController implements Initializable {
     {
         int multiplic = 2;
 
+        Text t = new Text(this.graphMap.grafoConexo(grafo));
+        t.setX(500);
+        t.setY(30);
+        graphUniGroup.getChildren().addAll(t);
         for (int i=0; i < grafo.V(); i++)
         {
             Point3D p = null;
@@ -1576,7 +1580,6 @@ public class GraphicController implements Initializable {
             else
                 p = graphMap.returnNode(i);
 
-            System.out.println(p);
 
             point1ComboBox.getItems().add(i + " - " + p.getDescription());
             point2ComboBox.getItems().add(i + " - " + p.getDescription());

@@ -552,8 +552,6 @@ public class GraphMap implements Serializable {
 
         ArrayList<Point3D> saida = getOutdoorByFloor(floor); // retorna as saidas
 
-        System.out.println("point = " + point);
-
         DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(graph, Integer.parseInt(point));
 
         Point3D print = saida.get(0); // first node on arraylist
@@ -596,14 +594,11 @@ public class GraphMap implements Serializable {
 
         ArrayList<Point3D> saida = getOutdoorByFloor(floor);  // retorna as saidas
 
-        System.out.println("point = " + point);
-
         DijkstraSP_ProjectTemp sp = new DijkstraSP_ProjectTemp(graph, Integer.parseInt(point)); // aplica dijkstraSP
 
         Point3D print = saida.get(0); // primeiro no do arraylist
         double dist = 100000000.00;
 
-        System.out.println("print = " + print);
         for (Point3D p : saida)
         {
             if (sp.hasPathTo(this.map_grafoGeral.get(p.getId())))
@@ -616,9 +611,7 @@ public class GraphMap implements Serializable {
             }
         }
 
-        System.out.println("print = " + print);
         Integer idCerto = this.map_grafoGeral.get(print.getId());
-        System.out.println(idCerto);
         aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +") \n");
         int j = 0;
         for (Edge_Project e : sp.pathTo(idCerto))
@@ -705,15 +698,15 @@ public class GraphMap implements Serializable {
      * Testar se o grafo é conexo
      * @param graph
      */
-    public void grafoConexo(EdgeWeightedDigraph_Project graph)
+    public String grafoConexo(EdgeWeightedDigraph_Project graph)
     {
         KosarajuSharirSCC scc = new KosarajuSharirSCC(graph.criarDigrafo());
         int m = scc.count(); // é conexo quando tem um so elemento fortemente ligado
 
         if (m == 1) {
-            System.out.println("O Grafo é conexo");
+            return "O Grafo é conexo!";
         } else {
-            System.out.println("O Grafo não é conexo");
+            return "O Grafo não é conexo";
         }
     }
 
