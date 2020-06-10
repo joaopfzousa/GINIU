@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -572,11 +573,80 @@
                                     </AnchorPane>
                               </content>
                             </Tab>
-                              <Tab text="Config">
+                              <Tab text="Search's">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                        <children>
-                                          <VBox layoutY="0.0" prefHeight="540.0" prefWidth="800.0" />
+                                          <VBox layoutY="0.0" prefHeight="507.0" prefWidth="800.0">
+                                             <children>
+                                                 <HBox prefHeight="36.0" prefWidth="600.0" spacing="5.0">
+                                                     <children>
+                                                         <ComboBox fx:id="floorsSearchComboBox" prefHeight="27.0" prefWidth="182.0" promptText="Floors" />
+                                                      <Button mnemonicParsing="false" onAction="#handleSelectFloorAction" text="Select" />
+                                                     </children>
+                                                     <padding>
+                                                         <Insets left="5.0" right="5.0" top="5.0" />
+                                                     </padding>
+                                                 </HBox>
+                                                <TabPane prefHeight="470.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+                                                  <tabs>
+                                                    <Tab text="Point to Point">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <VBox prefHeight="540.0" prefWidth="800.0">
+                                                                     <children>
+                                                                        <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                                                           <VBox.margin>
+                                                                              <Insets />
+                                                                           </VBox.margin>
+                                                                           <padding>
+                                                                              <Insets left="5.0" top="5.0" />
+                                                                           </padding>
+                                                                           <children>
+                                                                              <ComboBox fx:id="point1ComboBox" prefWidth="150.0" promptText="Point 1" />
+                                                                              <ComboBox fx:id="point2ComboBox" prefWidth="150.0" promptText="Point 2" />
+                                                                              <Button mnemonicParsing="false" onAction="#handlePointToPointAction" prefHeight="27.0" prefWidth="73.0" text="Search" />
+                                                                              <RadioButton fx:id="tempRadioButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="61.0" text="Temp" textAlignment="CENTER" />
+                                                                              <RadioButton fx:id="distanceRadioButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="91.0" text="Distance" textAlignment="CENTER" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <TextArea fx:id="PointToPointTextArea" prefHeight="396.0" prefWidth="800.0" />
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                    <Tab text="Emergency">
+                                                      <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <VBox prefHeight="540.0" prefWidth="800.0">
+                                                                     <children>
+                                                                        <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                                                           <VBox.margin>
+                                                                              <Insets />
+                                                                           </VBox.margin>
+                                                                           <padding>
+                                                                              <Insets left="5.0" top="5.0" />
+                                                                           </padding>
+                                                                           <children>
+                                                                              <ComboBox fx:id="pointEmergencyComboBox" prefWidth="150.0" promptText="Point " />
+                                                                              <Button mnemonicParsing="false" onAction="#handleEmergencyAction" prefHeight="27.0" prefWidth="73.0" text="Search" />
+                                                                              <RadioButton fx:id="tempEmergencyRadioButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="61.0" text="Temp" textAlignment="CENTER" />
+                                                                              <RadioButton fx:id="distanceEmergencyRadioButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="91.0" text="Distance" textAlignment="CENTER" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <TextArea fx:id="emergencyTextArea" prefHeight="396.0" prefWidth="800.0" />
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children></AnchorPane>
+                                                      </content>
+                                                    </Tab>
+                                                  </tabs>
+                                                </TabPane>
+                                             </children></VBox>
                                        </children>
                                     </AnchorPane>
                                  </content>

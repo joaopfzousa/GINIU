@@ -20,6 +20,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class GraphicController implements Initializable {
@@ -206,6 +207,19 @@ public class GraphicController implements Initializable {
     //now
     public TextArea nowSearchTextArea;
 
+    //Graphs - Point - to - Point
+    public ComboBox<String> floorsSearchComboBox;
+    public ComboBox<String> point1ComboBox;
+    public ComboBox<String> point2ComboBox;
+    public RadioButton tempRadioButton;
+    public RadioButton distanceRadioButton;
+    public TextArea PointToPointTextArea;
+
+    //Graphs - Emergency
+    public ComboBox<String> pointEmergencyComboBox;
+    public RadioButton tempEmergencyRadioButton;
+    public RadioButton distanceEmergencyRadioButton;
+    public TextArea emergencyTextArea;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -1137,9 +1151,15 @@ public class GraphicController implements Initializable {
 
     public void updateFloorComboBox() {
         floorsComboBox.getItems().clear();
+        floorsSearchComboBox.getItems().clear();
+
         floorsComboBox.getItems().add("All");
-        for (Integer floor : graphMap.getDistinctExistingFloors())
+        floorsSearchComboBox.getItems().add("All");
+
+        for (Integer floor : graphMap.getDistinctExistingFloors()) {
             floorsComboBox.getItems().add("" + floor);
+            floorsSearchComboBox.getItems().add("" + floor);
+        }
     }
 
     public void handleShowFloorAction(ActionEvent actionEvent) {
@@ -1166,7 +1186,7 @@ public class GraphicController implements Initializable {
 
             Circle c = new Circle(p.getX() * multiplic, p.getY() * multiplic, radius);
             c.setFill(Color.WHITE);
-            Text text = new Text(p.getId().toString());
+            Text text = new Text(String.valueOf(i));
             text.setX((p.getX() * multiplic) - radius/2);
             text.setY((p.getY() * multiplic) + radius/2);
 
@@ -1490,6 +1510,112 @@ public class GraphicController implements Initializable {
                 pw.write(rUnused.toString() + "\n");
             }
             pw.close();
+        }
+    }
+
+    public void handlePointToPointAction(ActionEvent actionEvent) {
+        PointToPointTextArea.clear();
+        EdgeWeightedDigraph_Project graph = null;
+
+
+        if(floorsSearchComboBox.getValue().compareTo("All") == 0)
+        {
+            graph = this.graphMap.getGraphGeral();
+        }else{
+            graph = this.graphMap.getSubgrafoByFloor(Integer.parseInt(floorsSearchComboBox.getValue()));
+        }
+
+        String[] aux1 = point1ComboBox.getValue().split(" - ");
+        String[] aux2 = point2ComboBox.getValue().split(" - ");
+        Point3D p1 = graphMap.returnNode(Integer.parseInt(aux1[0]));
+        Point3D p2 = graphMap.returnNode(Integer.parseInt(aux2[0]));
+
+        if(tempRadioButton.selectedProperty().getValue())
+        {
+            ArrayList<String> temp = this.graphMap.shortestPathbetweenTwoPointsByTemp(p1, p2, graph);
+
+            for(String s : temp)
+            {
+                PointToPointTextArea.appendText(s + "\n");
+            }
+        }
+
+        if(distanceRadioButton.selectedProperty().getValue())
+        {
+            ArrayList<String> distance = this.graphMap.shortestPathBetweenTwoPointsByDistance(p1, p2, graph);
+            for(String s : distance)
+            {
+                PointToPointTextArea.appendText(s + "\n");
+            }
+        }
+    }
+
+    public void handleSelectFloorAction(ActionEvent actionEvent) {
+
+        EdgeWeightedDigraph_Project graph;
+        String description;
+
+        point1ComboBox.getItems().clear();
+        point2ComboBox.getItems().clear();
+        pointEmergencyComboBox.getItems().clear();
+
+        if(floorsSearchComboBox.getValue().compareTo("All") == 0)
+        {
+            graph = this.graphMap.getGraphGeral();
+            description = "grafo";
+        }else{
+            graph = this.graphMap.getSubgrafoByFloor(Integer.parseInt(floorsSearchComboBox.getValue()));
+            description = "subgrafo";
+        }
+
+        for (int i=0; i < graph.V(); i++)
+        {
+            Point3D p = null;
+            if(description.compareTo("subgrafo") == 0)
+                p =  this.graphMap.returnNodeOld(i);
+            else
+                p = graphMap.returnNode(i);
+
+            System.out.println(p);
+
+            point1ComboBox.getItems().add(i + " - " + p.getDescription());
+            point2ComboBox.getItems().add(i + " - " + p.getDescription());
+            pointEmergencyComboBox.getItems().add(i + " - " + p.getDescription());
+        }
+    }
+
+
+    public void handleEmergencyAction(ActionEvent actionEvent) {
+        emergencyTextArea.clear();
+        EdgeWeightedDigraph_Project graph = null;
+
+        if(floorsSearchComboBox.getValue().compareTo("All") == 0)
+        {
+            graph = this.graphMap.getGraphGeral();
+        }else{
+            graph = this.graphMap.getSubgrafoByFloor(Integer.parseInt(floorsSearchComboBox.getValue()));
+        }
+
+        String[] aux1 = pointEmergencyComboBox.getValue().split(" - ");
+
+
+        if(tempEmergencyRadioButton.selectedProperty().getValue())
+        {
+            ArrayList<String> temp = this.graphMap.emergencyPathTempo(aux1[0], graph, Integer.parseInt(floorsSearchComboBox.getValue()));
+
+            for(String s : temp)
+            {
+                emergencyTextArea.appendText(s + "\n");
+            }
+        }
+
+        if(distanceEmergencyRadioButton.selectedProperty().getValue())
+        {
+            ArrayList<String> distance = this.graphMap.emergencyPathByDistance(aux1[0], graph, Integer.parseInt(floorsSearchComboBox.getValue()));
+            for(String s : distance)
+            {
+                emergencyTextArea.appendText(s + "\n");
+            }
         }
     }
 }

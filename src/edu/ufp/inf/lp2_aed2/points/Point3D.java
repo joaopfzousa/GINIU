@@ -86,7 +86,7 @@ public class Point3D extends Point implements Comparable<Point3D>, Serializable 
 
     @Override
     public String toString() {
-        return "Id - " + id + " coordenadas ( " + getX() +", "+ getY()+", " + getZ()+" )";
+        return "Id - " + id + " coordenadas ( " + getX() +", "+ getY()+", " + getZ()+" ) " + getDescription();
     }
 
     @Override
