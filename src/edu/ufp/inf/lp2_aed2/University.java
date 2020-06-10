@@ -678,22 +678,6 @@ public class University implements Serializable {
     }
 
     /**
-     * Carregar o ficheiro txt da classe Point
-     * @param path
-     */
-    public void loadRoomPonts(String path){
-        In in = new In(path);
-        while(!in.isEmpty()){
-            String[] split = in.readLine().split(";");
-            String  numberRoom = split[0];
-            Double x = Double.parseDouble(split[1]);
-            Double y = Double.parseDouble(split[2]);
-            //Point p = new Point(x, y);
-            //this.roomST.get(numberRoom).setMyPoint(p);
-        }
-    }
-
-    /**
      * Carregar o ficheiro txt da classe CourseUnit
      * @param path
      */

@@ -95,7 +95,6 @@ public class Main extends Application {
                     u.loadRoom("./data/Room");
                     u.loadCourseUnit("./data/CourseUnit");
                     u.loadClass("./data/Class");
-                    u.loadRoomPonts("./data/RoomPoint");
                     Class.loadScheduleClass(u, "./data/ScheduleClass");
                     Student.loadStudentCourse(u, "./data/StudentCourse");
                     Teacher.loadScheduleAccompaniment(u, "./data/TeacherScheduleAccompaniment");

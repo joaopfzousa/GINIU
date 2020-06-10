@@ -29,11 +29,14 @@ public class GraphMap implements Serializable {
 
     private EdgeWeightedDigraph_Project subGrafo;
 
+    private ArrayList<Edge_Project> arrayListDirectedEdge_subgraph;
+
     public GraphMap(University university) {
         this.arrayLisDirectedEdge = new ArrayList<>();
         this.points3D = new ArrayList<>();
         this.graphGeral = null;
         this.subGrafo = null;
+        this.arrayListDirectedEdge_subgraph = null;
         this.map_grafoGeral = new RedBlackBST<>();
         this.university = university;
     }
@@ -105,6 +108,18 @@ public class GraphMap implements Serializable {
         {
             if (t.getId() == id)
                 return t;
+        }
+        return null;
+    }
+
+    public Point3D returnNodeOld(int id)
+    {
+        for(Integer i : this.map_grafoGeral.keys())
+        {
+            if(this.map_grafoGeral.get(i) == id)
+            {
+                return returnNode(i);
+            }
         }
         return null;
     }
@@ -283,11 +298,48 @@ public class GraphMap implements Serializable {
         ArrayList<Point3D> aux = new ArrayList<>();
         for (Point3D p : this.points3D)
         {
-            if (p.getZ() == floor)
+            if (p.getZ() == floor && !aux.contains(p))
                 aux.add(p);
 
         }
         return aux;
+    }
+
+    public ArrayList<Edge_Project> getEdgesByFloor(ArrayList<Point3D> points3D_subgrafo)
+    {
+        ArrayList<Edge_Project> aux = new ArrayList<>();
+
+        for (Point3D p : points3D_subgrafo)
+        {
+            for (Edge_Project ep : this.arrayLisDirectedEdge)
+            {
+                Point3D w = returnNode(ep.getW());
+                Point3D v = returnNode(ep.getV());
+
+                if ((p.getId() == ep.getW() || p.getId() == ep.getV()) && !aux.contains(ep) && w.getZ() == v.getZ())
+                    aux.add(ep);
+            }
+        }
+        return aux;
+    }
+
+    public EdgeWeightedDigraph_Project getSubgrafoByFloor(int idfloor)
+    {
+        ArrayList<Point3D> aux = getPointsByFloor(idfloor);
+        this.map_grafoGeral = mapGraph(idfloor);
+
+        ArrayList<Edge_Project> edges = getEdgesByFloor(aux);
+
+        int size = aux.size();
+
+        this.subGrafo = new EdgeWeightedDigraph_Project(size);
+
+        for(Edge_Project ep: edges)
+        {
+            Edge_Project ep_novo = new Edge_Project(this.map_grafoGeral.get(ep.getV()), this.map_grafoGeral.get(ep.getW()), ep.getWeight(), ep.getTemp());
+            this.subGrafo.addEdge(ep_novo);
+        }
+        return this.subGrafo;
     }
 
     /**
@@ -382,8 +434,9 @@ public class GraphMap implements Serializable {
         RedBlackBST<Integer, Integer> aux = new RedBlackBST<>();
         for (Point3D p : this.points3D)
         {
-            if ((p.getZ() == floor)) {
-                aux.put(count, p.getId());
+            if ((p.getZ() == floor))
+            {
+                aux.put(p.getId(), count);
                 count++;
             }
         }

@@ -169,7 +169,7 @@ public class GraphicController implements Initializable {
      * Graphs
      */
     public Group graphUniGroup;
-    public ComboBox<Integer> floorsComboBox;
+    public ComboBox<String> floorsComboBox;
 
     /**
      * Search's
@@ -390,6 +390,9 @@ public class GraphicController implements Initializable {
         graphMap.loadDirectedEdge();
         graphMap.loadDirectedEdgeRoom();
         EdgesTable.getItems().addAll(graphMap.getArrayLisDirectedEdge());
+
+        floorsComboBox.getItems().clear();
+        updateFloorComboBox();
     }
 
     public void handleReadBinFileAction(ActionEvent actionEvent) {
@@ -465,6 +468,9 @@ public class GraphicController implements Initializable {
         EdgesTable.getItems().clear();
         Point3DTable.getItems().addAll(graphMap.getPoints3D());
         EdgesTable.getItems().addAll(graphMap.getArrayLisDirectedEdge());
+
+        floorsComboBox.getItems().clear();
+        updateFloorComboBox();
     }
 
     public void handleSaveTextFileAction(ActionEvent actionEvent) {
@@ -1116,43 +1122,69 @@ public class GraphicController implements Initializable {
         graphMap.removeDirectEdges(edge);
     }
 
-    public void handleCreateGraphAction(ActionEvent actionEvent) {
-        int multiplic = 2;
-        graphUniGroup.getChildren().clear();
-
-
-        if(graphMap.getGraphGeral() != null)
-        {
-            EdgeWeightedDigraph_Project graph = new EdgeWeightedDigraph_Project(graphMap.getPoints3D().size());
-            this.graphMap.setGraphGeral(graph);
-        }
-
-        for(Point3D p :  graphMap.getPoints3D())
-        {
-            Circle c = new Circle(p.getX() * multiplic, p.getY() * multiplic, radius);
-            c.setFill(Color.AQUAMARINE);
-
-            Text text = new Text(p.getId().toString());
-            text.setX( (p.getX() * multiplic) - radius/2);
-            text.setY((p.getY() * multiplic) + radius/2);
-
-            graphUniGroup.getChildren().addAll(c, text);
-        }
-
-        for(Edge_Project ep : graphMap.getArrayLisDirectedEdge())
-        {
-            this.graphMap.getGraphGeral().addEdge(ep);
-            Point3D v = graphMap.returnNode(ep.getV());
-            Point3D w = graphMap.returnNode(ep.getW());
-
-            Line line = new Line(v.getX() * multiplic, v.getY() * multiplic , w.getX() * multiplic, w.getY() * multiplic);
-            line.setFill(Color.BLACK);
-            line.setStrokeWidth(1);
-
-            graphUniGroup.getChildren().addAll(line);
-        }
+    public void updateFloorComboBox() {
+        floorsComboBox.getItems().clear();
+        floorsComboBox.getItems().add("All");
+        for (Integer floor : graphMap.getDistinctExistingFloors())
+            floorsComboBox.getItems().add("" + floor);
     }
 
     public void handleShowFloorAction(ActionEvent actionEvent) {
+        graphUniGroup.getChildren().clear();
+        if(floorsComboBox.getValue().compareTo("All") == 0)
+        {
+            desingGraph(this.graphMap.getGraphGeral(), "grafo");
+        }else{
+            desingGraph(this.graphMap.getSubgrafoByFloor(Integer.parseInt(floorsComboBox.getValue())), "subgrafo");
+        }
+    }
+
+    public void desingGraph(EdgeWeightedDigraph_Project grafo, String description)
+    {
+        int multiplic = 2;
+
+        for (int i=0; i < grafo.V(); i++)
+        {
+            Point3D p = null;
+            if(description.compareTo("subgrafo") == 0)
+                p =  this.graphMap.returnNodeOld(i);
+            else
+                p = graphMap.returnNode(i);
+
+            Circle c = new Circle(p.getX() * multiplic, p.getY() * multiplic, radius);
+            c.setFill(Color.WHITE);
+            Text text = new Text(p.getId().toString());
+            text.setX((p.getX() * multiplic) - radius/2);
+            text.setY((p.getY() * multiplic) + radius/2);
+
+            if (p.getIndoor())
+                c.setFill(Color.GREEN);
+
+            graphUniGroup.getChildren().addAll(c, text);
+
+            for (Edge_Project ep : grafo.adj(i))
+            {
+                Point3D v = null;
+                Point3D w = null;
+                if(description.compareTo("subgrafo") == 0)
+                {
+                    v = graphMap.returnNodeOld(ep.getV());
+                    w = graphMap.returnNodeOld(ep.getW());
+                }else{
+                    v = graphMap.returnNode(ep.getV());
+                    w = graphMap.returnNode(ep.getW());
+                }
+
+                Line line = new Line(v.getX() * multiplic, v.getY() * multiplic , w.getX() * multiplic, w.getY() * multiplic);
+                line.setStroke(Color.BLACK);
+
+                if (v.getZ() != w.getZ())
+                    line.setStroke(Color.BLUE);
+
+                line.setStrokeWidth(1);
+
+                graphUniGroup.getChildren().addAll(line);
+            }
+        }
     }
 }
