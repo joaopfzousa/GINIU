@@ -516,9 +516,12 @@
                               </Tab>
                             <Tab text="Graph">
                               <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="458.0" prefWidth="800.0">
                                        <children>
                                           <Group fx:id="graphUniGroup" />
+                                          <Button layoutX="354.0" layoutY="463.0" mnemonicParsing="false" onAction="#handleCreateGraphAction" text="Create Graph" />
+                                          <ComboBox fx:id="floorsComboBox" layoutX="250.0" layoutY="14.0" prefWidth="150.0" />
+                                          <Button layoutX="418.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleShowFloorAction" text="Show" />
                                        </children>
                                     </AnchorPane>
                               </content>

@@ -4,6 +4,7 @@ import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.KosarajuSharirSCC;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.lp2_aed2.Room;
+import edu.ufp.inf.lp2_aed2.University;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,6 +14,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class GraphMap implements Serializable {
+
+    private University university;
 
     private static Integer pointsNr = 0;
 
@@ -26,12 +29,21 @@ public class GraphMap implements Serializable {
 
     private EdgeWeightedDigraph_Project subGrafo;
 
-    public GraphMap() {
+    public GraphMap(University university) {
         this.arrayLisDirectedEdge = new ArrayList<>();
         this.points3D = new ArrayList<>();
         this.graphGeral = null;
         this.subGrafo = null;
         this.map_grafoGeral = new RedBlackBST<>();
+        this.university = university;
+    }
+
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
     }
 
     public static Integer getPointsNr() {
@@ -78,8 +90,8 @@ public class GraphMap implements Serializable {
         return subGrafo;
     }
 
-    public void setSubGrafo(EdgeWeightedDigraph_Project subGrafo) {
-        this.subGrafo = subGrafo;
+    public void setSubGrafo(Integer nPoints) {
+        this.subGrafo = new EdgeWeightedDigraph_Project(nPoints);
     }
 
     /**
@@ -106,10 +118,12 @@ public class GraphMap implements Serializable {
     public Edge_Project addArestaUnidirecional(Point3D p1, Point3D p2, Boolean direction)
     {
         double temp = 1.25;
+        System.out.println(p1);
+        System.out.println(p2);
         double distance = p1.distPontos(p2);
         double tempoDistancia = distance * temp;
-        Edge_Project edge = new Edge_Project(p1.getId(), p2.getId(), distance, tempoDistancia);
-        edge.setDirection(direction);
+        System.out.println(tempoDistancia);
+        Edge_Project edge = new Edge_Project(p1.getId(), p2.getId(), distance, tempoDistancia, direction);
         arrayLisDirectedEdge.add(edge);
         this.graphGeral.addEdge(edge);
         return edge;
@@ -126,10 +140,8 @@ public class GraphMap implements Serializable {
         double tempo = 1.25;
         double distancia = p1.distPontos(p2);
         double tempoDistancia = distancia * tempo;
-        Edge_Project nova = new Edge_Project(p1.getId(), p2.getId(), distancia, tempoDistancia);
-        Edge_Project nova1 = new Edge_Project(p2.getId(), p1.getId(), distancia, tempoDistancia);
-        nova.setDirection(sentido1);
-        nova1.setDirection(sentido2);
+        Edge_Project nova = new Edge_Project(p1.getId(), p2.getId(), distancia, tempoDistancia, sentido1);
+        Edge_Project nova1 = new Edge_Project(p2.getId(), p1.getId(), distancia, tempoDistancia, sentido2);
         arrayLisDirectedEdge.add(nova);
         arrayLisDirectedEdge.add(nova1);
         this.graphGeral.addEdge(nova);
@@ -142,6 +154,32 @@ public class GraphMap implements Serializable {
     public void loadDirectedEdge()
     {
         String arestasPath = "./data/graphs/edgesGrafo";
+        In in = new In(arestasPath);
+        String s;
+
+        while (!in.isEmpty())
+        {
+            s = in.readLine();
+
+            String[] fields = s.split(";");
+            int id = Integer.parseInt(fields[0]);
+            int id1 = Integer.parseInt(fields[1]);
+
+            Point3D point1 = returnNode(id);
+            Point3D point2 = returnNode(id1);
+
+            boolean sentido = Boolean.parseBoolean(fields[2]);
+
+            addArestaUnidirecional(point1, point2, sentido);
+        }
+    }
+
+    /**
+     * load DirectEdge
+     */
+    public void loadDirectedEdgeRoom()
+    {
+        String arestasPath = "./data/graphs/edgesRoom";
         In in = new In(arestasPath);
         String s;
 
@@ -186,32 +224,39 @@ public class GraphMap implements Serializable {
             Point3D novo = new Point3D(x, y, z, description, indoor);
             novo.setId(id);
             points3D.add(novo);
-
         }
         this.graphGeral = new EdgeWeightedDigraph_Project(points3D.size());
     }
 
     /**
-     * list all DirectEdge
+     * Carregar os pontos 3DS
      */
-    public void listAllDirectedEdge()
+    public void loadPoints3DRoom()
     {
-        for (Edge_Project d : this.arrayLisDirectedEdge)
+        String nosPath = "./data/graphs/nosRoom";
+        In in = new In(nosPath);
+        String s;
+        while (!in.isEmpty())
         {
-            System.out.println(d);
+            s = in.readLine();
+            String[] fields = s.split(";");
+            Integer id = Integer.parseInt(fields[0]);
+            Double x = Double.parseDouble(fields[1]);
+            Double y = Double.parseDouble(fields[2]);
+            Integer z = Integer.parseInt(fields[3]);
+
+            boolean indoor = Boolean.parseBoolean(fields[4]);
+            String description = fields[5];
+            Room r = this.university.getRoomST().get(description);
+
+            Point3D novo = new Point3D(x, y, z, description, indoor);
+            novo.setId(id);
+            r.setPoint(novo);
+            points3D.add(novo);
         }
+        this.graphGeral = new EdgeWeightedDigraph_Project(points3D.size());
     }
 
-    /**
-     * list all Points3D
-     */
-    public void listAllPoints3D()
-    {
-        for (Point3D p : this.points3D)
-        {
-            System.out.println(p);
-        }
-    }
 
     /**
      * Retornar os diferentes andares
@@ -665,7 +710,8 @@ public class GraphMap implements Serializable {
     }
 
     public static void main(String[] args) {
-        GraphMap grafoTeste = new GraphMap();
+        University u = new University("UFP");
+        GraphMap grafoTeste = new GraphMap(u);
         grafoTeste.loadPoints3D();
         grafoTeste.loadDirectedEdge();
         //  grafoTeste.imprimeTodasDirectedEdgeVersaoEditada();

@@ -4,16 +4,17 @@ import edu.princeton.cs.algs4.RedBlackBST;
 import edu.princeton.cs.algs4.SeparateChainingHashST;
 import edu.ufp.inf.lp2_aed2.*;
 import edu.ufp.inf.lp2_aed2.Class;
-import edu.ufp.inf.lp2_aed2.points.Edge_Project;
-import edu.ufp.inf.lp2_aed2.points.GraphMap;
-import edu.ufp.inf.lp2_aed2.points.Point;
-import edu.ufp.inf.lp2_aed2.points.Point3D;
+import edu.ufp.inf.lp2_aed2.points.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.util.converter.BooleanStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -31,7 +32,7 @@ public class GraphicController implements Initializable {
     private static final String PATH_SEARCHTEACHERBYCU_SAVE = "./data/search/TeacherbyCourse";
     private static final String PATH_SEARCHCLASSTEACHER_SAVE = "./data/search/ClassbyTeacher";
     private static final String PATH_SEARCHSA_SAVE = "./data/search/SA";
-
+    private double radius = 10;
 
     /**
      * Room
@@ -168,6 +169,7 @@ public class GraphicController implements Initializable {
      * Graphs
      */
     public Group graphUniGroup;
+    public ComboBox<Integer> floorsComboBox;
 
     /**
      * Search's
@@ -197,7 +199,7 @@ public class GraphicController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.university = new University("UFP");
-        this.graphMap = new GraphMap();
+        this.graphMap = new GraphMap(this.university);
         
         /**
          * Room
@@ -207,7 +209,7 @@ public class GraphicController implements Initializable {
         numberRoomCol.setCellValueFactory(new PropertyValueFactory<>("numberRoom"));
         socketCol.setCellValueFactory(new PropertyValueFactory<>("socket"));
         capacityCol.setCellValueFactory(new PropertyValueFactory<>("capacity"));
-        pointCol.setCellValueFactory(new PropertyValueFactory<>("myPoint"));
+        pointCol.setCellValueFactory(new PropertyValueFactory<>("point"));
 
         idRoomCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         floorCol.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
@@ -308,8 +310,9 @@ public class GraphicController implements Initializable {
 
     public void handleReadTextFileAction(ActionEvent actionEvent) {
         roomTable.getItems().clear();
+
         university.loadRoom("./data/Room");
-        university.loadRoomPonts("./data/RoomPoint");
+        graphMap.loadPoints3DRoom();
         for(String r: university.getRoomST().keys())
         {
             Room room = university.getRoomST().get(r);
@@ -385,8 +388,8 @@ public class GraphicController implements Initializable {
         Point3DTable.getItems().addAll(graphMap.getPoints3D());
 
         graphMap.loadDirectedEdge();
+        graphMap.loadDirectedEdgeRoom();
         EdgesTable.getItems().addAll(graphMap.getArrayLisDirectedEdge());
-
     }
 
     public void handleReadBinFileAction(ActionEvent actionEvent) {
@@ -1111,5 +1114,45 @@ public class GraphicController implements Initializable {
         Edge_Project edge = EdgesTable.getSelectionModel().getSelectedItem();
         EdgesTable.getItems().remove(edge);
         graphMap.removeDirectEdges(edge);
+    }
+
+    public void handleCreateGraphAction(ActionEvent actionEvent) {
+        int multiplic = 2;
+        graphUniGroup.getChildren().clear();
+
+
+        if(graphMap.getGraphGeral() != null)
+        {
+            EdgeWeightedDigraph_Project graph = new EdgeWeightedDigraph_Project(graphMap.getPoints3D().size());
+            this.graphMap.setGraphGeral(graph);
+        }
+
+        for(Point3D p :  graphMap.getPoints3D())
+        {
+            Circle c = new Circle(p.getX() * multiplic, p.getY() * multiplic, radius);
+            c.setFill(Color.AQUAMARINE);
+
+            Text text = new Text(p.getId().toString());
+            text.setX( (p.getX() * multiplic) - radius/2);
+            text.setY((p.getY() * multiplic) + radius/2);
+
+            graphUniGroup.getChildren().addAll(c, text);
+        }
+
+        for(Edge_Project ep : graphMap.getArrayLisDirectedEdge())
+        {
+            this.graphMap.getGraphGeral().addEdge(ep);
+            Point3D v = graphMap.returnNode(ep.getV());
+            Point3D w = graphMap.returnNode(ep.getW());
+
+            Line line = new Line(v.getX() * multiplic, v.getY() * multiplic , w.getX() * multiplic, w.getY() * multiplic);
+            line.setFill(Color.BLACK);
+            line.setStrokeWidth(1);
+
+            graphUniGroup.getChildren().addAll(line);
+        }
+    }
+
+    public void handleShowFloorAction(ActionEvent actionEvent) {
     }
 }

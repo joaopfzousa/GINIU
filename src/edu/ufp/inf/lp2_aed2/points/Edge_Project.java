@@ -12,11 +12,16 @@ public class Edge_Project extends DirectedEdge implements Serializable {
 
     private Boolean direction;
 
-
     public Edge_Project(int v, int w, double weight, double temp) {
         super(v, w, weight);
         this.temp = temp;
-        this.direction = false;
+        this.direction = null;
+    }
+
+    public Edge_Project(int v, int w, double weight, double temp, Boolean direction) {
+        super(v, w, weight);
+        this.temp = temp;
+        this.direction = direction;
     }
 
     public double getTemp() {
@@ -35,19 +40,18 @@ public class Edge_Project extends DirectedEdge implements Serializable {
         this.direction = direction;
     }
 
-    public Double minutos(){
+    public Double minutes(){
         return temp / 60;
     }
-    public Double segundos(){
+
+    public Double seconds(){
         return temp % 60;
     }
 
-
-
     @Override
     public String toString() {
-        BigDecimal bd = new BigDecimal(weight()).setScale(3, RoundingMode.HALF_EVEN);
-        BigDecimal bd1 = new BigDecimal(minutos()).setScale(3, RoundingMode.HALF_EVEN);
-        return "Edge de " + getV()+ " ate " + getW() + " tem distancia de " + bd + " demora " + bd1 + " minutos ";
+        BigDecimal metros = new BigDecimal(weight()).setScale(3, RoundingMode.HALF_EVEN);
+        BigDecimal minutos = new BigDecimal(minutes()).setScale(3, RoundingMode.HALF_EVEN);
+        return "Edge de " + getV()+ " ate " + getW() + " tem distancia de " + metros + " demora " + minutos + " minutos ";
     }
 }

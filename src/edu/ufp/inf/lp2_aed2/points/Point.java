@@ -1,7 +1,8 @@
 package edu.ufp.inf.lp2_aed2.points;
 
-public class Point
-{
+import java.io.Serializable;
+
+public class Point implements Serializable {
     private double x;
 
     private double y;
