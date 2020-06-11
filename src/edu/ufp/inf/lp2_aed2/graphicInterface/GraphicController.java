@@ -1179,6 +1179,7 @@ public class GraphicController implements Initializable {
         Text t = new Text(this.graphMap.grafoConexo(grafo));
         t.setX(500);
         t.setY(30);
+
         graphUniGroup.getChildren().addAll(t);
         for (int i=0; i < grafo.V(); i++)
         {
@@ -1587,7 +1588,6 @@ public class GraphicController implements Initializable {
         }
     }
 
-
     public void handleEmergencyAction(ActionEvent actionEvent) {
         emergencyTextArea.clear();
         EdgeWeightedDigraph_Project graph = null;
@@ -1600,7 +1600,6 @@ public class GraphicController implements Initializable {
         }
 
         String[] aux1 = pointEmergencyComboBox.getValue().split(" - ");
-
 
         if(tempEmergencyRadioButton.selectedProperty().getValue())
         {

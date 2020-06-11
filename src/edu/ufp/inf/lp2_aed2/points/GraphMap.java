@@ -489,23 +489,6 @@ public class GraphMap implements Serializable {
     }
 
     /**
-     * Devolve todos os pontos que são outdoor
-     * @return
-     */
-    public ArrayList<Point3D> outdoor()
-    {
-        ArrayList<Point3D> aux = new ArrayList<>();
-
-        for (Point3D p : this.points3D)
-        {
-            System.out.println(p);
-            if (!p.getIndoor())
-                aux.add(p);
-        }
-        return aux;
-    }
-
-    /**
      * retorna o ponto mais próximo
      * @param ponto
      * @return
@@ -524,7 +507,6 @@ public class GraphMap implements Serializable {
         }
         return reference;
     }
-
 
     public ArrayList<Point3D> getOutdoorByFloor(int floor)
     {
