@@ -221,6 +221,19 @@ public class GraphicController implements Initializable {
     public RadioButton distanceEmergencyRadioButton;
     public TextArea emergencyTextArea;
 
+    //Graphs - Avoid Points
+    public ComboBox<String> pointavoidComboBox;
+    public ComboBox<String> pointavoidInitComboBox;
+    public ComboBox<String> point2avoidInitComboBox;
+    public TextArea avoidPointsTextArea;
+    public TableView<Point3D> avoidTable;
+    public TableColumn<Point3D, Integer> idAvoidCol;
+    public TableColumn<Point3D, Double> xAvoidCol;
+    public TableColumn<Point3D, Double> yAvoidCol;
+    public TableColumn<Point3D, Integer> zAvoidCol;
+    public TableColumn<Point3D, Boolean> indoorAvoidCol;
+    public TableColumn<Point3D, String> descriptionAvoidCol;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.university = new University("UFP");
@@ -331,6 +344,15 @@ public class GraphicController implements Initializable {
         tempEdgeCol.setCellValueFactory(new PropertyValueFactory<>("temp"));
         senseEdgeCol.setCellValueFactory(new PropertyValueFactory<>("direction"));
 
+        /**
+         * Avoid Points
+         */
+        xAvoidCol.setCellValueFactory(new PropertyValueFactory<>("x"));
+        yAvoidCol.setCellValueFactory(new PropertyValueFactory<>("y"));
+        zAvoidCol.setCellValueFactory(new PropertyValueFactory<>("z"));
+        indoorAvoidCol.setCellValueFactory(new PropertyValueFactory<>("indoor"));
+        idAvoidCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+        descriptionAvoidCol.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
 
     public void handleReadTextFileAction(ActionEvent actionEvent) {
@@ -1563,6 +1585,9 @@ public class GraphicController implements Initializable {
         point1ComboBox.getItems().clear();
         point2ComboBox.getItems().clear();
         pointEmergencyComboBox.getItems().clear();
+        pointavoidComboBox.getItems().clear();
+        pointavoidInitComboBox.getItems().clear();
+        point2avoidInitComboBox.getItems().clear();
 
         if(floorsSearchComboBox.getValue().compareTo("All") == 0)
         {
@@ -1585,6 +1610,9 @@ public class GraphicController implements Initializable {
             point1ComboBox.getItems().add(i + " - " + p.getDescription());
             point2ComboBox.getItems().add(i + " - " + p.getDescription());
             pointEmergencyComboBox.getItems().add(i + " - " + p.getDescription());
+            pointavoidComboBox.getItems().add(i + " - " + p.getDescription());
+            pointavoidInitComboBox.getItems().add(i + " - " + p.getDescription());
+            point2avoidInitComboBox.getItems().add(i + " - " + p.getDescription());
         }
     }
 
@@ -1603,7 +1631,7 @@ public class GraphicController implements Initializable {
 
         if(tempEmergencyRadioButton.selectedProperty().getValue())
         {
-            ArrayList<String> temp = this.graphMap.emergencyPathTempo(aux1[0], graph, Integer.parseInt(floorsSearchComboBox.getValue()));
+            ArrayList<String> temp = this.graphMap.emergencyPathTempo(aux1[0], graph, floorsSearchComboBox.getValue());
 
             for(String s : temp)
             {
@@ -1613,11 +1641,65 @@ public class GraphicController implements Initializable {
 
         if(distanceEmergencyRadioButton.selectedProperty().getValue())
         {
-            ArrayList<String> distance = this.graphMap.emergencyPathByDistance(aux1[0], graph, Integer.parseInt(floorsSearchComboBox.getValue()));
+            ArrayList<String> distance = this.graphMap.emergencyPathByDistance(aux1[0], graph, floorsSearchComboBox.getValue());
             for(String s : distance)
             {
                 emergencyTextArea.appendText(s + "\n");
             }
         }
+    }
+
+    public void handleAvoidPointAction(ActionEvent actionEvent) {
+        String point = pointavoidComboBox.getValue();
+        String[] aux = point.split(" - ");
+
+        Point3D p = this.graphMap.returnNodeOld(Integer.parseInt(aux[0]));
+
+        avoidTable.getItems().add(p);
+
+        pointavoidComboBox.getItems().remove(point);
+        pointavoidInitComboBox.getItems().remove(point);
+        point2avoidInitComboBox.getItems().remove(point);
+
+    }
+
+    public void handleGenerateGraphAvoidAction(ActionEvent actionEvent) {
+        int size = avoidTable.getItems().size();
+        ArrayList<Point3D> avoidPoint = new ArrayList<>();
+
+
+        for(int i = 0; i < size; i++)
+        {
+            Point3D p = (Point3D) avoidTable.getItems().get(i);
+            avoidPoint.add(p);
+        }
+
+        avoidPointsTextArea.clear();
+        EdgeWeightedDigraph_Project graph = null;
+
+        if(floorsSearchComboBox.getValue().compareTo("All") == 0)
+        {
+            graph = this.graphMap.getGraphGeral();
+        }else{
+            graph = this.graphMap.getSubgrafoByFloor(Integer.parseInt(floorsSearchComboBox.getValue()));
+        }
+
+        String point = pointavoidInitComboBox.getValue();
+        String[] aux = point.split(" - ");
+
+        String point2 = point2avoidInitComboBox.getValue();
+        String[] aux2 = point2.split(" - ");
+
+        ArrayList<String> distance = this.graphMap.avoidPointsPathWeight(graph, Integer.parseInt(aux[0]), avoidPoint, Integer.parseInt(aux2[0]));
+
+        for(String s : distance)
+        {
+            avoidPointsTextArea.appendText(s + "\n");
+        }
+    }
+
+    public void handleRemovePointsAvoidAction(ActionEvent actionEvent) {
+        Point3D point = (Point3D) avoidTable.getSelectionModel().getSelectedItem();
+        avoidTable.getItems().remove(point);
     }
 }

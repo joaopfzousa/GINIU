@@ -644,6 +644,45 @@
                                                                </children></AnchorPane>
                                                       </content>
                                                     </Tab>
+                                                      <Tab text="Avoid Points">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <VBox prefHeight="540.0" prefWidth="800.0">
+                                                                     <children>
+                                                                        <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                                                           <VBox.margin>
+                                                                              <Insets />
+                                                                           </VBox.margin>
+                                                                           <padding>
+                                                                              <Insets left="5.0" top="5.0" />
+                                                                           </padding>
+                                                                           <children>
+                                                                              <ComboBox fx:id="pointavoidComboBox" prefWidth="150.0" promptText="Point " />
+                                                                              <Button mnemonicParsing="false" onAction="#handleAvoidPointAction" prefHeight="27.0" prefWidth="73.0" text="Avoid" />
+                                                                              <ComboBox fx:id="pointavoidInitComboBox" prefWidth="150.0" promptText="Point " />
+                                                                              <ComboBox fx:id="point2avoidInitComboBox" prefWidth="150.0" promptText="Poin 2" />
+                                                                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleGenerateGraphAvoidAction" prefHeight="27.0" prefWidth="73.0" text="Generate" />
+                                                                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleRemovePointsAvoidAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <TextArea fx:id="avoidPointsTextArea" prefHeight="190.0" prefWidth="800.0" />
+                                                                        <TableView fx:id="avoidTable" prefHeight="200.0" prefWidth="200.0">
+                                                                          <columns>
+                                                                            <TableColumn fx:id="idAvoidCol" prefWidth="75.0" text="ID" />
+                                                                            <TableColumn prefWidth="135.0" text="X" fx:id="xAvoidCol" />
+                                                                              <TableColumn fx:id="yAvoidCol" prefWidth="102.0" text="Y" />
+                                                                              <TableColumn fx:id="zAvoidCol" prefWidth="102.0" text="Z" />
+                                                                              <TableColumn fx:id="indoorAvoidCol" prefWidth="121.0" text="Indoor" />
+                                                                              <TableColumn fx:id="descriptionAvoidCol" prefWidth="264.0" text="Description" />
+                                                                          </columns>
+                                                                        </TableView>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </Tab>
                                                   </tabs>
                                                 </TabPane>
                                              </children></VBox>

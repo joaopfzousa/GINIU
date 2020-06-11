@@ -5,9 +5,6 @@ import edu.princeton.cs.algs4.KosarajuSharirSCC;
 import edu.princeton.cs.algs4.RedBlackBST;
 import edu.ufp.inf.lp2_aed2.Room;
 import edu.ufp.inf.lp2_aed2.University;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -310,6 +307,11 @@ public class GraphMap implements Serializable {
         return aux;
     }
 
+    /**
+     * buscar edges by floor
+     * @param points3D_subgrafo
+     * @return arraylist de todos os edges de um grafo
+     */
     public ArrayList<Edge_Project> getEdgesByFloor(ArrayList<Point3D> points3D_subgrafo)
     {
         ArrayList<Edge_Project> aux = new ArrayList<>();
@@ -328,6 +330,11 @@ public class GraphMap implements Serializable {
         return aux;
     }
 
+    /**
+     * criação do subgrafo
+     * @param idfloor
+     * @return o subgrafo criado
+     */
     public EdgeWeightedDigraph_Project getSubgrafoByFloor(int idfloor)
     {
         ArrayList<Point3D> aux = getPointsByFloor(idfloor);
@@ -345,22 +352,6 @@ public class GraphMap implements Serializable {
             this.subGrafo.addEdge(ep_novo);
         }
         return this.subGrafo;
-    }
-
-    /**
-     * Pontos a ignorar
-     * @param ignored
-     * @return lista de todos os pontos que posso passar
-     */
-    public ArrayList<Point3D> getPointsValid(ArrayList<Point3D> ignored)
-    {
-        ArrayList<Point3D> aux = new ArrayList<>();
-        for (Point3D t : this.points3D)
-        {
-            if (!ignored.contains(t))
-                aux.add(t);
-        }
-        return aux;
     }
 
     /**
@@ -388,10 +379,8 @@ public class GraphMap implements Serializable {
             Point3D a = (Point3D) i.next();
             if (a.compareTo(point) == 0)
                 i.remove();
-
         }
     }
-
 
     /**
      * Remove Point3D
@@ -473,22 +462,6 @@ public class GraphMap implements Serializable {
     }
 
     /**
-     * Mapear as arestas de Emergência
-     * @param floor
-     * @return
-     */
-    public ArrayList<Edge_Project> mapEmergencyEdges(int floor)
-    {
-        ArrayList<Edge_Project> aux = new ArrayList<Edge_Project>();
-        for (Edge_Project d : this.arrayLisDirectedEdge) //iterate on edges
-        {
-            if (d.getDirection())  // verify edge on id
-                aux.add(d);
-        }
-        return aux;
-    }
-
-    /**
      * retorna o ponto mais próximo
      * @param ponto
      * @return
@@ -508,11 +481,22 @@ public class GraphMap implements Serializable {
         return reference;
     }
 
-    public ArrayList<Point3D> getOutdoorByFloor(int floor)
+    /**
+     * Pontos outdoor pelo andar
+     * @param floor
+     * @return arralist com todos os pontos por andar
+     */
+    public ArrayList<Point3D> getOutdoorByFloor(String floor)
     {
         ArrayList<Point3D> aux = new ArrayList<>();
 
-        ArrayList<Point3D> points = getPointsByFloor(floor);
+        ArrayList<Point3D> points = new ArrayList<>();
+        if(floor.compareTo("All") == 0)
+        {
+            points = this.points3D;
+        }else{
+            points = getPointsByFloor(Integer.parseInt(floor));
+        }
 
         for(Point3D p : points)
         {
@@ -528,7 +512,7 @@ public class GraphMap implements Serializable {
      * Path pela distancia mais curta
      * @param point
      */
-    public ArrayList<String> emergencyPathByDistance(String point, EdgeWeightedDigraph_Project graph, int floor)
+    public ArrayList<String> emergencyPathByDistance(String point, EdgeWeightedDigraph_Project graph, String floor)
     {
         ArrayList<String> aux = new ArrayList<>();
 
@@ -538,30 +522,52 @@ public class GraphMap implements Serializable {
 
         Point3D print = saida.get(0); // first node on arraylist
         double dist = 100000000.00;
+        Integer idCerto;
 
-        for (Point3D p : saida)
+        if(floor.compareTo("All") == 0)
         {
-            if (sp.hasPathTo(this.map_grafoGeral.get(p.getId())))
+            for (Point3D p : saida)
             {
-                if (sp.distTo(this.map_grafoGeral.get(p.getId())) < dist)
+                if (sp.hasPathTo(p.getId()))
                 {
-                    dist = sp.distTo(this.map_grafoGeral.get(p.getId()));
-                    print = p;
+                    if (sp.distTo(p.getId()) < dist)
+                    {
+                        dist = sp.distTo(p.getId());
+                        print = p;
+                    }
                 }
             }
+            idCerto = print.getId();
+        }else{
+            for (Point3D p : saida)
+            {
+                if (sp.hasPathTo(this.map_grafoGeral.get(p.getId())))
+                {
+                    if (sp.distTo(this.map_grafoGeral.get(p.getId())) < dist)
+                    {
+                        dist = sp.distTo(this.map_grafoGeral.get(p.getId()));
+                        print = p;
+                    }
+                }
+            }
+
+            idCerto = this.map_grafoGeral.get(print.getId());
         }
 
-        Integer idCerto = this.map_grafoGeral.get(print.getId());
-
-        aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +") \n");
-        int j = 0;
-        for (Edge_Project e : sp.pathTo(idCerto))
+        if (sp.hasPathTo(idCerto))
         {
-            j++;
-            BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
-            aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd + "\n");
+            aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +")");
+            int j = 0;
+            for (Edge_Project e : sp.pathTo(idCerto))
+            {
+                j++;
+                BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
+                aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd );
+            }
+            aux.add("\n" + print.getDescription());
+        }else{
+            aux.add("Não existe caminho");
         }
-        aux.add("\n" + print.getDescription());
 
         return aux;
     }
@@ -570,7 +576,7 @@ public class GraphMap implements Serializable {
      * Path pelo tempo mais curto
      * @param point
      */
-    public ArrayList<String> emergencyPathTempo(String point, EdgeWeightedDigraph_Project graph, int floor)
+    public ArrayList<String> emergencyPathTempo(String point, EdgeWeightedDigraph_Project graph, String floor)
     {
         ArrayList<String> aux = new ArrayList<>();
 
@@ -581,99 +587,96 @@ public class GraphMap implements Serializable {
         Point3D print = saida.get(0); // primeiro no do arraylist
         double dist = 100000000.00;
 
-        for (Point3D p : saida)
+        Integer idCerto;
+
+        if(floor.compareTo("All") == 0)
         {
-            if (sp.hasPathTo(this.map_grafoGeral.get(p.getId())))
+            for (Point3D p : saida)
             {
-                if (sp.distTo(this.map_grafoGeral.get(p.getId())) < dist)
+                if (sp.hasPathTo(p.getId()))
                 {
-                    dist = sp.distTo(this.map_grafoGeral.get(p.getId()));
-                    print = p;
+                    if (sp.distTo(p.getId()) < dist)
+                    {
+                        dist = sp.distTo(p.getId());
+                        print = p;
+                    }
                 }
             }
+            idCerto = print.getId();
+        }else{
+            for (Point3D p : saida)
+            {
+                if (sp.hasPathTo(this.map_grafoGeral.get(p.getId())))
+                {
+                    if (sp.distTo(this.map_grafoGeral.get(p.getId())) < dist)
+                    {
+                        dist = sp.distTo(this.map_grafoGeral.get(p.getId()));
+                        print = p;
+                    }
+                }
+            }
+
+            idCerto = this.map_grafoGeral.get(print.getId());
         }
 
-        Integer idCerto = this.map_grafoGeral.get(print.getId());
-        aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +") \n");
-        int j = 0;
-        for (Edge_Project e : sp.pathTo(idCerto))
+        if (sp.hasPathTo(idCerto))
         {
-            j++;
-            BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
-            aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd + "\n");
+            aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +")");
+            int j = 0;
+            for (Edge_Project e : sp.pathTo(idCerto))
+            {
+                j++;
+                aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.getTemp());
+            }
+            aux.add("\n" + print.getDescription());
+        }else{
+            aux.add("Não existe caminho");
         }
-        aux.add("\n" + print.getDescription());
 
         return aux;
     }
 
     /**
-     * Caminho evitando certos pontos
-     * @param point
+     * caminho evitando certos pontos
+     * @param graph
+     * @param point1
      * @param points
+     * @param point2
      */
-    public void avoidPointsPath(Point3D point, ArrayList<Integer> points)
+    public ArrayList<String> avoidPointsPathWeight(EdgeWeightedDigraph_Project graph, int point1, ArrayList<Point3D> points, int point2)
     {
-        Point3D reference = returnClosestPoint(point);
+        ArrayList<String> strings = new ArrayList<>();
 
-        EdgeWeightedDigraph_Project aux = new EdgeWeightedDigraph_Project(this.graphGeral.V());
-        ArrayList<Edge_Project> aux1 = this.arrayLisDirectedEdge;
-        for (Edge_Project e : aux1)
+        for (int i=0; i < graph.V(); i++)
         {
-            for (Integer i : points)
+            for (Edge_Project e : graph.adj(i))
             {
-                if (e.getV() == i || e.getW() == i)
-                    e.setWeight(Double.POSITIVE_INFINITY);
-            }
-        }
-
-        DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(aux, reference.getId());
-
-        for (int t = 0; t < aux.V(); t++)
-        {
-            if (sp.hasPathTo(t))
-            {
-                System.out.println(reference.getId()+ " to " + t + "("+ sp.distTo(t) +") \n");
-                for (Edge_Project e : sp.pathTo(t))
+                for (Point3D p : points)
                 {
-                    System.out.println(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
+                    //System.out.println(p);
+                    if (e.getV() == this.map_grafoGeral.get(p.getId()) || e.getW() == this.map_grafoGeral.get(p.getId()))
+                        e.setWeight(Double.POSITIVE_INFINITY);
+
                 }
             }
         }
-    }
 
-    /**
-     * Caminho evitando certos pontos
-     * @param graph
-     * @param id
-     * @param pontos
-     */
-    public void avoidPointsPath(EdgeWeightedDigraph_Project graph, Integer id, ArrayList<Integer> pontos)
-    {
-        ArrayList<Edge_Project> aux1 = this.arrayLisDirectedEdge;
-        for (Edge_Project e : aux1)
+        DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(graph, point1);
+
+        if (sp.hasPathTo(point2))
         {
-            for (Integer i : pontos)
+            strings.add(point1 + " to " + point2 + "("+ sp.distTo(point2) +")");
+            int j = 0;
+            for (Edge_Project e : sp.pathTo(point2))
             {
-                if (e.getV() == i || e.getW() == i)
-                    e.setWeight(Double.POSITIVE_INFINITY);
+                j++;
+                strings.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.weight());
             }
+        }else{
+            strings.add("Não existe caminho");
         }
 
-        DijkstraSP_ProjectWeight dp = new DijkstraSP_ProjectWeight(graph, id);
-
-        for (int t = 0; t < graph.V(); t++)
-        {
-            if (dp.hasPathTo(t))
-            {
-                System.out.println(id+ " to " + t + "("+ dp.distTo(t) +") \n");
-                for (Edge_Project d : dp.pathTo(t))
-                    System.out.print(d);
-                System.out.println();
-            }else {
-                System.out.println(id + " to " + t + "  no path \n");
-            }
-        }
+        return strings;
     }
 
     /**
@@ -691,7 +694,6 @@ public class GraphMap implements Serializable {
             return "O Grafo não é conexo";
         }
     }
-
 
     /**
      *  Caminho mais curto entre dois pontos pela distancia
@@ -711,6 +713,32 @@ public class GraphMap implements Serializable {
             for (Edge_Project e : dp.pathTo(r2.getId())) {
                 aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
             }
+        }else{
+            aux.add("Não existe caminho");
+        }
+        return aux;
+    }
+
+    /**
+     *  Caminho mais curto entre dois pontos pela distancia
+     * @param r1
+     * @param r2
+     * @param graphGeral
+     */
+    public ArrayList<String> shortestPathBetweenTwoIntPointsByDistance(int r1, int r2, EdgeWeightedDigraph_Project graphGeral)
+    {
+        ArrayList<String> aux = new ArrayList<>();
+
+        DijkstraSP_ProjectWeight dp = new DijkstraSP_ProjectWeight(graphGeral, r1);
+
+        if (dp.hasPathTo(r2))
+        {
+            aux.add(r1 + " to "+ r2 + "(" + dp.distTo(r2) +")");
+            for (Edge_Project e : dp.pathTo(r2)) {
+                aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
+            }
+        }else{
+            aux.add("Não existe caminho");
         }
         return aux;
     }
@@ -733,29 +761,17 @@ public class GraphMap implements Serializable {
             for (Edge_Project e : dp.pathTo(r2.getId())) {
                 aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
             }
+        }else{
+            aux.add("Não existe caminho");
         }
         return aux;
     }
 
-    public void caminhosUmParaTodos(Point3D p1,EdgeWeightedDigraph_Project graphGeral)
-    {
-        DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(graphGeral, p1.getId());
-
-        for (int t = 0; t < graphGeral.V(); t++)
-        {
-            if (sp.hasPathTo(t))
-            {
-                System.out.println( p1.getId() + " to " + t + "(" + sp.distTo(t) + ")");
-                for (Edge_Project e : sp.pathTo(t))
-                    System.out.println(e + "  ");
-
-                System.out.println();
-            }else {
-                System.out.println(p1 + " to " + t + "   no path");
-            }
-        }
-    }
-
+    /**
+     * mostrar o caminho de um ponto para todos os pontos
+     * @param graphGeral
+     * @param s1
+     */
     public void caminhosUmParaTodos(EdgeWeightedDigraph_Project graphGeral,Integer s1)
     {
         DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(graphGeral, s1);
@@ -773,29 +789,5 @@ public class GraphMap implements Serializable {
                 System.out.println(s1 + " to " + t + "   no path");
             }
         }
-    }
-
-    public static void main(String[] args) {
-        University u = new University("UFP");
-        GraphMap grafoTeste = new GraphMap(u);
-        grafoTeste.loadPoints3D();
-        grafoTeste.loadDirectedEdge();
-        //  grafoTeste.imprimeTodasDirectedEdgeVersaoEditada();
-        //  grafoTeste.imprimeTodosPontos3D();
-        grafoTeste.grafoConexo(grafoTeste.graphGeral);
-        grafoTeste.emergencyPathByDistance(String.valueOf(new Point3D(20.0, 15.0, 3, "teste", true).getId()), grafoTeste.graphGeral,3);
-        grafoTeste.emergencyPathTempo(String.valueOf(new Point3D(20.0, 15.0, 3, "teste", true).getId()), grafoTeste.graphGeral, 3);
-        grafoTeste.caminhosUmParaTodos(grafoTeste.graphGeral,2);
-        ArrayList<Integer> teste = new ArrayList<>();
-        Random random = new Random();
-        for(int i = 0 ; i<5;i++){
-            teste.add(random.nextInt(46));
-        }
-
-        for(Integer i : teste)
-            System.out.println(i);
-
-
-        grafoTeste.avoidPointsPath(grafoTeste.graphGeral,26,teste);
     }
 }

@@ -3,8 +3,6 @@ package edu.ufp.inf.lp2_aed2.points;
 import edu.princeton.cs.algs4.*;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Edge_Project extends DirectedEdge implements Serializable {
 
@@ -50,8 +48,6 @@ public class Edge_Project extends DirectedEdge implements Serializable {
 
     @Override
     public String toString() {
-        BigDecimal metros = new BigDecimal(weight()).setScale(3, RoundingMode.HALF_EVEN);
-        BigDecimal minutos = new BigDecimal(minutes()).setScale(3, RoundingMode.HALF_EVEN);
-        return "Edge de " + getV()+ " ate " + getW() + " tem distancia de " + metros + " demora " + minutos + " minutos ";
+        return "Edge de " + getV()+ " ate " + getW() + " tem distancia de " + weight() + " demora " + minutes() + " minutos ";
     }
 }
