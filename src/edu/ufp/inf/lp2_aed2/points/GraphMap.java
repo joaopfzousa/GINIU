@@ -72,6 +72,10 @@ public class GraphMap implements Serializable {
         this.points3D = points3D;
     }
 
+    /**
+     * Quando adiciona um Point ou Edges ele cria um novo grafo
+     * @return
+     */
     public EdgeWeightedDigraph_Project getGraphGeral() {
 
         EdgeWeightedDigraph_Project graph = graphGeral;
@@ -162,24 +166,6 @@ public class GraphMap implements Serializable {
         return edge;
     }
 
-    /**
-     * Adiciona uma Aresta com apenas com um sentido com os dois sentidos
-     * @param p1
-     * @param p2
-     * @param sentido1
-     * @param sentido2
-     */
-    public void addArestaBidirecional(Point3D p1, Point3D p2, Boolean sentido1, Boolean sentido2) {
-        double tempo = 1.25;
-        double distancia = p1.distPontos(p2);
-        double tempoDistancia = distancia * tempo;
-        Edge_Project nova = new Edge_Project(p1.getId(), p2.getId(), distancia, tempoDistancia, sentido1);
-        Edge_Project nova1 = new Edge_Project(p2.getId(), p1.getId(), distancia, tempoDistancia, sentido2);
-        arrayLisDirectedEdge.add(nova);
-        arrayLisDirectedEdge.add(nova1);
-        this.graphGeral.addEdge(nova);
-        this.graphGeral.addEdge(nova1);
-    }
 
     /**
      * load DirectEdge
@@ -232,7 +218,6 @@ public class GraphMap implements Serializable {
             addArestaUnidirecional(point1, point2, sentido);
         }
     }
-
 
     /**
      * Carregar os pontos 3DS
@@ -293,7 +278,7 @@ public class GraphMap implements Serializable {
 
     /**
      * Retornar os diferentes andares
-     * @return
+     * @return um arrayList com os andares
      */
     public ArrayList<Integer> getDistinctExistingFloors()
     {
@@ -309,7 +294,7 @@ public class GraphMap implements Serializable {
     /**
      * Pontos todos por andar
      * @param floor
-     * @return
+     * @return os Pontos por andar
      */
     public ArrayList<Point3D> getPointsByFloor(int floor)
     {
