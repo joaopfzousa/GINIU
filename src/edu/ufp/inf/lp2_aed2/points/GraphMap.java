@@ -664,8 +664,7 @@ public class GraphMap implements Serializable {
 
         DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(graph, point1);
 
-        if (sp.hasPathTo(point2))
-        {
+
             strings.add(point1 + " to " + point2 + "("+ sp.distTo(point2) +")");
             int j = 0;
             for (Edge_Project e : sp.pathTo(point2))
@@ -673,9 +672,7 @@ public class GraphMap implements Serializable {
                 j++;
                 strings.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.weight());
             }
-        }else{
-            strings.add("Não existe caminho");
-        }
+
 
         return strings;
     }
