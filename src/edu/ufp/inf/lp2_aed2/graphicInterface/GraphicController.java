@@ -88,14 +88,12 @@ public class GraphicController implements Initializable {
     public TableColumn<Student, Integer> idStudentCol;
     public TableColumn<Student, String> nameStudentCol;
     public TableColumn<Student, String> emailStudentCol;
-    public TableColumn<Student, Point> pointStudentCol;
     public TableColumn<Student, Integer> numberStudentCol;
     public TableColumn<Student, String> typeStudentCol;
 
     public TextField idStudentField;
     public TextField nameStudentField;
     public TextField emailStudentField;
-    public TextField pointStudentField;
     public TextField numberStudentField;
     public TextField typeStudentField;
 
@@ -234,6 +232,12 @@ public class GraphicController implements Initializable {
     public TableColumn<Point3D, Boolean> indoorAvoidCol;
     public TableColumn<Point3D, String> descriptionAvoidCol;
 
+    //Graphs - Emergency Person
+    public TextField personPointField;
+    public RadioButton tempEmergencyPersonRadioButton;
+    public RadioButton distanceEmergencyPersonRadioButton;
+    public TextArea emergencyPersonTextArea;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.university = new University("UFP");
@@ -282,7 +286,6 @@ public class GraphicController implements Initializable {
         idStudentCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nameStudentCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailStudentCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-        pointStudentCol.setCellValueFactory(new PropertyValueFactory<>("mypoint"));
         numberStudentCol.setCellValueFactory(new PropertyValueFactory<>("numberStudent"));
         typeStudentCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
@@ -1154,8 +1157,11 @@ public class GraphicController implements Initializable {
 
     public void handleAddEdgeAction(ActionEvent actionEvent)
     {
-        Point3D point1 = graphMap.returnNode(Integer.parseInt(vEdgeCol.getText()));
+        Point3D point1 = graphMap.returnNode(Integer.parseInt(VEdgeField.getText()));
         Point3D point2 = graphMap.returnNode(Integer.parseInt(WEdgesField.getText()));
+
+        System.out.println(point1);
+        System.out.println(point2);
 
         Edge_Project edge = graphMap.addArestaUnidirecional(point1, point2, Boolean.parseBoolean(senseEdgeField.getText()));
 
@@ -1701,5 +1707,53 @@ public class GraphicController implements Initializable {
     public void handleRemovePointsAvoidAction(ActionEvent actionEvent) {
         Point3D point = (Point3D) avoidTable.getSelectionModel().getSelectedItem();
         avoidTable.getItems().remove(point);
+    }
+
+    /*
+    public TextField personPointField;
+    public RadioButton tempEmergencyPersonRadioButton;
+    public RadioButton distanceEmergencyPersonRadioButton;
+    public TextArea emergencyPersonTextArea;
+    */
+
+    public void handleEmergencyPersonAction(ActionEvent actionEvent) {
+        emergencyPersonTextArea.clear();
+        EdgeWeightedDigraph_Project graph = null;
+
+        if(floorsSearchComboBox.getValue().compareTo("All") == 0)
+        {
+            graph = this.graphMap.getGraphGeral();
+        }else{
+            graph = this.graphMap.getSubgrafoByFloor(Integer.parseInt(floorsSearchComboBox.getValue()));
+        }
+
+        String[] aux1 = personPointField.getText().split("/");
+
+        Point3D passed = new Point3D(Double.parseDouble(aux1[0]), Double.parseDouble(aux1[1]), Integer.parseInt(aux1[2]), "person", false);
+
+        Point3D perto = this.graphMap.returnClosestPoint(passed);
+        System.out.println(perto);
+        Integer idCerto = this.graphMap.getMap_grafoGeral().get(perto.getId());
+
+        if(tempEmergencyPersonRadioButton.selectedProperty().getValue())
+        {
+            ArrayList<String> temp = this.graphMap.emergencyPathTempo(String.valueOf(idCerto), graph, floorsSearchComboBox.getValue());
+
+            emergencyPersonTextArea.appendText("\n Distance by Temp: \n");
+            for(String s : temp)
+            {
+                emergencyPersonTextArea.appendText(s + "\n");
+            }
+        }
+
+        if(distanceEmergencyPersonRadioButton.selectedProperty().getValue())
+        {
+            ArrayList<String> distance = this.graphMap.emergencyPathByDistance(String.valueOf(idCerto), graph, floorsSearchComboBox.getValue());
+            emergencyPersonTextArea.appendText("\n Distance by weight: \n");
+            for(String s : distance)
+            {
+                emergencyPersonTextArea.appendText(s + "\n");
+            }
+        }
     }
 }

@@ -168,10 +168,9 @@
                                  <columns>
                                     <TableColumn fx:id="idStudentCol" onEditCommit="#handleEditIntegerStudentAction" prefWidth="60.0" text="ID" />
                                     <TableColumn fx:id="nameStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="152.0" text="Name" />
-                                    <TableColumn fx:id="numberStudentCol" minWidth="0.0" onEditCommit="#handleEditIntegerStudentAction" prefWidth="98.0" text="Number Student" />
-                                    <TableColumn fx:id="typeStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="94.0" text="Type" />
-                                    <TableColumn fx:id="emailStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="207.0" text="Email" />
-                                    <TableColumn fx:id="pointStudentCol" minWidth="0.0" prefWidth="188.0" text="Point" />
+                                    <TableColumn fx:id="numberStudentCol" minWidth="0.0" onEditCommit="#handleEditIntegerStudentAction" prefWidth="167.0" text="Number Student" />
+                                    <TableColumn fx:id="typeStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="226.0" text="Type" />
+                                    <TableColumn fx:id="emailStudentCol" minWidth="0.0" onEditCommit="#handleEditStringsStudentAction" prefWidth="194.0" text="Email" />
                                  </columns>
                               </TableView>
                               <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
@@ -187,7 +186,6 @@
                                     <TextField fx:id="numberStudentField" prefHeight="27.0" prefWidth="106.0" promptText="Number Student" />
                                     <TextField fx:id="typeStudentField" prefHeight="27.0" prefWidth="79.0" promptText="Type" />
                                     <TextField fx:id="emailStudentField" prefHeight="27.0" prefWidth="117.0" promptText="Email" />
-                                    <TextField fx:id="pointStudentField" prefHeight="27.0" prefWidth="130.0" promptText="Point" />
                                     <Button mnemonicParsing="false" onAction="#handleAddStudentAction" prefHeight="27.0" prefWidth="73.0" text="Add" />
                                     <Button mnemonicParsing="false" onAction="#handleRemoveStudentAction" prefHeight="27.0" prefWidth="73.0" text="Remove" />
                                  </children>
@@ -677,6 +675,33 @@
                                                                               <TableColumn fx:id="descriptionAvoidCol" prefWidth="264.0" text="Description" />
                                                                           </columns>
                                                                         </TableView>
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </Tab>
+                                                      <Tab text="Emergency by Person">
+                                                         <content>
+                                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <VBox prefHeight="540.0" prefWidth="800.0">
+                                                                     <children>
+                                                                        <HBox prefHeight="41.0" prefWidth="600.0" spacing="5.0">
+                                                                           <VBox.margin>
+                                                                              <Insets />
+                                                                           </VBox.margin>
+                                                                           <padding>
+                                                                              <Insets left="5.0" top="5.0" />
+                                                                           </padding>
+                                                                           <children>
+                                                                              <TextField fx:id="personPointField" promptText="(X/Y/Z)" />
+                                                                              <Button mnemonicParsing="false" onAction="#handleEmergencyPersonAction" prefHeight="27.0" prefWidth="73.0" text="Search" />
+                                                                              <RadioButton fx:id="tempEmergencyPersonRadioButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="61.0" text="Temp" textAlignment="CENTER" />
+                                                                              <RadioButton fx:id="distanceEmergencyPersonRadioButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="29.0" prefWidth="91.0" text="Distance" textAlignment="CENTER" />
+                                                                           </children>
+                                                                        </HBox>
+                                                                        <TextArea fx:id="emergencyPersonTextArea" prefHeight="396.0" prefWidth="800.0" />
                                                                      </children>
                                                                   </VBox>
                                                                </children>

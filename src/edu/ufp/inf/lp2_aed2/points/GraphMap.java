@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 public class GraphMap implements Serializable {
 
@@ -74,7 +73,24 @@ public class GraphMap implements Serializable {
     }
 
     public EdgeWeightedDigraph_Project getGraphGeral() {
-        return graphGeral;
+
+        EdgeWeightedDigraph_Project graph = graphGeral;
+
+        if(graphGeral.V() != this.points3D.size() && graphGeral.E() == this.arrayLisDirectedEdge.size())
+        {
+            EdgeWeightedDigraph_Project graph_new = new EdgeWeightedDigraph_Project(this.points3D.size());
+
+            for(Edge_Project e : this.arrayLisDirectedEdge)
+            {
+                graph_new.addEdge(e);
+            }
+
+            graph = graph_new;
+            this.setGraphGeral(graph);;
+        }
+
+        return graph;
+
     }
 
     public void setGraphGeral(EdgeWeightedDigraph_Project graphGeral) {
@@ -412,8 +428,8 @@ public class GraphMap implements Serializable {
      * @return
      */
     public Point3D novoPonto(double x, double y, Integer z, String descricao, Boolean indoor) {
-        Point3D aux = new Point3D(x, y, z, pointsNr, descricao, indoor);
-        this.pointsNr++;
+        Point3D aux = new Point3D(x, y, z, descricao, indoor);
+        //this.pointsNr++;
         return aux;
     }
 
@@ -473,7 +489,7 @@ public class GraphMap implements Serializable {
 
         for (Point3D x : this.points3D)
         {
-            if (ponto.distPontos(x) < dist) {
+            if (ponto.distPontos(x) < dist && ponto.getZ().equals(x.getZ())) {
                 dist = ponto.distPontos(x);
                 reference = x;
             }
@@ -564,7 +580,7 @@ public class GraphMap implements Serializable {
                 BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
                 aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd );
             }
-            aux.add("\n" + print.getDescription());
+            aux.add(print.getDescription());
         }else{
             aux.add("Não existe caminho");
         }
@@ -628,7 +644,7 @@ public class GraphMap implements Serializable {
                 j++;
                 aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.getTemp());
             }
-            aux.add("\n" + print.getDescription());
+            aux.add(print.getDescription());
         }else{
             aux.add("Não existe caminho");
         }
