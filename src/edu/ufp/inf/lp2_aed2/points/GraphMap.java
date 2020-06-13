@@ -555,20 +555,16 @@ public class GraphMap implements Serializable {
             idCerto = this.map_grafoGeral.get(print.getId());
         }
 
-        if (sp.hasPathTo(idCerto))
+        aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +")");
+        int j = 0;
+        for (Edge_Project e : sp.pathTo(idCerto))
         {
-            aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +")");
-            int j = 0;
-            for (Edge_Project e : sp.pathTo(idCerto))
-            {
-                j++;
-                BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
-                aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd );
-            }
-            aux.add(print.getDescription());
-        }else{
-            aux.add("Não existe caminho");
+            j++;
+            BigDecimal bd = new BigDecimal(e.weight()).setScale(2, RoundingMode.HALF_EVEN);
+            aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + bd );
         }
+        aux.add(print.getDescription());
+
 
         return aux;
     }
@@ -620,19 +616,15 @@ public class GraphMap implements Serializable {
             idCerto = this.map_grafoGeral.get(print.getId());
         }
 
-        if (sp.hasPathTo(idCerto))
+
+        aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +")");
+        int j = 0;
+        for (Edge_Project e : sp.pathTo(idCerto))
         {
-            aux.add(point + " to " + idCerto + "("+ sp.distTo(idCerto) +")");
-            int j = 0;
-            for (Edge_Project e : sp.pathTo(idCerto))
-            {
-                j++;
-                aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.getTemp());
-            }
-            aux.add(print.getDescription());
-        }else{
-            aux.add("Não existe caminho");
+            j++;
+            aux.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.getTemp());
         }
+        aux.add(print.getDescription());
 
         return aux;
     }
@@ -665,13 +657,13 @@ public class GraphMap implements Serializable {
         DijkstraSP_ProjectWeight sp = new DijkstraSP_ProjectWeight(graph, point1);
 
 
-            strings.add(point1 + " to " + point2 + "("+ sp.distTo(point2) +")");
-            int j = 0;
-            for (Edge_Project e : sp.pathTo(point2))
-            {
-                j++;
-                strings.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.weight());
-            }
+        strings.add(point1 + " to " + point2 + "("+ sp.distTo(point2) +")");
+        int j = 0;
+        for (Edge_Project e : sp.pathTo(point2))
+        {
+            j++;
+            strings.add(j + "º ->" + " " + e.getV() + "->" + e.getW() + " com distancia de " + e.weight());
+        }
 
 
         return strings;
@@ -705,15 +697,11 @@ public class GraphMap implements Serializable {
 
         DijkstraSP_ProjectWeight dp = new DijkstraSP_ProjectWeight(graphGeral, r1.getId());
 
-        if (dp.hasPathTo(r2.getId()))
-        {
-            aux.add(r1.getId() + " to "+ r2.getId() + "(" + dp.distTo(r2.getId()) +")");
-            for (Edge_Project e : dp.pathTo(r2.getId())) {
-                aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
-            }
-        }else{
-            aux.add("Não existe caminho");
+        aux.add(r1.getId() + " to "+ r2.getId() + "(" + dp.distTo(r2.getId()) +")");
+        for (Edge_Project e : dp.pathTo(r2.getId())) {
+            aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
         }
+
         return aux;
     }
 
@@ -729,15 +717,11 @@ public class GraphMap implements Serializable {
 
         DijkstraSP_ProjectWeight dp = new DijkstraSP_ProjectWeight(graphGeral, r1);
 
-        if (dp.hasPathTo(r2))
-        {
-            aux.add(r1 + " to "+ r2 + "(" + dp.distTo(r2) +")");
-            for (Edge_Project e : dp.pathTo(r2)) {
-                aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
-            }
-        }else{
-            aux.add("Não existe caminho");
+        aux.add(r1 + " to "+ r2 + "(" + dp.distTo(r2) +")");
+        for (Edge_Project e : dp.pathTo(r2)) {
+            aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
         }
+
         return aux;
     }
 
@@ -753,15 +737,11 @@ public class GraphMap implements Serializable {
 
         DijkstraSP_ProjectTemp dp = new DijkstraSP_ProjectTemp(graphGeral, r1.getId());
 
-        if (dp.hasPathTo(r2.getId()))
-        {
-            aux.add(r1.getId() + " to "+ r2.getId() + "(" + dp.distTo(r2.getId()) +")");
-            for (Edge_Project e : dp.pathTo(r2.getId())) {
-                aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
-            }
-        }else{
-            aux.add("Não existe caminho");
+        aux.add(r1.getId() + " to "+ r2.getId() + "(" + dp.distTo(r2.getId()) +")");
+        for (Edge_Project e : dp.pathTo(r2.getId())) {
+            aux.add(e.getV() + "->" + e.getW() + " com distancia de " + e.weight() + " segundos ");
         }
+
         return aux;
     }
 
